@@ -1,0 +1,3 @@
+# Netlify: prerendered pages (<path>.html) are served first via pretty URLs; everything else
+# (bookmarks, unknown URLs) gets the app shell, which renders client-side.
+/*    /spa.html   200

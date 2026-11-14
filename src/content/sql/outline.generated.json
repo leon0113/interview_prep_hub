@@ -1,0 +1,967 @@
+{
+  "id": "sql",
+  "name": "SQL & PostgreSQL",
+  "slug": "sql",
+  "accent": "teal",
+  "icon": "database",
+  "description": "Core SQL for every interview, plus the PostgreSQL features interviewers ask about.",
+  "sections": [
+    {
+      "id": "sql-basics",
+      "title": "Database Basics",
+      "description": "What a database and an RDBMS are, SQL vs NoSQL, the SQL command families, DELETE vs TRUNCATE vs DROP, and choosing data types.",
+      "order": 1,
+      "module": "basics",
+      "questions": [
+        {
+          "id": "sql-what-is-database",
+          "sectionId": "sql-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a database, and what is the difference between a DBMS and an RDBMS?",
+          "tags": [
+            "basics",
+            "dbms",
+            "rdbms",
+            "relational-model"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-window-functions",
+      "title": "Window Functions",
+      "description": "OVER, PARTITION BY and ORDER BY, ranking functions, LAG/LEAD, running totals, frame clauses, and the classic top-N-per-group pattern.",
+      "order": 8,
+      "module": "window-functions",
+      "questions": [
+        {
+          "id": "sql-window-function-basics",
+          "sectionId": "sql-window-functions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is a window function, and what do OVER, PARTITION BY and ORDER BY do?",
+          "tags": [
+            "window-functions",
+            "over",
+            "partition-by",
+            "analytics"
+          ]
+        },
+        {
+          "id": "sql-window-vs-group-by",
+          "sectionId": "sql-window-functions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between a window function and GROUP BY?",
+          "tags": [
+            "window-functions",
+            "group-by",
+            "aggregation"
+          ]
+        },
+        {
+          "id": "sql-row-number-rank-dense-rank",
+          "sectionId": "sql-window-functions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between ROW_NUMBER, RANK and DENSE_RANK?",
+          "tags": [
+            "window-functions",
+            "ranking",
+            "row-number",
+            "rank",
+            "dense-rank"
+          ]
+        },
+        {
+          "id": "sql-top-n-per-group",
+          "sectionId": "sql-window-functions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "How do you get the top N rows per group, for example the two highest-paid doctors in each department?",
+          "tags": [
+            "window-functions",
+            "top-n",
+            "ranking",
+            "lateral",
+            "cte"
+          ]
+        },
+        {
+          "id": "sql-lag-lead",
+          "sectionId": "sql-window-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do LAG and LEAD do? Show a month-over-month comparison.",
+          "tags": [
+            "window-functions",
+            "lag",
+            "lead",
+            "time-series"
+          ]
+        },
+        {
+          "id": "sql-running-total",
+          "sectionId": "sql-window-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you calculate a running total and a moving average in SQL?",
+          "tags": [
+            "window-functions",
+            "running-total",
+            "moving-average",
+            "cumulative"
+          ]
+        },
+        {
+          "id": "sql-window-in-where",
+          "sectionId": "sql-window-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why can’t you use a window function in WHERE, and how do you filter on its result?",
+          "tags": [
+            "window-functions",
+            "execution-order",
+            "cte",
+            "qualify"
+          ]
+        },
+        {
+          "id": "sql-window-frame",
+          "sectionId": "sql-window-functions",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What is a window frame? Explain ROWS vs RANGE and the LAST_VALUE trap.",
+          "tags": [
+            "window-functions",
+            "frame",
+            "rows",
+            "range",
+            "last-value"
+          ]
+        },
+        {
+          "id": "sql-ntile-first-last-value",
+          "sectionId": "sql-window-functions",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What do NTILE, FIRST_VALUE and PERCENT_RANK do?",
+          "tags": [
+            "window-functions",
+            "ntile",
+            "first-value",
+            "percent-rank",
+            "distribution"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-design",
+      "title": "Database Design",
+      "description": "Relationships, normalization and when to break it, surrogate vs natural keys, OLTP vs OLAP, star and snowflake schemas, and how to approach a schema-design question.",
+      "order": 9,
+      "module": "design",
+      "questions": [
+        {
+          "id": "sql-relationship-types",
+          "sectionId": "sql-design",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are one-to-one, one-to-many and many-to-many relationships, and how do you implement each?",
+          "tags": [
+            "design",
+            "relationships",
+            "foreign-key",
+            "junction-table"
+          ]
+        },
+        {
+          "id": "sql-normalization",
+          "sectionId": "sql-design",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is normalization? Explain 1NF, 2NF and 3NF.",
+          "tags": [
+            "design",
+            "normalization",
+            "1nf",
+            "2nf",
+            "3nf",
+            "anomalies"
+          ]
+        },
+        {
+          "id": "sql-denormalization",
+          "sectionId": "sql-design",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is denormalization, and when would you choose it over a normalized design?",
+          "tags": [
+            "design",
+            "denormalization",
+            "performance",
+            "trade-offs"
+          ]
+        },
+        {
+          "id": "sql-surrogate-vs-natural-key",
+          "sectionId": "sql-design",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between a surrogate key and a natural key? Which would you use?",
+          "tags": [
+            "design",
+            "primary-key",
+            "surrogate-key",
+            "natural-key",
+            "identity"
+          ]
+        },
+        {
+          "id": "sql-oltp-vs-olap",
+          "sectionId": "sql-design",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is the difference between OLTP and OLAP?",
+          "tags": [
+            "design",
+            "oltp",
+            "olap",
+            "data-warehouse"
+          ]
+        },
+        {
+          "id": "sql-schema-design-approach",
+          "sectionId": "sql-design",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How would you approach designing a database schema, for example for a clinic booking system?",
+          "tags": [
+            "design",
+            "schema-design",
+            "constraints",
+            "junction-table"
+          ]
+        },
+        {
+          "id": "sql-star-vs-snowflake",
+          "sectionId": "sql-design",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are star and snowflake schemas? What are fact and dimension tables?",
+          "tags": [
+            "design",
+            "data-warehouse",
+            "star-schema",
+            "snowflake-schema",
+            "olap"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-indexes-performance",
+      "title": "Indexes & Performance",
+      "description": "How indexes work, B-tree and clustered indexes, composite indexes, why an index is ignored, reading EXPLAIN, tuning a slow query, N+1 queries and keyset pagination.",
+      "order": 10,
+      "module": "indexes-performance",
+      "questions": [
+        {
+          "id": "sql-what-is-index",
+          "sectionId": "sql-indexes-performance",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is an index, how does it speed up queries, and what does it cost?",
+          "tags": [
+            "indexes",
+            "b-tree",
+            "performance",
+            "explain"
+          ]
+        },
+        {
+          "id": "sql-composite-index",
+          "sectionId": "sql-indexes-performance",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is a composite index, and why does the column order matter?",
+          "tags": [
+            "indexes",
+            "composite-index",
+            "leftmost-prefix",
+            "b-tree"
+          ]
+        },
+        {
+          "id": "sql-btree-clustered-index",
+          "sectionId": "sql-indexes-performance",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a B-tree index, and what is the difference between a clustered and a non-clustered index?",
+          "tags": [
+            "indexes",
+            "b-tree",
+            "clustered-index",
+            "heap",
+            "index-types"
+          ]
+        },
+        {
+          "id": "sql-index-not-used",
+          "sectionId": "sql-indexes-performance",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why might PostgreSQL not use an index that exists on a column?",
+          "tags": [
+            "indexes",
+            "sargable",
+            "expression-index",
+            "planner",
+            "like"
+          ]
+        },
+        {
+          "id": "sql-explain-analyze",
+          "sectionId": "sql-indexes-performance",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between EXPLAIN and EXPLAIN ANALYZE, and how do you read a plan?",
+          "tags": [
+            "explain",
+            "query-plan",
+            "performance",
+            "planner"
+          ]
+        },
+        {
+          "id": "sql-n-plus-one",
+          "sectionId": "sql-indexes-performance",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the N+1 query problem, and why is SELECT * discouraged?",
+          "tags": [
+            "performance",
+            "n-plus-one",
+            "orm",
+            "select-star"
+          ]
+        },
+        {
+          "id": "sql-optimize-slow-query",
+          "sectionId": "sql-indexes-performance",
+          "level": "advanced",
+          "priority": 3,
+          "question": "A query is slow in production. How do you find the cause and fix it?",
+          "tags": [
+            "performance",
+            "explain",
+            "indexes",
+            "query-tuning",
+            "pg-stat-statements"
+          ]
+        },
+        {
+          "id": "sql-keyset-pagination",
+          "sectionId": "sql-indexes-performance",
+          "level": "advanced",
+          "priority": 2,
+          "question": "Why is OFFSET pagination slow on deep pages, and how does keyset (cursor) pagination fix it?",
+          "tags": [
+            "performance",
+            "pagination",
+            "keyset",
+            "offset",
+            "row-comparison"
+          ]
+        },
+        {
+          "id": "sql-partial-covering-index",
+          "sectionId": "sql-indexes-performance",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are partial indexes and covering indexes in PostgreSQL?",
+          "tags": [
+            "indexes",
+            "partial-index",
+            "covering-index",
+            "index-only-scan",
+            "include"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-transactions",
+      "title": "Transactions & Concurrency",
+      "description": "ACID, BEGIN / COMMIT / ROLLBACK and savepoints, isolation levels and their anomalies, lost updates, optimistic vs pessimistic locking, and deadlocks.",
+      "order": 11,
+      "module": "transactions",
+      "questions": [
+        {
+          "id": "sql-acid",
+          "sectionId": "sql-transactions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What does ACID mean?",
+          "tags": [
+            "transactions",
+            "acid",
+            "atomicity",
+            "consistency",
+            "isolation",
+            "durability"
+          ]
+        },
+        {
+          "id": "sql-transaction-control",
+          "sectionId": "sql-transactions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do BEGIN, COMMIT, ROLLBACK and SAVEPOINT work?",
+          "tags": [
+            "transactions",
+            "commit",
+            "rollback",
+            "savepoint",
+            "autocommit"
+          ]
+        },
+        {
+          "id": "sql-isolation-levels",
+          "sectionId": "sql-transactions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What are the transaction isolation levels, and which anomalies does each prevent?",
+          "tags": [
+            "transactions",
+            "isolation-levels",
+            "dirty-read",
+            "phantom-read",
+            "serializable"
+          ]
+        },
+        {
+          "id": "sql-lost-update",
+          "sectionId": "sql-transactions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a lost update, and how do you safely decrement a balance when many requests run at once?",
+          "tags": [
+            "transactions",
+            "lost-update",
+            "concurrency",
+            "atomic-update",
+            "race-condition"
+          ]
+        },
+        {
+          "id": "sql-optimistic-vs-pessimistic-locking",
+          "sectionId": "sql-transactions",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What is the difference between optimistic and pessimistic locking?",
+          "tags": [
+            "transactions",
+            "locking",
+            "optimistic-locking",
+            "for-update",
+            "skip-locked"
+          ]
+        },
+        {
+          "id": "sql-deadlocks",
+          "sectionId": "sql-transactions",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What is a deadlock, how does PostgreSQL handle it, and how do you prevent one?",
+          "tags": [
+            "transactions",
+            "deadlock",
+            "locking",
+            "lock-ordering"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-postgresql",
+      "title": "PostgreSQL Features",
+      "description": "What sets PostgreSQL apart: JSONB and GIN indexes, upserts and MERGE, DISTINCT ON, RETURNING, arrays, generate_series, FILTER, enums, time zones, MVCC and VACUUM, full-text search and partitioning.",
+      "order": 12,
+      "module": "postgresql",
+      "questions": [
+        {
+          "id": "sql-postgres-vs-mysql",
+          "sectionId": "sql-postgresql",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Why choose PostgreSQL? How does it compare with MySQL?",
+          "tags": [
+            "postgresql",
+            "mysql",
+            "comparison",
+            "transactional-ddl"
+          ]
+        },
+        {
+          "id": "sql-jsonb",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between JSON and JSONB, and how do you query JSONB?",
+          "tags": [
+            "postgresql",
+            "jsonb",
+            "json",
+            "operators",
+            "semi-structured"
+          ]
+        },
+        {
+          "id": "sql-upsert",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "How do you do an upsert in PostgreSQL? What about MERGE?",
+          "tags": [
+            "postgresql",
+            "upsert",
+            "on-conflict",
+            "merge",
+            "excluded"
+          ]
+        },
+        {
+          "id": "sql-distinct-on",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does DISTINCT ON do in PostgreSQL?",
+          "tags": [
+            "postgresql",
+            "distinct-on",
+            "top-n",
+            "latest-per-group"
+          ]
+        },
+        {
+          "id": "sql-returning-dml-cte",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does RETURNING do, and what are data-modifying CTEs?",
+          "tags": [
+            "postgresql",
+            "returning",
+            "cte",
+            "dml"
+          ]
+        },
+        {
+          "id": "sql-generate-series",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you include days with no data in a time-series report?",
+          "tags": [
+            "postgresql",
+            "generate-series",
+            "time-series",
+            "gaps",
+            "left-join"
+          ]
+        },
+        {
+          "id": "sql-filter-clause",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you compute several conditional counts in one query (conditional aggregation)?",
+          "tags": [
+            "postgresql",
+            "filter",
+            "conditional-aggregation",
+            "pivot",
+            "string-agg"
+          ]
+        },
+        {
+          "id": "sql-timestamp-vs-timestamptz",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between timestamp and timestamptz in PostgreSQL?",
+          "tags": [
+            "postgresql",
+            "timestamptz",
+            "time-zones",
+            "data-types"
+          ]
+        },
+        {
+          "id": "sql-arrays",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do arrays work in PostgreSQL, and when should you use them?",
+          "tags": [
+            "postgresql",
+            "arrays",
+            "array-agg",
+            "unnest",
+            "any"
+          ]
+        },
+        {
+          "id": "sql-enum-vs-check",
+          "sectionId": "sql-postgresql",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Enum type, CHECK constraint or lookup table: how do you restrict a column to fixed values?",
+          "tags": [
+            "postgresql",
+            "enum",
+            "check-constraint",
+            "lookup-table",
+            "design"
+          ]
+        },
+        {
+          "id": "sql-mvcc-vacuum",
+          "sectionId": "sql-postgresql",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What is MVCC in PostgreSQL, and why does it need VACUUM?",
+          "tags": [
+            "postgresql",
+            "mvcc",
+            "vacuum",
+            "autovacuum",
+            "bloat",
+            "internals"
+          ]
+        },
+        {
+          "id": "sql-jsonb-indexing",
+          "sectionId": "sql-postgresql",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you index JSONB data, and which queries can use the index?",
+          "tags": [
+            "postgresql",
+            "jsonb",
+            "gin",
+            "expression-index",
+            "indexes"
+          ]
+        },
+        {
+          "id": "sql-full-text-search",
+          "sectionId": "sql-postgresql",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How does full-text search work in PostgreSQL, and how is it better than LIKE?",
+          "tags": [
+            "postgresql",
+            "full-text-search",
+            "tsvector",
+            "tsquery",
+            "gin"
+          ]
+        },
+        {
+          "id": "sql-partitioning",
+          "sectionId": "sql-postgresql",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is table partitioning in PostgreSQL, and when does it help?",
+          "tags": [
+            "postgresql",
+            "partitioning",
+            "partition-pruning",
+            "scalability"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-views-functions-security",
+      "title": "Views, Functions & Security",
+      "description": "SQL injection and parameterized queries, views vs materialized views, functions vs procedures, roles, privileges and row-level security, and triggers.",
+      "order": 13,
+      "module": "views-functions-security",
+      "questions": [
+        {
+          "id": "sql-injection",
+          "sectionId": "sql-views-functions-security",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is SQL injection, and how do you prevent it?",
+          "tags": [
+            "security",
+            "sql-injection",
+            "parameterized-queries",
+            "prepared-statements"
+          ]
+        },
+        {
+          "id": "sql-view-vs-materialized-view",
+          "sectionId": "sql-views-functions-security",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between a view and a materialized view?",
+          "tags": [
+            "views",
+            "materialized-view",
+            "refresh",
+            "performance"
+          ]
+        },
+        {
+          "id": "sql-function-vs-procedure",
+          "sectionId": "sql-views-functions-security",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between a function and a stored procedure in PostgreSQL?",
+          "tags": [
+            "functions",
+            "procedures",
+            "plpgsql",
+            "stored-procedures"
+          ]
+        },
+        {
+          "id": "sql-roles-privileges-rls",
+          "sectionId": "sql-views-functions-security",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How do roles, privileges and row-level security work in PostgreSQL?",
+          "tags": [
+            "security",
+            "roles",
+            "grant",
+            "row-level-security",
+            "least-privilege"
+          ]
+        },
+        {
+          "id": "sql-triggers",
+          "sectionId": "sql-views-functions-security",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are triggers, and when should (and shouldn’t) you use them?",
+          "tags": [
+            "triggers",
+            "plpgsql",
+            "audit",
+            "data-integrity"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-output-prediction",
+      "title": "Output Prediction",
+      "description": "Classic \"what does this query return?\" puzzles: NULL logic, COUNT variants, NOT IN with NULLs, integer division, LEFT JOIN filters, BETWEEN on timestamps and more. Predict first, then reveal.",
+      "order": 14,
+      "module": "output-prediction",
+      "questions": [
+        {
+          "id": "sql-out-null-logic",
+          "sectionId": "sql-output-prediction",
+          "level": "foundation",
+          "priority": 3,
+          "question": "NULL comparisons and three-valued logic: what does this return?\n\n```sql\nSELECT NULL = NULL        AS equals,\n       NULL IS NULL       AS is_null,\n       NULL <> 1          AS not_equal,\n       NULL OR true       AS or_true,\n       NULL AND false     AS and_false,\n       COALESCE(NULL, 'x') AS coalesced;\n```",
+          "tags": [
+            "output-prediction",
+            "null",
+            "three-valued-logic",
+            "coalesce"
+          ]
+        },
+        {
+          "id": "sql-out-count-null",
+          "sectionId": "sql-output-prediction",
+          "level": "foundation",
+          "priority": 3,
+          "question": "COUNT(*) vs COUNT(column) vs COUNT(DISTINCT): what does this return?\n\n```sql\nSELECT COUNT(*)                      AS all_rows,\n       COUNT(email)                  AS with_email,\n       COUNT(department_id)          AS with_dept,\n       COUNT(DISTINCT department_id) AS departments\nFROM doctors;\n```",
+          "tags": [
+            "output-prediction",
+            "count",
+            "null",
+            "aggregation",
+            "distinct"
+          ]
+        },
+        {
+          "id": "sql-out-integer-division",
+          "sectionId": "sql-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Integer division: what does this return?\n\n```sql\nSELECT 7 / 2       AS int_div,\n       7 % 2       AS remainder,\n       7 / 2.0     AS numeric_div,\n       7::numeric / 2 AS cast_div,\n       -7 / 2      AS negative;\n```",
+          "tags": [
+            "output-prediction",
+            "integer-division",
+            "numeric",
+            "data-types",
+            "casting"
+          ]
+        },
+        {
+          "id": "sql-out-alias-in-where",
+          "sectionId": "sql-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Using a SELECT alias in WHERE: what does this return?\n\n```sql\nSELECT name, salary * 12 AS annual\nFROM doctors\nWHERE annual > 2000000;\n```",
+          "tags": [
+            "output-prediction",
+            "alias",
+            "execution-order",
+            "where"
+          ]
+        },
+        {
+          "id": "sql-out-union-vs-union-all",
+          "sectionId": "sql-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "UNION removes duplicates, including NULLs: what does this return?\n\n```sql\nSELECT city FROM patients WHERE gender = 'F'\nUNION\nSELECT city FROM patients WHERE gender = 'M'\nORDER BY city NULLS LAST;\n```",
+          "tags": [
+            "output-prediction",
+            "union",
+            "union-all",
+            "set-operations",
+            "null"
+          ]
+        },
+        {
+          "id": "sql-out-string-null",
+          "sectionId": "sql-output-prediction",
+          "level": "foundation",
+          "priority": 1,
+          "question": "String concatenation with NULL: what does this return?\n\n```sql\nSELECT 'Dr. ' || NULL            AS pipe_concat,\n       concat('Dr. ', NULL, 'X') AS concat_fn,\n       concat_ws(', ', 'Dhaka', NULL, 'BD') AS concat_ws_fn,\n       length('')                AS empty_len,\n       '' IS NULL                AS empty_is_null;\n```",
+          "tags": [
+            "output-prediction",
+            "null",
+            "strings",
+            "concat",
+            "coalesce"
+          ]
+        },
+        {
+          "id": "sql-out-not-in-null",
+          "sectionId": "sql-output-prediction",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "NOT IN with a subquery: which departments have no doctors?\n\n```sql\nSELECT name FROM departments\nWHERE id NOT IN (SELECT department_id FROM doctors);\n```",
+          "tags": [
+            "output-prediction",
+            "not-in",
+            "null",
+            "subquery",
+            "not-exists",
+            "anti-join"
+          ]
+        },
+        {
+          "id": "sql-out-left-join-where",
+          "sectionId": "sql-output-prediction",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "LEFT JOIN with a filter in WHERE: does every department appear?\n\n```sql\nSELECT dep.name, COUNT(d.id) AS senior_doctors\nFROM departments AS dep\nLEFT JOIN doctors AS d ON d.department_id = dep.id\nWHERE d.salary >= 150000\nGROUP BY dep.name\nORDER BY dep.name;\n```",
+          "tags": [
+            "output-prediction",
+            "left-join",
+            "where-vs-on",
+            "outer-join",
+            "null"
+          ]
+        },
+        {
+          "id": "sql-out-between-timestamp",
+          "sectionId": "sql-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "BETWEEN on a timestamp column: how many payments from March 4 to March 6?\n\n```sql\nSELECT COUNT(*) AS payments\nFROM payments\nWHERE paid_at BETWEEN '2024-03-04' AND '2024-03-06';\n```",
+          "tags": [
+            "output-prediction",
+            "between",
+            "timestamp",
+            "date-ranges",
+            "half-open-interval"
+          ]
+        },
+        {
+          "id": "sql-out-count-star-left-join",
+          "sectionId": "sql-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "COUNT(*) after a LEFT JOIN: how many doctors does Oncology have?\n\n```sql\nSELECT dep.name,\n       COUNT(*)    AS count_star,\n       COUNT(d.id) AS count_doctors\nFROM departments AS dep\nLEFT JOIN doctors AS d ON d.department_id = dep.id\nGROUP BY dep.name\nORDER BY dep.name;\n```",
+          "tags": [
+            "output-prediction",
+            "count",
+            "left-join",
+            "null",
+            "aggregation"
+          ]
+        },
+        {
+          "id": "sql-out-avg-null",
+          "sectionId": "sql-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "AVG with NULL values: what does this return?\n\n```sql\nSELECT AVG(x)              AS avg_ignores_null,\n       SUM(x) / COUNT(*)   AS sum_over_all_rows,\n       AVG(COALESCE(x, 0)) AS avg_null_as_zero\nFROM (VALUES (10), (20), (NULL)) AS t(x);\n```",
+          "tags": [
+            "output-prediction",
+            "avg",
+            "null",
+            "aggregation",
+            "coalesce"
+          ]
+        },
+        {
+          "id": "sql-out-employee-vs-manager",
+          "sectionId": "sql-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Self-join: which doctors earn more than their manager?\n\n```sql\nSELECT e.name AS doctor, e.salary, m.name AS manager, m.salary AS manager_salary\nFROM doctors AS e\nJOIN doctors AS m ON m.id = e.manager_id\nWHERE e.salary > m.salary;\n```",
+          "tags": [
+            "output-prediction",
+            "self-join",
+            "join",
+            "hierarchy"
+          ]
+        },
+        {
+          "id": "sql-out-null-sorting-distinct",
+          "sectionId": "sql-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "NULLs in COUNT(DISTINCT), DISTINCT and ORDER BY: what does this return?\n\n```sql\nSELECT COUNT(DISTINCT city) AS distinct_cities,\n       (SELECT COUNT(*) FROM (SELECT DISTINCT city FROM patients) AS t) AS distinct_rows,\n       (SELECT city FROM patients ORDER BY city LIMIT 1) AS first_asc,\n       (SELECT city FROM patients ORDER BY city DESC LIMIT 1) AS first_desc\nFROM patients;\n```",
+          "tags": [
+            "output-prediction",
+            "null",
+            "distinct",
+            "order-by",
+            "nulls-last"
+          ]
+        }
+      ]
+    }
+  ],
+  "exercises": [],
+  "quickConcepts": [],
+  "dataset": {
+    "title": "Clinic sample database",
+    "tables": [
+      "departments",
+      "doctors",
+      "patients",
+      "appointments",
+      "prescriptions",
+      "payments"
+    ]
+  }
+}

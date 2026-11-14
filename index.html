@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="Interview Prep Hub — language-level interview questions, exercises and visualizations for Python, JavaScript and TypeScript, with answers in English and Bangla."
+    />
+    <title>Interview Prep Hub</title>
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      (function () {
+        try {
+          var saved = JSON.parse(localStorage.getItem('iph:theme') || 'null');
+          var theme = (saved && saved.state && saved.state.theme) || 'system';
+          var dark =
+            theme === 'dark' ||
+            (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {
+          /* storage unavailable: fall back to light */
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Static boot shell: paints as soon as the CSS arrives; React replaces it on mount. -->
+      <header class="sticky top-0 z-40 border-b border-border bg-bg/85">
+        <div
+          class="mx-auto flex h-14 max-w-[88rem] items-center px-4 font-semibold tracking-tight lg:px-6"
+        >
+          Interview Prep Hub
+        </div>
+      </header>
+      <p class="px-4 py-10 text-sm text-muted lg:px-10" role="status">Loading…</p>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

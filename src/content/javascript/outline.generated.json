@@ -1,0 +1,2105 @@
+{
+  "id": "javascript",
+  "name": "JavaScript",
+  "slug": "javascript",
+  "accent": "amber",
+  "icon": "braces",
+  "description": "The language itself: types, scope, hoisting, closures, this, prototypes and the event loop — no frameworks.",
+  "sections": [
+    {
+      "id": "js-basics",
+      "title": "Basics & Data Types",
+      "description": "What kind of language JavaScript is, its primitive and reference types, and the quirks interviewers love.",
+      "order": 1,
+      "module": "basics",
+      "questions": [
+        {
+          "id": "js-primitive-vs-reference-types",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are the primitive types in JavaScript, and how do they differ from objects?",
+          "tags": [
+            "data-types",
+            "primitives",
+            "reference",
+            "memory"
+          ]
+        },
+        {
+          "id": "js-null-vs-undefined",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `null` and `undefined`?",
+          "tags": [
+            "data-types",
+            "null",
+            "undefined"
+          ]
+        },
+        {
+          "id": "js-pass-by-value-or-reference",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "Is JavaScript pass-by-value or pass-by-reference? How do you compare two objects?",
+          "tags": [
+            "functions",
+            "references",
+            "equality",
+            "objects"
+          ]
+        },
+        {
+          "id": "js-what-is-javascript",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What kind of language is JavaScript? (single-threaded, dynamically typed, JIT-compiled)",
+          "tags": [
+            "basics",
+            "runtime",
+            "jit",
+            "single-threaded"
+          ]
+        },
+        {
+          "id": "js-typeof-quirks",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What does `typeof` return, and what are its quirks?",
+          "tags": [
+            "typeof",
+            "data-types",
+            "type-checking"
+          ]
+        },
+        {
+          "id": "js-nan",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is `NaN`, and what is the difference between `isNaN()` and `Number.isNaN()`?",
+          "tags": [
+            "nan",
+            "numbers",
+            "type-coercion"
+          ]
+        },
+        {
+          "id": "js-truthy-falsy",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are truthy and falsy values in JavaScript?",
+          "tags": [
+            "truthiness",
+            "boolean",
+            "type-coercion",
+            "conditionals"
+          ]
+        },
+        {
+          "id": "js-template-literals",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are template literals, and what can they do that normal strings cannot?",
+          "tags": [
+            "strings",
+            "template-literals",
+            "es6"
+          ]
+        },
+        {
+          "id": "js-slice-substring-substr",
+          "sectionId": "js-basics",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What is the difference between `slice`, `substring` and `substr` on strings?",
+          "tags": [
+            "strings",
+            "slice",
+            "substring"
+          ]
+        },
+        {
+          "id": "js-number-type-bigint",
+          "sectionId": "js-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How are numbers represented in JavaScript, and when do you need `BigInt`?",
+          "tags": [
+            "numbers",
+            "ieee-754",
+            "bigint",
+            "precision"
+          ]
+        },
+        {
+          "id": "js-reliable-type-checks",
+          "sectionId": "js-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you reliably check the type of a value in JavaScript?",
+          "tags": [
+            "type-checking",
+            "typeof",
+            "instanceof",
+            "array-isarray"
+          ]
+        },
+        {
+          "id": "js-primitive-methods-autoboxing",
+          "sectionId": "js-basics",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "If strings are primitives, how can you call methods like `\"abc\".toUpperCase()`?",
+          "tags": [
+            "primitives",
+            "wrapper-objects",
+            "autoboxing",
+            "strings"
+          ]
+        },
+        {
+          "id": "js-object-is",
+          "sectionId": "js-basics",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is the difference between `===` and `Object.is()`?",
+          "tags": [
+            "equality",
+            "object-is",
+            "nan",
+            "negative-zero"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-scope-hoisting",
+      "title": "Variables, Scope & Hoisting",
+      "description": "var, let and const, the three kinds of scope, hoisting and the temporal dead zone, and how execution contexts tie it all together.",
+      "order": 2,
+      "module": "scope-hoisting",
+      "questions": [
+        {
+          "id": "js-var-let-const",
+          "sectionId": "js-scope-hoisting",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `var`, `let` and `const`?",
+          "tags": [
+            "variables",
+            "var",
+            "let",
+            "const",
+            "scope",
+            "hoisting"
+          ]
+        },
+        {
+          "id": "js-hoisting",
+          "sectionId": "js-scope-hoisting",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is hoisting in JavaScript? How does it differ for `var`, `let`/`const`, function declarations and function expressions?",
+          "tags": [
+            "hoisting",
+            "var",
+            "let",
+            "functions",
+            "execution-context"
+          ]
+        },
+        {
+          "id": "js-const-mutation",
+          "sectionId": "js-scope-hoisting",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Can you modify an object or array declared with `const`?",
+          "tags": [
+            "const",
+            "mutability",
+            "object-freeze"
+          ]
+        },
+        {
+          "id": "js-scope-types",
+          "sectionId": "js-scope-hoisting",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are global, function and block scope in JavaScript?",
+          "tags": [
+            "scope",
+            "block-scope",
+            "function-scope",
+            "global"
+          ]
+        },
+        {
+          "id": "js-temporal-dead-zone",
+          "sectionId": "js-scope-hoisting",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the Temporal Dead Zone (TDZ)?",
+          "tags": [
+            "tdz",
+            "let",
+            "const",
+            "hoisting"
+          ]
+        },
+        {
+          "id": "js-lexical-scope-chain",
+          "sectionId": "js-scope-hoisting",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is lexical scope and the scope chain?",
+          "tags": [
+            "scope",
+            "lexical-scope",
+            "scope-chain",
+            "closures"
+          ]
+        },
+        {
+          "id": "js-global-var-window",
+          "sectionId": "js-scope-hoisting",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Why do global `var` declarations become properties of `window` while `let` and `const` do not?",
+          "tags": [
+            "global-object",
+            "var",
+            "let",
+            "globalthis"
+          ]
+        },
+        {
+          "id": "js-execution-context",
+          "sectionId": "js-scope-hoisting",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What is an execution context, and what happens in its creation and execution phases?",
+          "tags": [
+            "execution-context",
+            "call-stack",
+            "hoisting",
+            "this"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-operators",
+      "title": "Operators & Type Coercion",
+      "description": "== vs ===, how implicit coercion really works, the logical and nullish operators, optional chaining, spread/rest and destructuring.",
+      "order": 3,
+      "module": "operators",
+      "questions": [
+        {
+          "id": "js-loose-vs-strict-equality",
+          "sectionId": "js-operators",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `==` and `===`?",
+          "tags": [
+            "equality",
+            "type-coercion",
+            "operators"
+          ]
+        },
+        {
+          "id": "js-spread-vs-rest",
+          "sectionId": "js-operators",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between the spread and rest operators?",
+          "tags": [
+            "spread",
+            "rest",
+            "arrays",
+            "objects",
+            "functions"
+          ]
+        },
+        {
+          "id": "js-logical-operators-nullish",
+          "sectionId": "js-operators",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do `&&`, `||` and `??` work, and what is the difference between `||` and `??`?",
+          "tags": [
+            "operators",
+            "nullish-coalescing",
+            "short-circuit",
+            "defaults"
+          ]
+        },
+        {
+          "id": "js-optional-chaining",
+          "sectionId": "js-operators",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is optional chaining (`?.`)?",
+          "tags": [
+            "optional-chaining",
+            "null-safety",
+            "operators"
+          ]
+        },
+        {
+          "id": "js-destructuring",
+          "sectionId": "js-operators",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How does destructuring work for arrays and objects (defaults, renaming, nesting)?",
+          "tags": [
+            "destructuring",
+            "arrays",
+            "objects",
+            "defaults"
+          ]
+        },
+        {
+          "id": "js-switch-comparison",
+          "sectionId": "js-operators",
+          "level": "foundation",
+          "priority": 1,
+          "question": "How does `switch` compare values, and what is fall-through?",
+          "tags": [
+            "switch",
+            "strict-equality",
+            "control-flow"
+          ]
+        },
+        {
+          "id": "js-implicit-coercion",
+          "sectionId": "js-operators",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Explain implicit type coercion: why is `\"5\" + 3` `\"53\"` but `\"5\" - 3` `2`? What about `[] + {}`?",
+          "tags": [
+            "type-coercion",
+            "operators",
+            "plus-operator"
+          ]
+        },
+        {
+          "id": "js-number-vs-parseint",
+          "sectionId": "js-operators",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between `Number()`, `parseInt()`, `parseFloat()` and unary `+`?",
+          "tags": [
+            "type-conversion",
+            "parseint",
+            "numbers"
+          ]
+        },
+        {
+          "id": "js-logical-assignment",
+          "sectionId": "js-operators",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What do the logical assignment operators `||=`, `&&=` and `??=` do?",
+          "tags": [
+            "operators",
+            "logical-assignment",
+            "es2021"
+          ]
+        },
+        {
+          "id": "js-to-primitive",
+          "sectionId": "js-operators",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How does JavaScript convert an object to a primitive (`valueOf`, `toString`, `Symbol.toPrimitive`)?",
+          "tags": [
+            "type-coercion",
+            "toprimitive",
+            "valueof",
+            "tostring",
+            "symbols"
+          ]
+        },
+        {
+          "id": "js-relational-comparison-coercion",
+          "sectionId": "js-operators",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Why is `\"10\" < \"9\"` true, and why is `null >= 0` true while `null == 0` is false?",
+          "tags": [
+            "comparison",
+            "type-coercion",
+            "null",
+            "strings"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-functions",
+      "title": "Functions",
+      "description": "Declarations vs expressions, arrow functions vs regular functions, parameters, callbacks and higher-order functions, IIFEs and pure functions.",
+      "order": 4,
+      "module": "functions",
+      "questions": [
+        {
+          "id": "js-arrow-vs-regular",
+          "sectionId": "js-functions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are the differences between arrow functions and regular functions?",
+          "tags": [
+            "functions",
+            "arrow-functions",
+            "this",
+            "arguments"
+          ]
+        },
+        {
+          "id": "js-declaration-vs-expression",
+          "sectionId": "js-functions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between a function declaration and a function expression?",
+          "tags": [
+            "functions",
+            "hoisting",
+            "function-expression"
+          ]
+        },
+        {
+          "id": "js-higher-order-callbacks",
+          "sectionId": "js-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are first-class functions, callbacks and higher-order functions?",
+          "tags": [
+            "functions",
+            "callbacks",
+            "higher-order-functions",
+            "functional-programming"
+          ]
+        },
+        {
+          "id": "js-default-parameters",
+          "sectionId": "js-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do default parameters work in JavaScript?",
+          "tags": [
+            "functions",
+            "default-parameters",
+            "undefined"
+          ]
+        },
+        {
+          "id": "js-iife",
+          "sectionId": "js-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is an IIFE, and why was it used?",
+          "tags": [
+            "iife",
+            "scope",
+            "modules",
+            "closures"
+          ]
+        },
+        {
+          "id": "js-pure-functions",
+          "sectionId": "js-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a pure function, and why does it matter?",
+          "tags": [
+            "functional-programming",
+            "pure-functions",
+            "side-effects",
+            "immutability"
+          ]
+        },
+        {
+          "id": "js-arguments-object",
+          "sectionId": "js-functions",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is the `arguments` object, and why are rest parameters preferred?",
+          "tags": [
+            "functions",
+            "arguments",
+            "rest-parameters"
+          ]
+        },
+        {
+          "id": "js-function-composition",
+          "sectionId": "js-functions",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is function composition? Implement `compose` and `pipe`.",
+          "tags": [
+            "functional-programming",
+            "composition",
+            "reduce",
+            "higher-order-functions"
+          ]
+        },
+        {
+          "id": "js-function-objects",
+          "sectionId": "js-functions",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Functions are objects in JavaScript — what properties do they have, and what does that enable?",
+          "tags": [
+            "functions",
+            "objects",
+            "properties",
+            "memoization"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-closures-this",
+      "title": "Closures & this",
+      "description": "Closures and their real uses, the classic loop bug, every rule for `this`, call/apply/bind, currying and memoization.",
+      "order": 5,
+      "module": "closures-this",
+      "questions": [
+        {
+          "id": "js-closures",
+          "sectionId": "js-closures-this",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is a closure in JavaScript?",
+          "tags": [
+            "closures",
+            "scope",
+            "lexical-scope",
+            "functions"
+          ]
+        },
+        {
+          "id": "js-closure-use-cases",
+          "sectionId": "js-closures-this",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What are practical use cases for closures? Show privacy, a factory and `once`.",
+          "tags": [
+            "closures",
+            "encapsulation",
+            "factory",
+            "once",
+            "module-pattern"
+          ]
+        },
+        {
+          "id": "js-var-settimeout-loop",
+          "sectionId": "js-closures-this",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "Why does this print `3 3 3`, and how do you fix it?\n\n```javascript\nfor (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\n```",
+          "tags": [
+            "closures",
+            "var",
+            "let",
+            "settimeout",
+            "event-loop"
+          ]
+        },
+        {
+          "id": "js-this-keyword",
+          "sectionId": "js-closures-this",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "How is `this` determined in JavaScript? Explain every context.",
+          "tags": [
+            "this",
+            "functions",
+            "binding",
+            "strict-mode",
+            "arrow-functions"
+          ]
+        },
+        {
+          "id": "js-call-apply-bind",
+          "sectionId": "js-closures-this",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between `call`, `apply` and `bind`?",
+          "tags": [
+            "this",
+            "call",
+            "apply",
+            "bind",
+            "functions"
+          ]
+        },
+        {
+          "id": "js-currying",
+          "sectionId": "js-closures-this",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is currying? Write a generic `curry` function.",
+          "tags": [
+            "currying",
+            "closures",
+            "functional-programming",
+            "partial-application"
+          ]
+        },
+        {
+          "id": "js-memoization",
+          "sectionId": "js-closures-this",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is memoization? Implement a `memoize` function.",
+          "tags": [
+            "memoization",
+            "caching",
+            "closures",
+            "performance"
+          ]
+        },
+        {
+          "id": "js-closure-memory",
+          "sectionId": "js-closures-this",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Can closures cause memory leaks? How?",
+          "tags": [
+            "closures",
+            "memory",
+            "garbage-collection",
+            "performance"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-objects-arrays",
+      "title": "Objects & Arrays",
+      "description": "Creating and copying objects, the array methods every interview uses, mutating vs non-mutating operations, Map/Set, and JSON gotchas.",
+      "order": 6,
+      "module": "objects-arrays",
+      "questions": [
+        {
+          "id": "js-array-iteration-methods",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 3,
+          "question": "Explain `map`, `filter`, `reduce`, `forEach`, `find`, `some`, `every` and `includes`.",
+          "tags": [
+            "arrays",
+            "map",
+            "filter",
+            "reduce",
+            "higher-order-functions"
+          ]
+        },
+        {
+          "id": "js-shallow-deep-copy",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between a shallow and a deep copy? Compare spread, `Object.assign`, `JSON` and `structuredClone`.",
+          "tags": [
+            "objects",
+            "copy",
+            "structuredclone",
+            "json",
+            "spread"
+          ]
+        },
+        {
+          "id": "js-map-vs-foreach",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `map` and `forEach`?",
+          "tags": [
+            "arrays",
+            "map",
+            "foreach",
+            "immutability"
+          ]
+        },
+        {
+          "id": "js-slice-vs-splice",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `slice` and `splice`?",
+          "tags": [
+            "arrays",
+            "slice",
+            "splice",
+            "mutation"
+          ]
+        },
+        {
+          "id": "js-for-in-vs-for-of",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `for...in` and `for...of`?",
+          "tags": [
+            "loops",
+            "for-in",
+            "for-of",
+            "iterables"
+          ]
+        },
+        {
+          "id": "js-create-objects",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are the different ways to create an object in JavaScript?",
+          "tags": [
+            "objects",
+            "classes",
+            "object-create",
+            "constructors"
+          ]
+        },
+        {
+          "id": "js-object-keys-values-entries",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What do `Object.keys`, `Object.values` and `Object.entries` return?",
+          "tags": [
+            "objects",
+            "object-keys",
+            "object-entries",
+            "iteration"
+          ]
+        },
+        {
+          "id": "js-remove-duplicates-flatten",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you remove duplicates from an array and flatten a nested array?",
+          "tags": [
+            "arrays",
+            "set",
+            "flat",
+            "deduplication"
+          ]
+        },
+        {
+          "id": "js-array-from-of",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What is the difference between `new Array(3)`, `Array.of(3)` and `Array.from()`?",
+          "tags": [
+            "arrays",
+            "array-from",
+            "array-of",
+            "iterables"
+          ]
+        },
+        {
+          "id": "js-array-length",
+          "sectionId": "js-objects-arrays",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What happens when you change an array’s `length` property directly?",
+          "tags": [
+            "arrays",
+            "length",
+            "sparse-arrays"
+          ]
+        },
+        {
+          "id": "js-mutating-vs-nonmutating",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Which array methods mutate the array, and what are their non-mutating alternatives (`toSorted`, `toReversed`…)?",
+          "tags": [
+            "arrays",
+            "immutability",
+            "es2023",
+            "sort"
+          ]
+        },
+        {
+          "id": "js-array-sort-default",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why does `[10, 9, 1].sort()` return `[1, 10, 9]`? How do you sort numbers and objects correctly?",
+          "tags": [
+            "arrays",
+            "sort",
+            "comparator"
+          ]
+        },
+        {
+          "id": "js-freeze-vs-seal",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between `Object.freeze`, `Object.seal` and `Object.preventExtensions`?",
+          "tags": [
+            "objects",
+            "immutability",
+            "freeze",
+            "seal"
+          ]
+        },
+        {
+          "id": "js-map-vs-object",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "When should you use a `Map` instead of a plain object? What about `Set`, `WeakMap` and `WeakSet`?",
+          "tags": [
+            "map",
+            "set",
+            "weakmap",
+            "collections"
+          ]
+        },
+        {
+          "id": "js-json-gotchas",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are the gotchas of `JSON.stringify` and `JSON.parse`?",
+          "tags": [
+            "json",
+            "serialization",
+            "dates",
+            "bigint"
+          ]
+        },
+        {
+          "id": "js-reduce-patterns",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How does `reduce` work? Use it to count, group and index data.",
+          "tags": [
+            "arrays",
+            "reduce",
+            "grouping",
+            "object-groupby"
+          ]
+        },
+        {
+          "id": "js-map-set-key-equality",
+          "sectionId": "js-objects-arrays",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do `Map` and `Set` decide whether two keys are the same?",
+          "tags": [
+            "map",
+            "set",
+            "equality",
+            "samevaluezero"
+          ]
+        },
+        {
+          "id": "js-property-order",
+          "sectionId": "js-objects-arrays",
+          "level": "advanced",
+          "priority": 1,
+          "question": "In what order are object properties iterated?",
+          "tags": [
+            "objects",
+            "property-order",
+            "iteration"
+          ]
+        },
+        {
+          "id": "js-sparse-arrays",
+          "sectionId": "js-objects-arrays",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are sparse arrays (holes), and how do array methods treat them?",
+          "tags": [
+            "arrays",
+            "sparse-arrays",
+            "holes",
+            "array-from"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-prototypes-oop",
+      "title": "Prototypes & OOP",
+      "description": "Prototypal inheritance and the prototype chain, `__proto__` vs `prototype`, what `new` does, and ES6 classes with their modern features.",
+      "order": 7,
+      "module": "prototypes-oop",
+      "questions": [
+        {
+          "id": "js-classes",
+          "sectionId": "js-prototypes-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Are ES6 classes \"real\" classes? What are they underneath?",
+          "tags": [
+            "classes",
+            "prototypes",
+            "syntactic-sugar",
+            "es6"
+          ]
+        },
+        {
+          "id": "js-prototypal-inheritance",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is a prototype, and how does prototypal inheritance work?",
+          "tags": [
+            "prototypes",
+            "inheritance",
+            "prototype-chain",
+            "objects"
+          ]
+        },
+        {
+          "id": "js-prototype-chain",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Walk through the prototype chain of an array and of a class instance.",
+          "tags": [
+            "prototypes",
+            "prototype-chain",
+            "arrays",
+            "classes"
+          ]
+        },
+        {
+          "id": "js-proto-vs-prototype",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between `__proto__` and `prototype`?",
+          "tags": [
+            "prototypes",
+            "__proto__",
+            "constructors"
+          ]
+        },
+        {
+          "id": "js-new-operator",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does the `new` keyword do, step by step?",
+          "tags": [
+            "new",
+            "constructors",
+            "prototypes",
+            "this"
+          ]
+        },
+        {
+          "id": "js-class-features",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Explain class features: `extends`, `super`, `static`, `#private` fields, getters and setters.",
+          "tags": [
+            "classes",
+            "inheritance",
+            "private-fields",
+            "static",
+            "getters-setters"
+          ]
+        },
+        {
+          "id": "js-instanceof",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How does `instanceof` work?",
+          "tags": [
+            "instanceof",
+            "prototypes",
+            "type-checking"
+          ]
+        },
+        {
+          "id": "js-object-create-inheritance",
+          "sectionId": "js-prototypes-oop",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you set up inheritance without classes (constructor functions and `Object.create`)?",
+          "tags": [
+            "prototypes",
+            "inheritance",
+            "object-create",
+            "es5"
+          ]
+        },
+        {
+          "id": "js-class-fields-vs-methods",
+          "sectionId": "js-prototypes-oop",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is the difference between a class method and an arrow-function class field?",
+          "tags": [
+            "classes",
+            "class-fields",
+            "this",
+            "memory"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-async",
+      "title": "Asynchronous JavaScript",
+      "description": "The event loop, microtasks vs macrotasks, callbacks, promises and their combinators, async/await, error handling, and output-order puzzles.",
+      "order": 8,
+      "module": "async",
+      "questions": [
+        {
+          "id": "js-event-loop",
+          "sectionId": "js-async",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the event loop? Explain the call stack, Web APIs and the task queue.",
+          "tags": [
+            "event-loop",
+            "call-stack",
+            "task-queue",
+            "concurrency",
+            "runtime"
+          ]
+        },
+        {
+          "id": "js-sync-vs-async",
+          "sectionId": "js-async",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between synchronous and asynchronous code in JavaScript?",
+          "tags": [
+            "async",
+            "blocking",
+            "non-blocking",
+            "event-loop"
+          ]
+        },
+        {
+          "id": "js-callback-hell",
+          "sectionId": "js-async",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is callback hell, and how do promises and async/await fix it?",
+          "tags": [
+            "callbacks",
+            "callback-hell",
+            "promises",
+            "async-await"
+          ]
+        },
+        {
+          "id": "js-promise-basics",
+          "sectionId": "js-async",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a Promise, and what are its states?",
+          "tags": [
+            "promises",
+            "states",
+            "async"
+          ]
+        },
+        {
+          "id": "js-microtask-vs-macrotask",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between microtasks and macrotasks?",
+          "tags": [
+            "event-loop",
+            "microtasks",
+            "macrotasks",
+            "promises",
+            "settimeout"
+          ]
+        },
+        {
+          "id": "js-promise-combinators",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between `Promise.all`, `Promise.allSettled`, `Promise.race` and `Promise.any`?",
+          "tags": [
+            "promises",
+            "promise-all",
+            "promise-allsettled",
+            "promise-race",
+            "promise-any"
+          ]
+        },
+        {
+          "id": "js-promise-chaining",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How does promise chaining work, and how do errors propagate through a chain?",
+          "tags": [
+            "promises",
+            "chaining",
+            "error-handling",
+            "then",
+            "catch"
+          ]
+        },
+        {
+          "id": "js-async-await",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do `async` and `await` work?",
+          "tags": [
+            "async-await",
+            "promises",
+            "microtasks"
+          ]
+        },
+        {
+          "id": "js-async-error-handling",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you handle errors with async/await?",
+          "tags": [
+            "async-await",
+            "error-handling",
+            "try-catch",
+            "promises"
+          ]
+        },
+        {
+          "id": "js-sequential-vs-parallel-await",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you run async operations sequentially vs in parallel with `await`?",
+          "tags": [
+            "async-await",
+            "promise-all",
+            "performance",
+            "concurrency"
+          ]
+        },
+        {
+          "id": "js-event-loop-puzzles",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Predict the output order:\n\n```javascript\nconsole.log(\"A\");\nsetTimeout(() => console.log(\"B\"), 0);\nPromise.resolve().then(() => console.log(\"C\"));\nqueueMicrotask(() => console.log(\"D\"));\n(async () => {\n  console.log(\"E\");\n  await null;\n  console.log(\"F\");\n})();\nnew Promise((resolve) => {\n  console.log(\"G\");\n  resolve();\n}).then(() => console.log(\"H\"));\nconsole.log(\"I\");\n```",
+          "tags": [
+            "event-loop",
+            "output-prediction",
+            "microtasks",
+            "async-await"
+          ]
+        },
+        {
+          "id": "js-promisify",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you convert a callback-based API into a promise-based one?",
+          "tags": [
+            "promises",
+            "promisify",
+            "callbacks",
+            "node"
+          ]
+        },
+        {
+          "id": "js-promise-executor-sync",
+          "sectionId": "js-async",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Is the function passed to `new Promise()` run synchronously or asynchronously? What happens if it throws?",
+          "tags": [
+            "promises",
+            "executor",
+            "event-loop"
+          ]
+        },
+        {
+          "id": "js-await-scheduling",
+          "sectionId": "js-async",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How is `await` scheduled? Why can `return await` and an extra `.then` change output order?",
+          "tags": [
+            "async-await",
+            "microtasks",
+            "event-loop",
+            "output-prediction"
+          ]
+        },
+        {
+          "id": "js-unhandled-rejections",
+          "sectionId": "js-async",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is an unhandled promise rejection, and how do you deal with it?",
+          "tags": [
+            "promises",
+            "error-handling",
+            "node",
+            "unhandledrejection"
+          ]
+        },
+        {
+          "id": "js-abort-timeouts",
+          "sectionId": "js-async",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you add a timeout to an async operation or cancel it?",
+          "tags": [
+            "promises",
+            "abortcontroller",
+            "timeouts",
+            "cancellation",
+            "fetch"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-other",
+      "title": "Other Important Topics",
+      "description": "Debounce and throttle, timers, event propagation and delegation, modules, browser storage, strict mode and errors.",
+      "order": 9,
+      "module": "other",
+      "questions": [
+        {
+          "id": "js-settimeout-vs-setinterval",
+          "sectionId": "js-other",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `setTimeout` and `setInterval`?",
+          "tags": [
+            "timers",
+            "settimeout",
+            "setinterval",
+            "event-loop"
+          ]
+        },
+        {
+          "id": "js-esm-named-vs-default",
+          "sectionId": "js-other",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between named and default exports in ES modules?",
+          "tags": [
+            "modules",
+            "esm",
+            "import",
+            "export"
+          ]
+        },
+        {
+          "id": "js-storage-cookies",
+          "sectionId": "js-other",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `localStorage`, `sessionStorage` and cookies?",
+          "tags": [
+            "browser-storage",
+            "localstorage",
+            "sessionstorage",
+            "cookies",
+            "security"
+          ]
+        },
+        {
+          "id": "js-strict-mode",
+          "sectionId": "js-other",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is strict mode, and what does it change?",
+          "tags": [
+            "strict-mode",
+            "errors",
+            "this",
+            "best-practices"
+          ]
+        },
+        {
+          "id": "js-break-loops-labels",
+          "sectionId": "js-other",
+          "level": "foundation",
+          "priority": 1,
+          "question": "How do you break out of nested loops, and can you break out of `forEach`?",
+          "tags": [
+            "loops",
+            "labels",
+            "break",
+            "foreach"
+          ]
+        },
+        {
+          "id": "js-debounce-vs-throttle",
+          "sectionId": "js-other",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between debounce and throttle? Implement both.",
+          "tags": [
+            "debounce",
+            "throttle",
+            "performance",
+            "closures",
+            "timers"
+          ]
+        },
+        {
+          "id": "js-event-delegation",
+          "sectionId": "js-other",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Explain event bubbling, capturing and event delegation.",
+          "tags": [
+            "dom-events",
+            "bubbling",
+            "capturing",
+            "event-delegation"
+          ]
+        },
+        {
+          "id": "js-commonjs-vs-esm",
+          "sectionId": "js-other",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between CommonJS and ES modules?",
+          "tags": [
+            "modules",
+            "commonjs",
+            "esm",
+            "node"
+          ]
+        },
+        {
+          "id": "js-custom-errors",
+          "sectionId": "js-other",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are the built-in error types, and how do you create a custom error class?",
+          "tags": [
+            "errors",
+            "custom-errors",
+            "error-handling",
+            "classes"
+          ]
+        },
+        {
+          "id": "js-try-finally-return",
+          "sectionId": "js-other",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What happens when `try`, `catch` and `finally` all contain `return` statements?",
+          "tags": [
+            "errors",
+            "try-catch",
+            "finally",
+            "control-flow"
+          ]
+        },
+        {
+          "id": "js-dynamic-import",
+          "sectionId": "js-other",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is dynamic `import()`, and when is it useful?",
+          "tags": [
+            "modules",
+            "dynamic-import",
+            "code-splitting",
+            "lazy-loading"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "js-output-prediction",
+      "title": "Output Prediction",
+      "description": "Classic \"what does this print?\" puzzles on hoisting, the TDZ, closures, `this`, coercion and the event loop. Predict first, then reveal.",
+      "order": 10,
+      "module": "output-prediction",
+      "questions": [
+        {
+          "id": "js-out-typeof",
+          "sectionId": "js-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "`typeof` quirks: what does this print?\n\n```javascript\nconsole.log(typeof null);\nconsole.log(typeof []);\nconsole.log(typeof function () {});\nconsole.log(typeof NaN);\nconsole.log(typeof typeof 1);\nconsole.log(typeof undeclaredName);\n```",
+          "tags": [
+            "output-prediction",
+            "typeof",
+            "data-types"
+          ]
+        },
+        {
+          "id": "js-out-float-sum",
+          "sectionId": "js-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "`0.1 + 0.2`: what does this print?\n\n```javascript\nconsole.log(0.1 + 0.2);\nconsole.log(0.1 + 0.2 === 0.3);\nconsole.log((0.1 + 0.2).toFixed(2) === \"0.30\");\nconsole.log(Math.abs(0.1 + 0.2 - 0.3) < Number.EPSILON);\nconsole.log(0.5 + 0.25 === 0.75);\n```",
+          "tags": [
+            "output-prediction",
+            "numbers",
+            "floating-point",
+            "ieee-754"
+          ]
+        },
+        {
+          "id": "js-out-array-plus",
+          "sectionId": "js-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "`[1, 2, 3] + [4]`: what does this print?\n\n```javascript\nconsole.log([1, 2, 3] + [4]);\nconsole.log([] + []);\nconsole.log([1] + 1);\nconsole.log([2] * [3]);\nconsole.log({} + \"x\");\n```",
+          "tags": [
+            "output-prediction",
+            "type-coercion",
+            "arrays",
+            "plus-operator"
+          ]
+        },
+        {
+          "id": "js-out-var-hoisting",
+          "sectionId": "js-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Hoisting inside a function: what does this print?\n\n```javascript\nvar x = \"global\";\n\nfunction show() {\n  console.log(x);\n  var x = \"local\";\n  console.log(x);\n}\n\nshow();\nconsole.log(x);\n```",
+          "tags": [
+            "output-prediction",
+            "hoisting",
+            "var",
+            "scope"
+          ]
+        },
+        {
+          "id": "js-out-coercion-math",
+          "sectionId": "js-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Mixing strings and numbers: what does this print?\n\n```javascript\nconsole.log(\"3\" * \"4\");\nconsole.log(\"3\" + 4 + 5);\nconsole.log(3 + 4 + \"5\");\nconsole.log(true + true);\nconsole.log([] - 1);\nconsole.log(\"b\" + \"a\" + +\"a\" + \"a\");\n```",
+          "tags": [
+            "output-prediction",
+            "type-coercion",
+            "operators"
+          ]
+        },
+        {
+          "id": "js-out-string-immutability",
+          "sectionId": "js-output-prediction",
+          "level": "foundation",
+          "priority": 1,
+          "question": "Changing a string: what does this print?\n\n```javascript\nlet s = \"hello\";\ns[0] = \"J\";\ns.toUpperCase();\nconsole.log(s, s.length);\n\ns = s.toUpperCase();\nconsole.log(s, [...\"héllo👋\"].length, \"héllo👋\".length);\n```",
+          "tags": [
+            "output-prediction",
+            "strings",
+            "immutability",
+            "primitives"
+          ]
+        },
+        {
+          "id": "js-out-function-vs-var-hoisting",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "A function and a `var` with the same name: what does this print?\n\n```javascript\nconsole.log(typeof greet);\nvar greet = \"hello\";\nfunction greet() {}\nconsole.log(typeof greet);\n```",
+          "tags": [
+            "output-prediction",
+            "hoisting",
+            "functions",
+            "var"
+          ]
+        },
+        {
+          "id": "js-out-tdz",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "TDZ and shadowing: what does this print?\n\n```javascript\nlet a = 1;\n\nfunction test() {\n  console.log(typeof b);\n  try {\n    console.log(a);\n  } catch (e) {\n    console.log(e.name);\n  }\n  let a = 2;\n  console.log(a);\n}\n\ntest();\n```",
+          "tags": [
+            "output-prediction",
+            "tdz",
+            "let",
+            "shadowing",
+            "hoisting"
+          ]
+        },
+        {
+          "id": "js-out-closures-var-let",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Functions created in loops with `var` and `let`: what does this print?\n\n```javascript\nconst withVar = [];\nfor (var i = 0; i < 3; i++) {\n  withVar.push(() => i);\n}\n\nconst withLet = [];\nfor (let j = 0; j < 3; j++) {\n  withLet.push(() => j);\n}\n\nconsole.log(withVar.map((f) => f()), withLet.map((f) => f()));\n```",
+          "tags": [
+            "output-prediction",
+            "closures",
+            "var",
+            "let",
+            "loops"
+          ]
+        },
+        {
+          "id": "js-out-detached-this",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "`this` in detached methods and callbacks: what does this print?\n\n```javascript\n\"use strict\";\nconst user = {\n  name: \"Rafi\",\n  regular() { return this?.name; },\n  arrow: () => this?.name,\n  nested() { return [1].map(function () { return this?.name; })[0]; },\n  nestedArrow() { return [1].map(() => this.name)[0]; },\n};\n\nconst { regular } = user;\nconsole.log(user.regular(), regular());\nconsole.log(user.arrow(), user.nested(), user.nestedArrow());\n```",
+          "tags": [
+            "output-prediction",
+            "this",
+            "methods",
+            "arrow-functions",
+            "callbacks"
+          ]
+        },
+        {
+          "id": "js-out-event-loop-basic",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Timers and promise chains: what does this print?\n\n```javascript\nconsole.log(1);\nsetTimeout(() => console.log(2), 0);\nPromise.resolve()\n  .then(() => console.log(3))\n  .then(() => console.log(4));\nsetTimeout(() => console.log(5), 0);\nconsole.log(6);\n```",
+          "tags": [
+            "output-prediction",
+            "event-loop",
+            "microtasks",
+            "macrotasks"
+          ]
+        },
+        {
+          "id": "js-out-async-await-order",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "`async`/`await` ordering: what does this print?\n\n```javascript\nasync function a() {\n  console.log(\"a1\");\n  await b();\n  console.log(\"a2\");\n}\nasync function b() {\n  console.log(\"b\");\n}\n\nconsole.log(\"start\");\nsetTimeout(() => console.log(\"timeout\"), 0);\na();\nPromise.resolve().then(() => console.log(\"promise\"));\nconsole.log(\"end\");\n```",
+          "tags": [
+            "output-prediction",
+            "event-loop",
+            "async-await",
+            "microtasks"
+          ]
+        },
+        {
+          "id": "js-out-parseint-map",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "`[\"1\", \"2\", \"3\"].map(parseInt)`: what does this print?\n\n```javascript\nconsole.log([\"1\", \"2\", \"3\"].map(parseInt));\nconsole.log([\"10\", \"10\", \"10\"].map(parseInt));\nconsole.log([\"1\", \"2\", \"3\"].map(Number));\nconsole.log([\"1\", \"2\", \"3\"].map((s) => parseInt(s, 10)));\n```",
+          "tags": [
+            "output-prediction",
+            "parseint",
+            "map",
+            "callbacks"
+          ]
+        },
+        {
+          "id": "js-out-object-keys-coercion",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Objects as object keys: what does this print?\n\n```javascript\nconst store = {};\nconst b = { key: \"b\" };\nconst c = { key: \"c\" };\n\nstore[b] = 123;\nstore[c] = 456;\nconsole.log(store[b], Object.keys(store));\n\nconst map = new Map([[b, 123], [c, 456]]);\nconsole.log(map.get(b), map.size);\n```",
+          "tags": [
+            "output-prediction",
+            "objects",
+            "type-coercion",
+            "map"
+          ]
+        },
+        {
+          "id": "js-out-loose-equality",
+          "sectionId": "js-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "`==` puzzles: what does this print?\n\n```javascript\nconsole.log([] == ![]);\nconsole.log(\"\" == 0, \"0\" == false, \" \\t\\n\" == 0);\nconsole.log(null == false, undefined == null);\nconsole.log([0] == false, [1, 2] == \"1,2\");\nconsole.log(NaN != NaN);\n```",
+          "tags": [
+            "output-prediction",
+            "equality",
+            "type-coercion"
+          ]
+        },
+        {
+          "id": "js-out-promise-executor-timer",
+          "sectionId": "js-output-prediction",
+          "level": "advanced",
+          "priority": 2,
+          "question": "A promise resolved inside a timer: what does this print?\n\n```javascript\nconst p = new Promise((resolve) => {\n  console.log(1);\n  setTimeout(() => {\n    console.log(2);\n    resolve(3);\n  }, 0);\n  console.log(4);\n});\n\np.then((value) => console.log(value));\nconsole.log(5);\n```",
+          "tags": [
+            "output-prediction",
+            "promises",
+            "event-loop",
+            "executor"
+          ]
+        },
+        {
+          "id": "js-out-getter-destructuring",
+          "sectionId": "js-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "A closure counter with a getter: what does this print?\n\n```javascript\nconst counter = (() => {\n  let count = 0;\n  return {\n    inc: () => ++count,\n    get value() { return count; },\n  };\n})();\n\ncounter.inc();\ncounter.inc();\nconst { value } = counter;\ncounter.inc();\nconsole.log(value, counter.value);\n```",
+          "tags": [
+            "output-prediction",
+            "closures",
+            "getters",
+            "destructuring",
+            "iife"
+          ]
+        },
+        {
+          "id": "js-out-delete-array",
+          "sectionId": "js-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "`delete` on an array and changing `length`: what does this print?\n\n```javascript\nconst arr = [1, 2, 3, 4];\ndelete arr[1];\nconsole.log(arr, arr.length, 1 in arr);\n\narr.length = 2;\nconsole.log(arr);\n\narr[5] = 6;\nconsole.log(arr.length, arr);\n```",
+          "tags": [
+            "output-prediction",
+            "arrays",
+            "delete",
+            "sparse-arrays",
+            "length"
+          ]
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "js-ex-reverse-string",
+      "title": "Reverse a string",
+      "level": "foundation",
+      "category": "strings",
+      "tags": [
+        "strings",
+        "arrays",
+        "two-pointers"
+      ],
+      "solutionCount": 3
+    },
+    {
+      "id": "js-ex-palindrome",
+      "title": "Valid palindrome",
+      "level": "foundation",
+      "category": "strings",
+      "tags": [
+        "strings",
+        "two-pointers",
+        "regex"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-anagram",
+      "title": "Check if two strings are anagrams",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "strings",
+        "hash-map",
+        "sorting"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-char-frequency",
+      "title": "Character frequency",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "hash-map",
+        "strings",
+        "reduce"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-first-non-repeating",
+      "title": "First non-repeating character",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "hash-map",
+        "strings"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-remove-duplicates",
+      "title": "Remove duplicates from an array",
+      "level": "foundation",
+      "category": "arrays",
+      "tags": [
+        "arrays",
+        "set",
+        "filter"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-largest-second-largest",
+      "title": "Largest and second largest number",
+      "level": "foundation",
+      "category": "arrays",
+      "tags": [
+        "arrays",
+        "single-pass",
+        "edge-cases"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-fizzbuzz",
+      "title": "FizzBuzz",
+      "level": "foundation",
+      "category": "logic",
+      "tags": [
+        "loops",
+        "modulo"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-fibonacci",
+      "title": "Fibonacci",
+      "level": "foundation",
+      "category": "recursion",
+      "tags": [
+        "recursion",
+        "memoization",
+        "generators",
+        "dynamic-programming"
+      ],
+      "solutionCount": 3
+    },
+    {
+      "id": "js-ex-chunk-array",
+      "title": "Chunk an array",
+      "level": "foundation",
+      "category": "arrays",
+      "tags": [
+        "arrays",
+        "slice",
+        "pagination"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-group-by",
+      "title": "Implement groupBy",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "arrays",
+        "reduce",
+        "objects",
+        "grouping"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-flatten-array",
+      "title": "Flatten a nested array (recursive and iterative)",
+      "level": "foundation",
+      "category": "recursion",
+      "tags": [
+        "arrays",
+        "recursion",
+        "stack",
+        "flat"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-deep-clone",
+      "title": "Deep clone",
+      "level": "intermediate",
+      "category": "recursion",
+      "tags": [
+        "objects",
+        "recursion",
+        "copy",
+        "weakmap"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-deep-equal",
+      "title": "Deep equal",
+      "level": "intermediate",
+      "category": "recursion",
+      "tags": [
+        "objects",
+        "recursion",
+        "equality"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-debounce",
+      "title": "Implement debounce",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "debounce",
+        "closures",
+        "timers"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-throttle",
+      "title": "Implement throttle",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "throttle",
+        "closures",
+        "timers"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-once",
+      "title": "Implement once",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "closures",
+        "higher-order-functions"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-memoize",
+      "title": "Implement memoize",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "memoization",
+        "closures",
+        "map",
+        "caching"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-curry",
+      "title": "Implement curry",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "currying",
+        "closures",
+        "functional-programming"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-array-polyfills",
+      "title": "Polyfill map, filter and reduce",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "polyfills",
+        "prototypes",
+        "arrays",
+        "higher-order-functions"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-bind-polyfill",
+      "title": "Polyfill Function.prototype.bind",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "bind",
+        "this",
+        "polyfills",
+        "closures"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-promise-all",
+      "title": "Implement Promise.all",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "promises",
+        "async",
+        "polyfills"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-sleep-retry",
+      "title": "Sleep and retry with promises",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "promises",
+        "async-await",
+        "retry",
+        "backoff"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "js-ex-event-emitter",
+      "title": "Implement an event emitter",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "events",
+        "observer-pattern",
+        "classes",
+        "map"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "js-ex-lru-cache",
+      "title": "Implement an LRU cache",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "map",
+        "caching",
+        "classes",
+        "data-structures"
+      ],
+      "solutionCount": 1
+    }
+  ],
+  "quickConcepts": [
+    {
+      "id": "js-qc-global-this",
+      "sectionId": "js-coverage",
+      "level": "foundation",
+      "priority": 1,
+      "question": "What is `globalThis`?",
+      "tags": [
+        "global-object",
+        "es2020"
+      ]
+    },
+    {
+      "id": "js-qc-iterator-protocol",
+      "sectionId": "js-coverage",
+      "level": "intermediate",
+      "priority": 2,
+      "question": "What are the iterable and iterator protocols?",
+      "tags": [
+        "iterators",
+        "symbol-iterator",
+        "for-of"
+      ]
+    },
+    {
+      "id": "js-qc-generators",
+      "sectionId": "js-coverage",
+      "level": "intermediate",
+      "priority": 2,
+      "question": "What are generator functions?",
+      "tags": [
+        "generators",
+        "yield",
+        "iterators",
+        "lazy-evaluation"
+      ]
+    },
+    {
+      "id": "js-qc-symbol",
+      "sectionId": "js-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is a `Symbol`?",
+      "tags": [
+        "symbol",
+        "primitives",
+        "well-known-symbols"
+      ]
+    },
+    {
+      "id": "js-qc-proxy-reflect",
+      "sectionId": "js-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are `Proxy` and `Reflect`?",
+      "tags": [
+        "proxy",
+        "reflect",
+        "metaprogramming"
+      ]
+    },
+    {
+      "id": "js-qc-weakmap-weakset",
+      "sectionId": "js-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What are `WeakMap` and `WeakSet`?",
+      "tags": [
+        "weakmap",
+        "weakset",
+        "garbage-collection",
+        "memory"
+      ]
+    },
+    {
+      "id": "js-qc-garbage-collection",
+      "sectionId": "js-coverage",
+      "level": "advanced",
+      "priority": 2,
+      "question": "How does garbage collection work in JavaScript?",
+      "tags": [
+        "garbage-collection",
+        "memory",
+        "mark-and-sweep",
+        "memory-leaks"
+      ]
+    },
+    {
+      "id": "js-qc-tagged-templates",
+      "sectionId": "js-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What are tagged template literals?",
+      "tags": [
+        "template-literals",
+        "tagged-templates",
+        "strings"
+      ]
+    },
+    {
+      "id": "js-qc-define-property",
+      "sectionId": "js-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What does `Object.defineProperty` do?",
+      "tags": [
+        "objects",
+        "property-descriptors",
+        "getters-setters"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2177 @@
+{
+  "id": "python",
+  "name": "Python",
+  "slug": "python",
+  "accent": "azure",
+  "icon": "square-terminal",
+  "description": "Core Python for interviews: data model, functions, OOP, generators, decorators, concurrency and the classic output traps.",
+  "sections": [
+    {
+      "id": "py-basics",
+      "title": "Basics & Data Types",
+      "description": "How Python treats names, objects and types — the foundation almost every other question builds on.",
+      "order": 1,
+      "module": "basics",
+      "questions": [
+        {
+          "id": "py-mutable-vs-immutable",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between mutable and immutable objects in Python?",
+          "tags": [
+            "mutability",
+            "data-types",
+            "memory"
+          ]
+        },
+        {
+          "id": "py-is-vs-equals",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `is` and `==` in Python?",
+          "tags": [
+            "identity",
+            "equality",
+            "operators",
+            "interning"
+          ]
+        },
+        {
+          "id": "py-pass-by-object-reference",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "Is Python pass-by-value or pass-by-reference?",
+          "tags": [
+            "functions",
+            "arguments",
+            "references",
+            "mutability"
+          ]
+        },
+        {
+          "id": "py-key-features",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is Python, and what are its key features?",
+          "tags": [
+            "basics",
+            "features",
+            "overview"
+          ]
+        },
+        {
+          "id": "py-interpreted-or-compiled",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Is Python interpreted or compiled?",
+          "tags": [
+            "bytecode",
+            "pvm",
+            "cpython",
+            "interpreter"
+          ]
+        },
+        {
+          "id": "py-truthy-falsy-none",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are truthy and falsy values in Python, and what is `None`?",
+          "tags": [
+            "truthiness",
+            "none",
+            "boolean",
+            "conditionals"
+          ]
+        },
+        {
+          "id": "py-division-operators",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `/`, `//` and `%` in Python, including with negative numbers?",
+          "tags": [
+            "operators",
+            "arithmetic",
+            "floor-division",
+            "modulo"
+          ]
+        },
+        {
+          "id": "py-dynamic-vs-strong-typing",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What do \"dynamically typed\" and \"strongly typed\" mean for Python?",
+          "tags": [
+            "typing",
+            "dynamic-typing",
+            "strong-typing",
+            "type-hints"
+          ]
+        },
+        {
+          "id": "py-type-vs-isinstance",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `type()` and `isinstance()`?",
+          "tags": [
+            "typing",
+            "inheritance",
+            "type-checking"
+          ]
+        },
+        {
+          "id": "py-float-precision",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Why is `0.1 + 0.2 == 0.3` False in Python?",
+          "tags": [
+            "float",
+            "precision",
+            "decimal",
+            "ieee-754"
+          ]
+        },
+        {
+          "id": "py-swap-and-unpacking",
+          "sectionId": "py-basics",
+          "level": "foundation",
+          "priority": 1,
+          "question": "How do you swap two variables in Python, and how does it work?",
+          "tags": [
+            "tuples",
+            "unpacking",
+            "assignment"
+          ]
+        },
+        {
+          "id": "py-shallow-vs-deep-copy",
+          "sectionId": "py-basics",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between a shallow copy and a deep copy?",
+          "tags": [
+            "copy",
+            "deepcopy",
+            "references",
+            "nested-data"
+          ]
+        },
+        {
+          "id": "py-int-caching-and-interning",
+          "sectionId": "py-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is small integer caching and string interning in CPython?",
+          "tags": [
+            "cpython",
+            "interning",
+            "identity",
+            "memory",
+            "optimization"
+          ]
+        },
+        {
+          "id": "py-arbitrary-precision-int",
+          "sectionId": "py-basics",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Can a Python integer overflow?",
+          "tags": [
+            "int",
+            "bigint",
+            "numbers"
+          ]
+        },
+        {
+          "id": "py-deepcopy-memo-and-cycles",
+          "sectionId": "py-basics",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How does `copy.deepcopy` handle shared references and cycles, and how do you customize copying?",
+          "tags": [
+            "copy",
+            "deepcopy",
+            "dunder-methods",
+            "memo"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-strings",
+      "title": "Strings",
+      "description": "Immutability, slicing, the everyday methods, f-strings, building strings efficiently, and text vs bytes.",
+      "order": 2,
+      "module": "strings",
+      "questions": [
+        {
+          "id": "py-string-slicing",
+          "sectionId": "py-strings",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How does string slicing work, and how does `s[::-1]` reverse a string?",
+          "tags": [
+            "strings",
+            "slicing",
+            "immutability",
+            "reverse"
+          ]
+        },
+        {
+          "id": "py-string-methods",
+          "sectionId": "py-strings",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Explain `split`, `join`, `strip` and `replace` with examples.",
+          "tags": [
+            "strings",
+            "split",
+            "join",
+            "strip",
+            "replace"
+          ]
+        },
+        {
+          "id": "py-f-strings",
+          "sectionId": "py-strings",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are f-strings, and what does `f\"{x=}\"` do?",
+          "tags": [
+            "strings",
+            "f-strings",
+            "formatting",
+            "debugging"
+          ]
+        },
+        {
+          "id": "py-find-vs-index",
+          "sectionId": "py-strings",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What is the difference between `str.find()` and `str.index()`?",
+          "tags": [
+            "strings",
+            "find",
+            "index",
+            "search"
+          ]
+        },
+        {
+          "id": "py-raw-strings",
+          "sectionId": "py-strings",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What is a raw string (`r\"...\"`) and when do you use one?",
+          "tags": [
+            "strings",
+            "raw-strings",
+            "regex",
+            "escape-sequences"
+          ]
+        },
+        {
+          "id": "py-string-concat-performance",
+          "sectionId": "py-strings",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why is `\"\".join(parts)` preferred over `+=` for building a string in a loop?",
+          "tags": [
+            "strings",
+            "performance",
+            "join",
+            "immutability"
+          ]
+        },
+        {
+          "id": "py-str-vs-bytes",
+          "sectionId": "py-strings",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between `str` and `bytes`, and how do `encode` and `decode` work?",
+          "tags": [
+            "strings",
+            "bytes",
+            "unicode",
+            "utf-8",
+            "encoding"
+          ]
+        },
+        {
+          "id": "py-string-formatting-styles",
+          "sectionId": "py-strings",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Compare `%` formatting, `str.format()` and f-strings.",
+          "tags": [
+            "strings",
+            "formatting",
+            "f-strings",
+            "logging"
+          ]
+        },
+        {
+          "id": "py-string-checks",
+          "sectionId": "py-strings",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you check what a string contains — digits, letters, a prefix — and compare strings case-insensitively?",
+          "tags": [
+            "strings",
+            "validation",
+            "casefold",
+            "startswith"
+          ]
+        },
+        {
+          "id": "py-string-plus-equals-optimization",
+          "sectionId": "py-strings",
+          "level": "advanced",
+          "priority": 1,
+          "question": "If strings are immutable, why can `s += x` in a loop be fast in CPython?",
+          "tags": [
+            "strings",
+            "cpython",
+            "performance",
+            "reference-counting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-data-structures",
+      "title": "Data Structures",
+      "description": "Lists, tuples, sets and dicts: the operations interviewers ask about, the classic traps, comprehensions, and what happens under the hood.",
+      "order": 3,
+      "module": "data-structures",
+      "questions": [
+        {
+          "id": "py-list-vs-tuple",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between a list and a tuple, and when would you use each?",
+          "tags": [
+            "list",
+            "tuple",
+            "mutability",
+            "hashable"
+          ]
+        },
+        {
+          "id": "py-list-comprehensions",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are list, dict and set comprehensions? Show examples with conditions.",
+          "tags": [
+            "comprehensions",
+            "list",
+            "dict",
+            "set",
+            "pythonic"
+          ]
+        },
+        {
+          "id": "py-append-vs-extend",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `append`, `extend` and `insert`?",
+          "tags": [
+            "list",
+            "append",
+            "extend",
+            "insert"
+          ]
+        },
+        {
+          "id": "py-sort-vs-sorted",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `list.sort()` and `sorted()`? How do you sort by a custom key?",
+          "tags": [
+            "sorting",
+            "sorted",
+            "key",
+            "lambda"
+          ]
+        },
+        {
+          "id": "py-remove-pop-del",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `remove`, `pop` and `del` on a list?",
+          "tags": [
+            "list",
+            "remove",
+            "pop",
+            "del"
+          ]
+        },
+        {
+          "id": "py-nested-list-multiplication",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Why does `grid = [[0] * 3] * 3` behave strangely when you change one cell?",
+          "tags": [
+            "list",
+            "references",
+            "aliasing",
+            "2d-list"
+          ]
+        },
+        {
+          "id": "py-set-basics",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a set, and what operations does it support?",
+          "tags": [
+            "set",
+            "uniqueness",
+            "set-operations",
+            "frozenset"
+          ]
+        },
+        {
+          "id": "py-remove-duplicates-keep-order",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you remove duplicates from a list while keeping the original order?",
+          "tags": [
+            "list",
+            "set",
+            "dict",
+            "deduplication"
+          ]
+        },
+        {
+          "id": "py-dict-get-vs-brackets",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between `d[key]` and `d.get(key)`?",
+          "tags": [
+            "dict",
+            "get",
+            "keyerror",
+            "setdefault"
+          ]
+        },
+        {
+          "id": "py-dict-iterate-and-sort",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you iterate over a dictionary, and how do you sort it by value?",
+          "tags": [
+            "dict",
+            "iteration",
+            "sorting",
+            "items"
+          ]
+        },
+        {
+          "id": "py-dict-merge-and-order",
+          "sectionId": "py-data-structures",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you merge two dictionaries, and are dictionaries ordered?",
+          "tags": [
+            "dict",
+            "merge",
+            "ordering",
+            "python-3-9"
+          ]
+        },
+        {
+          "id": "py-hashable-dict-keys",
+          "sectionId": "py-data-structures",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What does \"hashable\" mean, and what can be used as a dictionary key?",
+          "tags": [
+            "hashable",
+            "dict",
+            "set",
+            "__hash__",
+            "__eq__"
+          ]
+        },
+        {
+          "id": "py-nested-comprehensions",
+          "sectionId": "py-data-structures",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do nested comprehensions work? Flatten a list of lists and build a matrix.",
+          "tags": [
+            "comprehensions",
+            "nested",
+            "flatten",
+            "matrix"
+          ]
+        },
+        {
+          "id": "py-time-complexity-lookups",
+          "sectionId": "py-data-structures",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the time complexity of `x in list` vs `x in set` vs `key in dict`?",
+          "tags": [
+            "complexity",
+            "big-o",
+            "set",
+            "dict",
+            "list",
+            "performance"
+          ]
+        },
+        {
+          "id": "py-list-internals",
+          "sectionId": "py-data-structures",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How is a Python list implemented internally?",
+          "tags": [
+            "list",
+            "internals",
+            "dynamic-array",
+            "cpython"
+          ]
+        },
+        {
+          "id": "py-dict-views",
+          "sectionId": "py-data-structures",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What do `dict.keys()`, `values()` and `items()` return?",
+          "tags": [
+            "dict",
+            "views",
+            "keys",
+            "items"
+          ]
+        },
+        {
+          "id": "py-dict-internals",
+          "sectionId": "py-data-structures",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How is a Python dict implemented, and how does it handle collisions?",
+          "tags": [
+            "dict",
+            "hash-table",
+            "internals",
+            "collisions",
+            "cpython"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-functions",
+      "title": "Functions",
+      "description": "Arguments, scope and closures, then the big three: decorators, generators and iterators — plus the functional tools around them.",
+      "order": 4,
+      "module": "functions",
+      "questions": [
+        {
+          "id": "py-args-kwargs",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are `*args` and `**kwargs`?",
+          "tags": [
+            "functions",
+            "args",
+            "kwargs",
+            "unpacking"
+          ]
+        },
+        {
+          "id": "py-mutable-default-argument",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the mutable default argument trap, and how do you avoid it?",
+          "tags": [
+            "functions",
+            "default-arguments",
+            "mutability",
+            "bugs"
+          ]
+        },
+        {
+          "id": "py-first-class-functions",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What does it mean that functions are first-class objects in Python?",
+          "tags": [
+            "functions",
+            "first-class",
+            "higher-order-functions"
+          ]
+        },
+        {
+          "id": "py-lambda",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a lambda function, and when should you (not) use one?",
+          "tags": [
+            "lambda",
+            "anonymous-functions",
+            "functions"
+          ]
+        },
+        {
+          "id": "py-map-filter-reduce",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Explain `map`, `filter` and `reduce`. When are comprehensions better?",
+          "tags": [
+            "map",
+            "filter",
+            "reduce",
+            "functional-programming",
+            "comprehensions"
+          ]
+        },
+        {
+          "id": "py-legb-scope",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the LEGB rule in Python?",
+          "tags": [
+            "scope",
+            "legb",
+            "namespaces",
+            "builtins"
+          ]
+        },
+        {
+          "id": "py-any-all",
+          "sectionId": "py-functions",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What do `any()` and `all()` do?",
+          "tags": [
+            "any",
+            "all",
+            "short-circuit",
+            "generators"
+          ]
+        },
+        {
+          "id": "py-decorators-basics",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is a decorator? Write one from scratch.",
+          "tags": [
+            "decorators",
+            "closures",
+            "higher-order-functions",
+            "wraps"
+          ]
+        },
+        {
+          "id": "py-decorators-with-arguments",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "How do you write a decorator that takes arguments, like `@retry(times=3)`?",
+          "tags": [
+            "decorators",
+            "decorator-factory",
+            "closures"
+          ]
+        },
+        {
+          "id": "py-decorator-use-cases",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What are real-world use cases for decorators? Show a timing and a caching decorator.",
+          "tags": [
+            "decorators",
+            "timing",
+            "caching",
+            "memoization",
+            "auth"
+          ]
+        },
+        {
+          "id": "py-generators-yield",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is a generator, and what is the difference between `yield` and `return`?",
+          "tags": [
+            "generators",
+            "yield",
+            "lazy-evaluation",
+            "memory",
+            "iterators"
+          ]
+        },
+        {
+          "id": "py-iterable-vs-iterator",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between an iterable and an iterator? Write a custom iterator.",
+          "tags": [
+            "iterators",
+            "iterables",
+            "iterator-protocol",
+            "__iter__",
+            "__next__"
+          ]
+        },
+        {
+          "id": "py-genexp-vs-listcomp",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between a generator expression and a list comprehension?",
+          "tags": [
+            "generators",
+            "comprehensions",
+            "lazy-evaluation",
+            "memory"
+          ]
+        },
+        {
+          "id": "py-closures",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a closure in Python?",
+          "tags": [
+            "closures",
+            "scope",
+            "nested-functions",
+            "nonlocal"
+          ]
+        },
+        {
+          "id": "py-late-binding-closures",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why do functions created in a loop all return the same value, and how do you fix it?",
+          "tags": [
+            "closures",
+            "late-binding",
+            "lambda",
+            "loops"
+          ]
+        },
+        {
+          "id": "py-global-nonlocal",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do the `global` and `nonlocal` keywords do?",
+          "tags": [
+            "scope",
+            "global",
+            "nonlocal",
+            "closures"
+          ]
+        },
+        {
+          "id": "py-unboundlocalerror",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why does this raise `UnboundLocalError`?\n\n```python\ncount = 0\n\ndef bump():\n    count += 1\n\nbump()\n```",
+          "tags": [
+            "scope",
+            "unboundlocalerror",
+            "global",
+            "compile-time"
+          ]
+        },
+        {
+          "id": "py-functools-wraps",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does `functools.wraps` do, and why does it matter?",
+          "tags": [
+            "decorators",
+            "functools",
+            "wraps",
+            "introspection"
+          ]
+        },
+        {
+          "id": "py-stacked-decorators",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "In what order are stacked decorators applied and executed?",
+          "tags": [
+            "decorators",
+            "stacking",
+            "order"
+          ]
+        },
+        {
+          "id": "py-lru-cache-partial",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do `functools.lru_cache` and `functools.partial` do?",
+          "tags": [
+            "functools",
+            "lru-cache",
+            "memoization",
+            "partial"
+          ]
+        },
+        {
+          "id": "py-positional-keyword-only",
+          "sectionId": "py-functions",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do `/` and `*` mean in a function signature?",
+          "tags": [
+            "functions",
+            "positional-only",
+            "keyword-only",
+            "api-design"
+          ]
+        },
+        {
+          "id": "py-yield-from",
+          "sectionId": "py-functions",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What does `yield from` do?",
+          "tags": [
+            "generators",
+            "yield-from",
+            "delegation",
+            "recursion"
+          ]
+        },
+        {
+          "id": "py-closure-cells",
+          "sectionId": "py-functions",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How does Python implement closures internally?",
+          "tags": [
+            "closures",
+            "cells",
+            "internals",
+            "cpython"
+          ]
+        },
+        {
+          "id": "py-class-based-decorators",
+          "sectionId": "py-functions",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you write a class-based decorator, and when is it better than a function?",
+          "tags": [
+            "decorators",
+            "classes",
+            "__call__",
+            "state"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-oop",
+      "title": "Object-Oriented Programming",
+      "description": "Classes and instances, the three kinds of methods, inheritance and the MRO, dunder methods, properties, and when to reach for dataclasses or composition.",
+      "order": 5,
+      "module": "oop",
+      "questions": [
+        {
+          "id": "py-four-pillars",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 3,
+          "question": "Explain the four pillars of OOP with Python examples.",
+          "tags": [
+            "oop",
+            "encapsulation",
+            "abstraction",
+            "inheritance",
+            "polymorphism"
+          ]
+        },
+        {
+          "id": "py-str-vs-repr",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `__str__` and `__repr__`?",
+          "tags": [
+            "dunder-methods",
+            "__str__",
+            "__repr__",
+            "debugging"
+          ]
+        },
+        {
+          "id": "py-class-object-self-init",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are a class, an object, `self` and `__init__`?",
+          "tags": [
+            "oop",
+            "classes",
+            "self",
+            "__init__"
+          ]
+        },
+        {
+          "id": "py-instance-vs-class-variables",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between instance variables and class variables? What is the mutable class variable trap?",
+          "tags": [
+            "oop",
+            "class-variables",
+            "instance-variables",
+            "mutability"
+          ]
+        },
+        {
+          "id": "py-inheritance-super",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How does inheritance work in Python, and what does `super()` do?",
+          "tags": [
+            "oop",
+            "inheritance",
+            "super",
+            "method-overriding"
+          ]
+        },
+        {
+          "id": "py-property",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is `@property`, and why use it instead of getter and setter methods?",
+          "tags": [
+            "oop",
+            "property",
+            "encapsulation",
+            "validation"
+          ]
+        },
+        {
+          "id": "py-private-name-mangling",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What do `_name` and `__name` mean in a class? What is name mangling?",
+          "tags": [
+            "oop",
+            "encapsulation",
+            "name-mangling",
+            "conventions"
+          ]
+        },
+        {
+          "id": "py-duck-typing",
+          "sectionId": "py-oop",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is duck typing?",
+          "tags": [
+            "oop",
+            "duck-typing",
+            "polymorphism",
+            "protocols"
+          ]
+        },
+        {
+          "id": "py-instance-class-static-methods",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between an instance method, a `@classmethod` and a `@staticmethod`?",
+          "tags": [
+            "oop",
+            "classmethod",
+            "staticmethod",
+            "factory-methods"
+          ]
+        },
+        {
+          "id": "py-mro-diamond",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the MRO, and how does Python solve the diamond problem in multiple inheritance?",
+          "tags": [
+            "oop",
+            "multiple-inheritance",
+            "mro",
+            "c3-linearization",
+            "super"
+          ]
+        },
+        {
+          "id": "py-init-vs-new",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between `__init__` and `__new__`?",
+          "tags": [
+            "oop",
+            "__new__",
+            "__init__",
+            "object-creation",
+            "immutables"
+          ]
+        },
+        {
+          "id": "py-method-overloading",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Does Python support method overloading? What are the alternatives?",
+          "tags": [
+            "oop",
+            "overloading",
+            "singledispatch",
+            "default-arguments"
+          ]
+        },
+        {
+          "id": "py-dunder-methods",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are dunder (magic) methods? Implement `__len__`, `__eq__`, `__hash__`, `__add__`, `__getitem__`, `__iter__` and `__call__`.",
+          "tags": [
+            "dunder-methods",
+            "operator-overloading",
+            "data-model",
+            "protocols"
+          ]
+        },
+        {
+          "id": "py-abstract-classes",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are abstract base classes (`ABC`, `@abstractmethod`) and when do you use them?",
+          "tags": [
+            "oop",
+            "abc",
+            "abstractmethod",
+            "interfaces"
+          ]
+        },
+        {
+          "id": "py-dataclasses",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a `@dataclass`, and what does it generate for you?",
+          "tags": [
+            "dataclasses",
+            "boilerplate",
+            "immutability",
+            "oop"
+          ]
+        },
+        {
+          "id": "py-composition-vs-inheritance",
+          "sectionId": "py-oop",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Composition vs inheritance: what is the difference, and which do you prefer?",
+          "tags": [
+            "oop",
+            "composition",
+            "inheritance",
+            "design"
+          ]
+        },
+        {
+          "id": "py-mixins",
+          "sectionId": "py-oop",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is a mixin, and how should it be written?",
+          "tags": [
+            "oop",
+            "mixins",
+            "multiple-inheritance",
+            "mro"
+          ]
+        },
+        {
+          "id": "py-singleton",
+          "sectionId": "py-oop",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you implement a singleton in Python, and should you?",
+          "tags": [
+            "design-patterns",
+            "singleton",
+            "__new__",
+            "modules"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-errors-files-modules",
+      "title": "Errors, Files & Modules",
+      "description": "Exception handling done right, context managers, reading and writing files, and how modules, packages, imports and environments fit together.",
+      "order": 6,
+      "module": "errors-files-modules",
+      "questions": [
+        {
+          "id": "py-try-except-else-finally",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 3,
+          "question": "Explain `try`, `except`, `else` and `finally` — when does each block run?",
+          "tags": [
+            "exceptions",
+            "try-except",
+            "finally",
+            "error-handling"
+          ]
+        },
+        {
+          "id": "py-name-main",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What does `if __name__ == \"__main__\":` do?",
+          "tags": [
+            "modules",
+            "__name__",
+            "scripts",
+            "imports"
+          ]
+        },
+        {
+          "id": "py-exception-hierarchy-custom",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What does the exception hierarchy look like, and how do you create a custom exception?",
+          "tags": [
+            "exceptions",
+            "custom-exceptions",
+            "hierarchy",
+            "baseexception"
+          ]
+        },
+        {
+          "id": "py-file-read-write",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you read and write files in Python, and how do you read a very large file?",
+          "tags": [
+            "files",
+            "io",
+            "with",
+            "modes",
+            "large-files"
+          ]
+        },
+        {
+          "id": "py-json",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you work with JSON in Python?",
+          "tags": [
+            "json",
+            "serialization",
+            "files"
+          ]
+        },
+        {
+          "id": "py-module-vs-package",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between a module and a package? What is `__init__.py` for?",
+          "tags": [
+            "modules",
+            "packages",
+            "__init__",
+            "imports"
+          ]
+        },
+        {
+          "id": "py-venv-pip",
+          "sectionId": "py-errors-files-modules",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a virtual environment, and how do `pip`, `requirements.txt` and `pyproject.toml` fit in?",
+          "tags": [
+            "venv",
+            "pip",
+            "dependencies",
+            "packaging",
+            "tooling"
+          ]
+        },
+        {
+          "id": "py-context-managers",
+          "sectionId": "py-errors-files-modules",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a context manager? Write one as a class and with `@contextmanager`.",
+          "tags": [
+            "context-managers",
+            "with",
+            "__enter__",
+            "__exit__",
+            "contextlib"
+          ]
+        },
+        {
+          "id": "py-return-in-finally",
+          "sectionId": "py-errors-files-modules",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What happens when both `try` and `finally` contain a `return` statement?",
+          "tags": [
+            "exceptions",
+            "finally",
+            "return",
+            "gotchas"
+          ]
+        },
+        {
+          "id": "py-raise-from",
+          "sectionId": "py-errors-files-modules",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does `raise ... from ...` do, and how is it different from raising inside `except`?",
+          "tags": [
+            "exceptions",
+            "chaining",
+            "raise-from",
+            "__cause__"
+          ]
+        },
+        {
+          "id": "py-eafp-vs-lbyl",
+          "sectionId": "py-errors-files-modules",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are EAFP and LBYL? Which is more Pythonic?",
+          "tags": [
+            "exceptions",
+            "eafp",
+            "lbyl",
+            "idioms",
+            "race-conditions"
+          ]
+        },
+        {
+          "id": "py-circular-imports",
+          "sectionId": "py-errors-files-modules",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a circular import, and how do you fix it?",
+          "tags": [
+            "modules",
+            "imports",
+            "circular-imports",
+            "architecture"
+          ]
+        },
+        {
+          "id": "py-broad-except",
+          "sectionId": "py-errors-files-modules",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Why is catching every exception (`except:` or `except Exception:`) considered bad practice?",
+          "tags": [
+            "exceptions",
+            "best-practices",
+            "logging"
+          ]
+        },
+        {
+          "id": "py-import-system",
+          "sectionId": "py-errors-files-modules",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What happens step by step when you write `import x`?",
+          "tags": [
+            "imports",
+            "sys.modules",
+            "sys.path",
+            "internals"
+          ]
+        },
+        {
+          "id": "py-exit-suppression",
+          "sectionId": "py-errors-files-modules",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How does `__exit__` receive and suppress exceptions, and what does `ExitStack` do?",
+          "tags": [
+            "context-managers",
+            "__exit__",
+            "exitstack",
+            "contextlib"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-advanced",
+      "title": "Advanced (Common in Interviews)",
+      "description": "The GIL and the three concurrency models, asyncio, memory management, type hints, and the standard-library tools every Python developer is expected to know.",
+      "order": 7,
+      "module": "advanced",
+      "questions": [
+        {
+          "id": "py-cpu-vs-io-bound",
+          "sectionId": "py-advanced",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is the difference between CPU-bound and I/O-bound work?",
+          "tags": [
+            "concurrency",
+            "performance",
+            "cpu-bound",
+            "io-bound"
+          ]
+        },
+        {
+          "id": "py-collections-module",
+          "sectionId": "py-advanced",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are `Counter`, `defaultdict`, `deque` and `namedtuple` from `collections`?",
+          "tags": [
+            "collections",
+            "counter",
+            "defaultdict",
+            "deque",
+            "namedtuple"
+          ]
+        },
+        {
+          "id": "py-type-hints-basics",
+          "sectionId": "py-advanced",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are type hints in Python, and are they enforced at runtime?",
+          "tags": [
+            "typing",
+            "type-hints",
+            "mypy",
+            "optional"
+          ]
+        },
+        {
+          "id": "py-gil",
+          "sectionId": "py-advanced",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the GIL, and how does it affect multithreading in Python?",
+          "tags": [
+            "gil",
+            "threading",
+            "concurrency",
+            "cpython",
+            "performance"
+          ]
+        },
+        {
+          "id": "py-threading-multiprocessing-asyncio",
+          "sectionId": "py-advanced",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "Threading vs multiprocessing vs asyncio — when do you use which?",
+          "tags": [
+            "concurrency",
+            "threading",
+            "multiprocessing",
+            "asyncio",
+            "architecture"
+          ]
+        },
+        {
+          "id": "py-async-await",
+          "sectionId": "py-advanced",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are `async`, `await`, coroutines and the event loop?",
+          "tags": [
+            "asyncio",
+            "async-await",
+            "coroutines",
+            "event-loop"
+          ]
+        },
+        {
+          "id": "py-asyncio-gather-tasks",
+          "sectionId": "py-advanced",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do `asyncio.gather` and `asyncio.create_task` do, and how do you handle errors and timeouts?",
+          "tags": [
+            "asyncio",
+            "gather",
+            "tasks",
+            "timeouts",
+            "taskgroup"
+          ]
+        },
+        {
+          "id": "py-memory-management",
+          "sectionId": "py-advanced",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How does Python manage memory? Explain reference counting and the garbage collector.",
+          "tags": [
+            "memory",
+            "reference-counting",
+            "garbage-collection",
+            "cpython"
+          ]
+        },
+        {
+          "id": "py-itertools",
+          "sectionId": "py-advanced",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Which `itertools` functions should every Python developer know?",
+          "tags": [
+            "itertools",
+            "iterators",
+            "combinatorics",
+            "groupby"
+          ]
+        },
+        {
+          "id": "py-blocking-in-async",
+          "sectionId": "py-advanced",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What happens if you call blocking code inside an async function, and how do you fix it?",
+          "tags": [
+            "asyncio",
+            "blocking",
+            "to_thread",
+            "executors"
+          ]
+        },
+        {
+          "id": "py-gc-generations",
+          "sectionId": "py-advanced",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How does CPython's generational garbage collector decide when to run?",
+          "tags": [
+            "garbage-collection",
+            "gc",
+            "generations",
+            "performance"
+          ]
+        },
+        {
+          "id": "py-typing-generics-protocol",
+          "sectionId": "py-advanced",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are `TypeVar`, generics and `Protocol` in Python typing?",
+          "tags": [
+            "typing",
+            "generics",
+            "typevar",
+            "protocol",
+            "structural-typing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "py-output-prediction",
+      "title": "Output Prediction",
+      "description": "Classic \"what does this print?\" puzzles. Predict the output first, then reveal the answer and the step-by-step reasoning.",
+      "order": 8,
+      "module": "output-prediction",
+      "questions": [
+        {
+          "id": "py-out-chained-comparison",
+          "sectionId": "py-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Chained comparisons: what does this print?\n\n```python\nprint(1 < 2 < 3)\nprint(3 > 2 > 1)\nprint(1 < 3 > 2)\nprint(False == False in [False])\nprint((3 > 2) > 1)\n```",
+          "tags": [
+            "output-prediction",
+            "operators",
+            "comparison",
+            "chaining"
+          ]
+        },
+        {
+          "id": "py-out-identity-and-plus-equals",
+          "sectionId": "py-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "`is`, `==` and `+=` on lists: what does this print?\n\n```python\na = [1, 2]\nb = [1, 2]\nc = a\nprint(a == b, a is b)\nprint(a is c)\nc += [3]\nprint(a, a is c)\nc = c + [4]\nprint(a, c, a is c)\n```",
+          "tags": [
+            "output-prediction",
+            "identity",
+            "equality",
+            "mutability",
+            "augmented-assignment"
+          ]
+        },
+        {
+          "id": "py-out-shared-inner-list",
+          "sectionId": "py-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "A list of lists made with `*`: what does this print?\n\n```python\nrows = [[]] * 3\nrows[0].append(\"x\")\nprint(rows)\nrows[1] = [\"y\"]\nprint(rows)\n```",
+          "tags": [
+            "output-prediction",
+            "list",
+            "references",
+            "aliasing"
+          ]
+        },
+        {
+          "id": "py-out-bool-arithmetic",
+          "sectionId": "py-output-prediction",
+          "level": "foundation",
+          "priority": 1,
+          "question": "`True + True`: what does this print?\n\n```python\nprint(True + True)\nprint(True * 10)\nprint(sum([True, False, True, True]))\nprint([\"no\", \"yes\"][True])\nprint(isinstance(True, int), True == 1, hash(True) == hash(1))\n```",
+          "tags": [
+            "output-prediction",
+            "bool",
+            "int",
+            "arithmetic"
+          ]
+        },
+        {
+          "id": "py-out-mutable-default",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "A mutable default argument: what does this print?\n\n```python\ndef register(name, registry={}):\n    registry[name] = len(registry) + 1\n    return registry\n\na = register(\"rafi\")\nb = register(\"nadia\")\nprint(a)\nprint(a is b)\nprint(register(\"sam\", {}))\nprint(register(\"mita\"))\n```",
+          "tags": [
+            "output-prediction",
+            "functions",
+            "default-arguments",
+            "mutability"
+          ]
+        },
+        {
+          "id": "py-out-late-binding-lambdas",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Lambdas created in a comprehension: what does this print?\n\n```python\nmultipliers = [lambda x: x * i for i in range(1, 4)]\nprint([m(10) for m in multipliers])\n\nfixed = [lambda x, i=i: x * i for i in range(1, 4)]\nprint([m(10) for m in fixed])\n```",
+          "tags": [
+            "output-prediction",
+            "closures",
+            "lambda",
+            "late-binding"
+          ]
+        },
+        {
+          "id": "py-out-modify-while-iterating",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Removing items while looping: what does this print?\n\n```python\nnums = [1, 2, 2, 3, 4, 4]\nfor n in nums:\n    if n % 2 == 0:\n        nums.remove(n)\nprint(nums)\n```",
+          "tags": [
+            "output-prediction",
+            "list",
+            "iteration",
+            "mutation",
+            "bugs"
+          ]
+        },
+        {
+          "id": "py-out-class-vs-instance-variable",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Class variables vs instance variables: what does this print?\n\n```python\nclass Counter:\n    count = 0\n    items = []\n\n    def add(self, x):\n        self.count += 1\n        self.items.append(x)\n\na, b = Counter(), Counter()\na.add(\"x\")\nb.add(\"y\")\nprint(a.count, b.count, Counter.count)\nprint(a.items, b.items)\n```",
+          "tags": [
+            "output-prediction",
+            "oop",
+            "class-variables",
+            "mutability"
+          ]
+        },
+        {
+          "id": "py-out-finally-and-return",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "`return` and `finally`: what does this print?\n\n```python\ndef f():\n    items = [1]\n    try:\n        return items\n    finally:\n        items.append(2)\n\ndef g():\n    x = 1\n    try:\n        return x\n    finally:\n        x = 2\n\nprint(f(), g())\n```",
+          "tags": [
+            "output-prediction",
+            "exceptions",
+            "finally",
+            "return",
+            "mutability"
+          ]
+        },
+        {
+          "id": "py-out-generator-exhausted",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Using a generator twice: what does this print?\n\n```python\nsquares = (n * n for n in range(4))\nprint(sum(squares))\nprint(sum(squares))\n\ngen = (n for n in range(5))\nprint(3 in gen)\nprint(list(gen))\n```",
+          "tags": [
+            "output-prediction",
+            "generators",
+            "iterators",
+            "exhaustion"
+          ]
+        },
+        {
+          "id": "py-out-for-else",
+          "sectionId": "py-output-prediction",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "`for ... else`: what does this print?\n\n```python\nfor n in [3, 5, 7]:\n    if n % 2 == 0:\n        print(\"found even\", n)\n        break\nelse:\n    print(\"no even number\")\n\nfor n in []:\n    pass\nelse:\n    print(\"else runs for an empty loop too\")\n```",
+          "tags": [
+            "output-prediction",
+            "loops",
+            "for-else",
+            "control-flow"
+          ]
+        },
+        {
+          "id": "py-out-tuple-plus-equals",
+          "sectionId": "py-output-prediction",
+          "level": "advanced",
+          "priority": 2,
+          "question": "`t[0] += [3]` on a tuple that contains a list: what does this print?\n\n```python\nt = ([1, 2], \"x\")\ntry:\n    t[0] += [3]\nexcept TypeError as e:\n    print(\"TypeError:\", e)\nprint(t)\n```",
+          "tags": [
+            "output-prediction",
+            "tuples",
+            "mutability",
+            "augmented-assignment",
+            "gotchas"
+          ]
+        },
+        {
+          "id": "py-out-comprehension-scope",
+          "sectionId": "py-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Loop variables and comprehension scope: what does this print?\n\n```python\nx = \"outer\"\nsquares = [x * 2 for x in range(3)]\nprint(x, squares)\n\nfor x in range(3):\n    pass\nprint(x)\n```",
+          "tags": [
+            "output-prediction",
+            "scope",
+            "comprehensions",
+            "loops"
+          ]
+        },
+        {
+          "id": "py-out-except-variable-cleared",
+          "sectionId": "py-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Using the exception variable after `except`: what does this print?\n\n```python\ne = \"before\"\ntry:\n    1 / 0\nexcept ZeroDivisionError as e:\n    print(\"caught:\", e)\ntry:\n    print(e)\nexcept NameError:\n    print(\"NameError: e was deleted after the except block\")\n```",
+          "tags": [
+            "output-prediction",
+            "exceptions",
+            "scope",
+            "gotchas"
+          ]
+        },
+        {
+          "id": "py-out-dict-key-collision",
+          "sectionId": "py-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "`True`, `1` and `1.0` as dict keys: what does this print?\n\n```python\nd = {True: \"a\", 1: \"b\", 1.0: \"c\"}\nprint(d, len(d))\n```",
+          "tags": [
+            "output-prediction",
+            "dict",
+            "hashing",
+            "equality"
+          ]
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "py-ex-reverse-string-number",
+      "title": "Reverse a string and a number",
+      "level": "foundation",
+      "category": "strings",
+      "tags": [
+        "strings",
+        "slicing",
+        "math"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-palindrome",
+      "title": "Valid palindrome",
+      "level": "foundation",
+      "category": "strings",
+      "tags": [
+        "strings",
+        "two-pointers",
+        "slicing"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-anagram",
+      "title": "Check if two strings are anagrams",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "strings",
+        "counter",
+        "sorting",
+        "hashing"
+      ],
+      "solutionCount": 3
+    },
+    {
+      "id": "py-ex-vowel-count",
+      "title": "Count the vowels in a string",
+      "level": "foundation",
+      "category": "strings",
+      "tags": [
+        "strings",
+        "sets",
+        "generators"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-char-word-frequency",
+      "title": "Character and word frequency",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "dict",
+        "counter",
+        "strings",
+        "regex"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-fizzbuzz",
+      "title": "FizzBuzz",
+      "level": "foundation",
+      "category": "logic",
+      "tags": [
+        "loops",
+        "modulo",
+        "conditionals"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-prime-sieve",
+      "title": "Prime check and Sieve of Eratosthenes",
+      "level": "foundation",
+      "category": "logic",
+      "tags": [
+        "math",
+        "primes",
+        "sieve"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-factorial",
+      "title": "Factorial",
+      "level": "foundation",
+      "category": "recursion",
+      "tags": [
+        "recursion",
+        "loops",
+        "math"
+      ],
+      "solutionCount": 3
+    },
+    {
+      "id": "py-ex-find-duplicates",
+      "title": "Find duplicates in a list",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "sets",
+        "counter",
+        "hashing"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-second-largest",
+      "title": "Second largest number",
+      "level": "foundation",
+      "category": "arrays",
+      "tags": [
+        "arrays",
+        "single-pass",
+        "edge-cases"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-two-sum",
+      "title": "Two Sum",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "hash-map",
+        "arrays",
+        "classic"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-merge-sort-dicts",
+      "title": "Merge two dicts and sort by value",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "dict",
+        "sorting",
+        "counter",
+        "merge"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-binary-search",
+      "title": "Binary search",
+      "level": "foundation",
+      "category": "arrays",
+      "tags": [
+        "binary-search",
+        "divide-and-conquer",
+        "bisect"
+      ],
+      "solutionCount": 3
+    },
+    {
+      "id": "py-ex-stack-queue",
+      "title": "Implement a stack and a queue",
+      "level": "foundation",
+      "category": "implementation",
+      "tags": [
+        "stack",
+        "queue",
+        "deque",
+        "oop",
+        "data-structures"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-fibonacci",
+      "title": "Fibonacci: iterative, recursive, memoized and generator",
+      "level": "intermediate",
+      "category": "recursion",
+      "tags": [
+        "recursion",
+        "memoization",
+        "generators",
+        "dynamic-programming"
+      ],
+      "solutionCount": 4
+    },
+    {
+      "id": "py-ex-flatten-nested",
+      "title": "Flatten an arbitrarily nested list",
+      "level": "intermediate",
+      "category": "recursion",
+      "tags": [
+        "recursion",
+        "generators",
+        "stack",
+        "yield-from"
+      ],
+      "solutionCount": 3
+    },
+    {
+      "id": "py-ex-matrix-transpose-rotate",
+      "title": "Transpose and rotate a matrix",
+      "level": "intermediate",
+      "category": "arrays",
+      "tags": [
+        "matrix",
+        "zip",
+        "2d-arrays"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-sorting",
+      "title": "Implement bubble sort and merge sort",
+      "level": "intermediate",
+      "category": "arrays",
+      "tags": [
+        "sorting",
+        "divide-and-conquer",
+        "recursion",
+        "algorithms"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-balanced-brackets",
+      "title": "Balanced parentheses",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "stack",
+        "strings",
+        "parsing"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-group-anagrams",
+      "title": "Group anagrams",
+      "level": "intermediate",
+      "category": "hashing",
+      "tags": [
+        "hash-map",
+        "strings",
+        "defaultdict",
+        "sorting"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-timing-decorator",
+      "title": "Write a timing decorator",
+      "level": "intermediate",
+      "category": "language-feature",
+      "tags": [
+        "decorators",
+        "functools",
+        "timing"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "py-ex-retry-decorator",
+      "title": "Write a retry decorator",
+      "level": "intermediate",
+      "category": "language-feature",
+      "tags": [
+        "decorators",
+        "decorator-factory",
+        "exceptions",
+        "resilience"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "py-ex-custom-range",
+      "title": "Write your own `range` as a generator",
+      "level": "intermediate",
+      "category": "language-feature",
+      "tags": [
+        "generators",
+        "iterators",
+        "yield"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-context-manager",
+      "title": "Write a context manager that temporarily changes a value",
+      "level": "intermediate",
+      "category": "language-feature",
+      "tags": [
+        "context-managers",
+        "contextlib",
+        "with",
+        "testing"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "py-ex-lru-cache",
+      "title": "Implement an LRU cache",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "lru-cache",
+        "ordereddict",
+        "linked-list",
+        "hash-map",
+        "design"
+      ],
+      "solutionCount": 2
+    }
+  ],
+  "quickConcepts": [
+    {
+      "id": "py-qc-walrus-operator",
+      "sectionId": "py-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is the walrus operator (`:=`)?",
+      "tags": [
+        "syntax",
+        "assignment-expression"
+      ]
+    },
+    {
+      "id": "py-qc-match-case",
+      "sectionId": "py-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is structural pattern matching (`match` / `case`)?",
+      "tags": [
+        "syntax",
+        "pattern-matching",
+        "python-3-10"
+      ]
+    },
+    {
+      "id": "py-qc-slots",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What does `__slots__` do?",
+      "tags": [
+        "oop",
+        "memory",
+        "performance"
+      ]
+    },
+    {
+      "id": "py-qc-descriptors",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is a descriptor?",
+      "tags": [
+        "oop",
+        "descriptors",
+        "property",
+        "data-model"
+      ]
+    },
+    {
+      "id": "py-qc-metaclass",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is a metaclass?",
+      "tags": [
+        "oop",
+        "metaclass",
+        "type"
+      ]
+    },
+    {
+      "id": "py-qc-getattr-vs-getattribute",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is the difference between `__getattr__` and `__getattribute__`?",
+      "tags": [
+        "oop",
+        "data-model",
+        "attributes"
+      ]
+    },
+    {
+      "id": "py-qc-weakref",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is a weak reference (`weakref`)?",
+      "tags": [
+        "memory",
+        "weakref",
+        "caching"
+      ]
+    },
+    {
+      "id": "py-qc-dis-bytecode",
+      "sectionId": "py-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is the `dis` module used for?",
+      "tags": [
+        "bytecode",
+        "dis",
+        "cpython",
+        "debugging"
+      ]
+    },
+    {
+      "id": "py-qc-exception-groups",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are `ExceptionGroup` and `except*`?",
+      "tags": [
+        "exceptions",
+        "exception-groups",
+        "asyncio",
+        "python-3-11"
+      ]
+    },
+    {
+      "id": "py-qc-free-threaded",
+      "sectionId": "py-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is free-threaded Python?",
+      "tags": [
+        "gil",
+        "free-threading",
+        "pep-703",
+        "concurrency"
+      ]
+    }
+  ]
+}

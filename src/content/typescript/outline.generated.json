@@ -1,0 +1,1396 @@
+{
+  "id": "typescript",
+  "name": "TypeScript",
+  "slug": "typescript",
+  "accent": "blue",
+  "icon": "file-type",
+  "description": "The type system in practice: narrowing, generics, utility types, type vs interface, and the config flags that matter.",
+  "sections": [
+    {
+      "id": "ts-basics",
+      "title": "Basics",
+      "description": "What TypeScript adds on top of JavaScript, the everyday types, and the special types `any`, `unknown` and `never`.",
+      "order": 1,
+      "module": "basics",
+      "questions": [
+        {
+          "id": "ts-what-is-typescript",
+          "sectionId": "ts-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is TypeScript, and why would you use it over plain JavaScript?",
+          "tags": [
+            "basics",
+            "static-typing",
+            "compiler",
+            "type-erasure"
+          ]
+        },
+        {
+          "id": "ts-type-inference",
+          "sectionId": "ts-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is type inference? When should you write type annotations explicitly?",
+          "tags": [
+            "type-inference",
+            "annotations",
+            "basics"
+          ]
+        },
+        {
+          "id": "ts-arrays-tuples",
+          "sectionId": "ts-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you type arrays and tuples, and how is a tuple different from an array?",
+          "tags": [
+            "arrays",
+            "tuples",
+            "readonly",
+            "basics"
+          ]
+        },
+        {
+          "id": "ts-literal-types",
+          "sectionId": "ts-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are literal types, and why does `let` infer a wider type than `const`?",
+          "tags": [
+            "literal-types",
+            "widening",
+            "unions",
+            "inference"
+          ]
+        },
+        {
+          "id": "ts-null-undefined-strict",
+          "sectionId": "ts-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How does TypeScript handle `null` and `undefined`? What does `strictNullChecks` change?",
+          "tags": [
+            "null",
+            "undefined",
+            "strict-null-checks",
+            "optional"
+          ]
+        },
+        {
+          "id": "ts-any-unknown-never",
+          "sectionId": "ts-basics",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between `any`, `unknown` and `never`?",
+          "tags": [
+            "any",
+            "unknown",
+            "never",
+            "type-safety",
+            "narrowing"
+          ]
+        },
+        {
+          "id": "ts-type-assertions",
+          "sectionId": "ts-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a type assertion (`as`), and how is it different from type casting?",
+          "tags": [
+            "type-assertions",
+            "as",
+            "non-null-assertion",
+            "type-safety"
+          ]
+        },
+        {
+          "id": "ts-enums-vs-unions",
+          "sectionId": "ts-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are enums in TypeScript, and why do many teams prefer union types instead?",
+          "tags": [
+            "enums",
+            "unions",
+            "literal-types",
+            "runtime"
+          ]
+        },
+        {
+          "id": "ts-as-const",
+          "sectionId": "ts-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does `as const` do?",
+          "tags": [
+            "as-const",
+            "const-assertions",
+            "readonly",
+            "literal-types"
+          ]
+        },
+        {
+          "id": "ts-satisfies",
+          "sectionId": "ts-basics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does the `satisfies` operator do, and how is it different from a type annotation?",
+          "tags": [
+            "satisfies",
+            "annotations",
+            "inference",
+            "typescript-4-9"
+          ]
+        },
+        {
+          "id": "ts-object-vs-empty-object",
+          "sectionId": "ts-basics",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is the difference between `object`, `Object` and `{}` as types?",
+          "tags": [
+            "object",
+            "empty-object-type",
+            "primitives",
+            "type-safety"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-objects-interfaces",
+      "title": "Types, Interfaces & Objects",
+      "description": "Describing object shapes: `type` vs `interface`, structural typing, optional and readonly properties, index signatures and excess property checks.",
+      "order": 2,
+      "module": "objects-interfaces",
+      "questions": [
+        {
+          "id": "ts-type-vs-interface",
+          "sectionId": "ts-objects-interfaces",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between `type` and `interface`? When do you use each?",
+          "tags": [
+            "type-alias",
+            "interface",
+            "declaration-merging",
+            "objects"
+          ]
+        },
+        {
+          "id": "ts-structural-typing",
+          "sectionId": "ts-objects-interfaces",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What does it mean that TypeScript is structurally typed?",
+          "tags": [
+            "structural-typing",
+            "duck-typing",
+            "compatibility"
+          ]
+        },
+        {
+          "id": "ts-optional-readonly-properties",
+          "sectionId": "ts-objects-interfaces",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do optional (`?`) and `readonly` properties work?",
+          "tags": [
+            "optional-properties",
+            "readonly",
+            "objects",
+            "interfaces"
+          ]
+        },
+        {
+          "id": "ts-extends-vs-intersection",
+          "sectionId": "ts-objects-interfaces",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you combine or extend object types? Compare `extends` and `&`.",
+          "tags": [
+            "extends",
+            "intersection",
+            "interfaces",
+            "composition"
+          ]
+        },
+        {
+          "id": "ts-excess-property-checks",
+          "sectionId": "ts-objects-interfaces",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why does TypeScript reject an extra property in an object literal but accept it from a variable?",
+          "tags": [
+            "excess-property-checks",
+            "structural-typing",
+            "object-literals",
+            "freshness"
+          ]
+        },
+        {
+          "id": "ts-index-signatures-record",
+          "sectionId": "ts-objects-interfaces",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you type an object with dynamic keys? Compare index signatures and `Record`.",
+          "tags": [
+            "index-signatures",
+            "record",
+            "dictionaries",
+            "no-unchecked-indexed-access"
+          ]
+        },
+        {
+          "id": "ts-readonly-vs-const",
+          "sectionId": "ts-objects-interfaces",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is the difference between `const`, `readonly`, `Readonly<T>` and `Object.freeze`?",
+          "tags": [
+            "readonly",
+            "const",
+            "object-freeze",
+            "immutability"
+          ]
+        },
+        {
+          "id": "ts-optional-vs-undefined",
+          "sectionId": "ts-objects-interfaces",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is the difference between `name?: string` and `name: string | undefined`?",
+          "tags": [
+            "optional-properties",
+            "undefined",
+            "exact-optional-property-types"
+          ]
+        },
+        {
+          "id": "ts-declaration-merging",
+          "sectionId": "ts-objects-interfaces",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is declaration merging, and how do you use it to extend third-party types?",
+          "tags": [
+            "declaration-merging",
+            "interfaces",
+            "module-augmentation",
+            "global"
+          ]
+        },
+        {
+          "id": "ts-object-entries-typing",
+          "sectionId": "ts-objects-interfaces",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How are `Object.keys` and `Object.entries` typed, and how do you iterate an object type-safely?",
+          "tags": [
+            "object-entries",
+            "object-keys",
+            "index-signatures",
+            "iteration"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-unions-narrowing",
+      "title": "Unions & Narrowing",
+      "description": "Union and intersection types, narrowing with typeof / instanceof / in, discriminated unions, custom type guards and assertion functions.",
+      "order": 3,
+      "module": "unions-narrowing",
+      "questions": [
+        {
+          "id": "ts-union-intersection",
+          "sectionId": "ts-unions-narrowing",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are union and intersection types?",
+          "tags": [
+            "union",
+            "intersection",
+            "type-sets"
+          ]
+        },
+        {
+          "id": "ts-type-narrowing",
+          "sectionId": "ts-unions-narrowing",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is type narrowing? What are the ways to narrow a type?",
+          "tags": [
+            "narrowing",
+            "typeof",
+            "instanceof",
+            "in-operator",
+            "control-flow-analysis"
+          ]
+        },
+        {
+          "id": "ts-union-common-members",
+          "sectionId": "ts-unions-narrowing",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Why can you only access some properties on a union of object types?",
+          "tags": [
+            "union",
+            "property-access",
+            "narrowing",
+            "in-operator"
+          ]
+        },
+        {
+          "id": "ts-discriminated-unions",
+          "sectionId": "ts-unions-narrowing",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is a discriminated (tagged) union, and why is it useful?",
+          "tags": [
+            "discriminated-unions",
+            "narrowing",
+            "exhaustiveness",
+            "state-modeling"
+          ]
+        },
+        {
+          "id": "ts-type-predicates",
+          "sectionId": "ts-unions-narrowing",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a user-defined type guard (`value is Type`), and when do you need one?",
+          "tags": [
+            "type-guards",
+            "type-predicates",
+            "narrowing",
+            "filter"
+          ]
+        },
+        {
+          "id": "ts-catch-unknown",
+          "sectionId": "ts-unions-narrowing",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why is the `catch` variable `unknown`, and how do you handle errors in a type-safe way?",
+          "tags": [
+            "errors",
+            "unknown",
+            "catch",
+            "result-type"
+          ]
+        },
+        {
+          "id": "ts-assertion-functions",
+          "sectionId": "ts-unions-narrowing",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is an assertion function (`asserts value is Type`)?",
+          "tags": [
+            "assertion-functions",
+            "asserts",
+            "narrowing",
+            "invariants"
+          ]
+        },
+        {
+          "id": "ts-narrowing-pitfalls",
+          "sectionId": "ts-unions-narrowing",
+          "level": "advanced",
+          "priority": 1,
+          "question": "When does TypeScript lose (or wrongly keep) a narrowed type?",
+          "tags": [
+            "narrowing",
+            "control-flow-analysis",
+            "callbacks",
+            "soundness"
+          ]
+        },
+        {
+          "id": "ts-mutually-exclusive-props",
+          "sectionId": "ts-unions-narrowing",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you type \"either A or B, but not both\" props?",
+          "tags": [
+            "unions",
+            "never",
+            "xor",
+            "api-design"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-functions-classes",
+      "title": "Functions & Classes",
+      "description": "Typing functions and callbacks, overloads, `this`, access modifiers vs `#private`, abstract classes, `implements` and decorators.",
+      "order": 4,
+      "module": "functions-classes",
+      "questions": [
+        {
+          "id": "ts-access-modifiers",
+          "sectionId": "ts-functions-classes",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are `public`, `private` and `protected`, and how is `private` different from `#private`?",
+          "tags": [
+            "classes",
+            "access-modifiers",
+            "private-fields",
+            "encapsulation"
+          ]
+        },
+        {
+          "id": "ts-function-types",
+          "sectionId": "ts-functions-classes",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you type functions in TypeScript: parameters, return values, optional, default and rest parameters?",
+          "tags": [
+            "functions",
+            "parameters",
+            "return-types",
+            "callbacks"
+          ]
+        },
+        {
+          "id": "ts-parameter-properties",
+          "sectionId": "ts-functions-classes",
+          "level": "foundation",
+          "priority": 1,
+          "question": "What are parameter properties in a TypeScript class constructor?",
+          "tags": [
+            "classes",
+            "constructors",
+            "parameter-properties",
+            "readonly"
+          ]
+        },
+        {
+          "id": "ts-static-accessors",
+          "sectionId": "ts-functions-classes",
+          "level": "foundation",
+          "priority": 1,
+          "question": "How do static members, getters and setters work in TypeScript classes?",
+          "tags": [
+            "classes",
+            "static",
+            "getters-setters",
+            "accessors"
+          ]
+        },
+        {
+          "id": "ts-function-overloads",
+          "sectionId": "ts-functions-classes",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are function overloads, and when should you use them instead of a union or generic?",
+          "tags": [
+            "overloads",
+            "functions",
+            "generics",
+            "unions"
+          ]
+        },
+        {
+          "id": "ts-abstract-classes",
+          "sectionId": "ts-functions-classes",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is an abstract class, and how is it different from an interface?",
+          "tags": [
+            "classes",
+            "abstract",
+            "interfaces",
+            "implements",
+            "oop"
+          ]
+        },
+        {
+          "id": "ts-void-callbacks",
+          "sectionId": "ts-functions-classes",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Why can a function that returns a value be passed where `() => void` is expected?",
+          "tags": [
+            "void",
+            "callbacks",
+            "assignability",
+            "functions"
+          ]
+        },
+        {
+          "id": "ts-custom-errors",
+          "sectionId": "ts-functions-classes",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you create and handle custom error classes in TypeScript?",
+          "tags": [
+            "errors",
+            "classes",
+            "instanceof",
+            "error-cause"
+          ]
+        },
+        {
+          "id": "ts-function-type-avoid",
+          "sectionId": "ts-functions-classes",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Why should you avoid the `Function` type, and what should you use instead?",
+          "tags": [
+            "functions",
+            "function-type",
+            "type-safety",
+            "callbacks"
+          ]
+        },
+        {
+          "id": "ts-this-parameter",
+          "sectionId": "ts-functions-classes",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you type `this` in TypeScript functions and methods?",
+          "tags": [
+            "this",
+            "functions",
+            "classes",
+            "this-types"
+          ]
+        },
+        {
+          "id": "ts-decorators",
+          "sectionId": "ts-functions-classes",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are decorators in TypeScript?",
+          "tags": [
+            "decorators",
+            "classes",
+            "metaprogramming",
+            "typescript-5"
+          ]
+        },
+        {
+          "id": "ts-mixins",
+          "sectionId": "ts-functions-classes",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you implement mixins in TypeScript?",
+          "tags": [
+            "mixins",
+            "classes",
+            "generics",
+            "composition"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-generics",
+      "title": "Generics",
+      "description": "Type parameters for reusable, type-safe code: generic functions, interfaces and classes, constraints, `keyof`, defaults, inference and variance.",
+      "order": 5,
+      "module": "generics",
+      "questions": [
+        {
+          "id": "ts-generics-basics",
+          "sectionId": "ts-generics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are generics, and why use them instead of `any`?",
+          "tags": [
+            "generics",
+            "type-parameters",
+            "reusability",
+            "type-safety"
+          ]
+        },
+        {
+          "id": "ts-generic-interfaces-classes",
+          "sectionId": "ts-generics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you write generic interfaces, type aliases and classes?",
+          "tags": [
+            "generics",
+            "interfaces",
+            "classes",
+            "api-types"
+          ]
+        },
+        {
+          "id": "ts-promise-types",
+          "sectionId": "ts-generics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you type async functions and promises?",
+          "tags": [
+            "promises",
+            "async-await",
+            "awaited",
+            "generics"
+          ]
+        },
+        {
+          "id": "ts-generic-constraints",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What are generic constraints (`T extends ...`)?",
+          "tags": [
+            "generics",
+            "constraints",
+            "extends",
+            "keyof"
+          ]
+        },
+        {
+          "id": "ts-generic-keyof",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you write a type-safe `getProperty(obj, key)` function?",
+          "tags": [
+            "generics",
+            "keyof",
+            "indexed-access",
+            "constraints"
+          ]
+        },
+        {
+          "id": "ts-generic-inference",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How does TypeScript infer generic type arguments, and when do you pass them explicitly?",
+          "tags": [
+            "generics",
+            "inference",
+            "const-type-parameters",
+            "no-infer"
+          ]
+        },
+        {
+          "id": "ts-extends-meanings",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are the different meanings of `extends` in TypeScript?",
+          "tags": [
+            "extends",
+            "generics",
+            "conditional-types",
+            "interfaces"
+          ]
+        },
+        {
+          "id": "ts-generic-defaults",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What are default type parameters?",
+          "tags": [
+            "generics",
+            "defaults",
+            "api-design"
+          ]
+        },
+        {
+          "id": "ts-generics-vs-unions",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "When should you use a generic, and when is a union or a plain type better?",
+          "tags": [
+            "generics",
+            "unions",
+            "api-design",
+            "best-practices"
+          ]
+        },
+        {
+          "id": "ts-generator-types",
+          "sectionId": "ts-generics",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you type generators and iterators?",
+          "tags": [
+            "generators",
+            "iterators",
+            "iterable",
+            "generics"
+          ]
+        },
+        {
+          "id": "ts-variance",
+          "sectionId": "ts-generics",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What are covariance and contravariance, and how do they apply to TypeScript?",
+          "tags": [
+            "variance",
+            "covariance",
+            "contravariance",
+            "strict-function-types",
+            "soundness"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-advanced-types",
+      "title": "Type Operators & Advanced Types",
+      "description": "`keyof`, `typeof`, indexed access, utility types, mapped and conditional types, `infer`, template literal types and recursive types.",
+      "order": 6,
+      "module": "advanced-types",
+      "questions": [
+        {
+          "id": "ts-keyof-typeof",
+          "sectionId": "ts-advanced-types",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What do `keyof` and `typeof` do in a type position?",
+          "tags": [
+            "keyof",
+            "typeof",
+            "type-operators",
+            "derived-types"
+          ]
+        },
+        {
+          "id": "ts-utility-types",
+          "sectionId": "ts-advanced-types",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "Which built-in utility types do you use most? Explain `Partial`, `Required`, `Readonly`, `Pick`, `Omit` and `Record`.",
+          "tags": [
+            "utility-types",
+            "partial",
+            "pick",
+            "omit",
+            "record",
+            "readonly"
+          ]
+        },
+        {
+          "id": "ts-indexed-access-types",
+          "sectionId": "ts-advanced-types",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are indexed access types (`T[\"key\"]`, `T[number]`)?",
+          "tags": [
+            "indexed-access",
+            "lookup-types",
+            "derived-types"
+          ]
+        },
+        {
+          "id": "ts-mapped-types",
+          "sectionId": "ts-advanced-types",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a mapped type? Implement `Partial` and `Readonly` yourself.",
+          "tags": [
+            "mapped-types",
+            "keyof",
+            "modifiers",
+            "utility-types"
+          ]
+        },
+        {
+          "id": "ts-more-utility-types",
+          "sectionId": "ts-advanced-types",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do `ReturnType`, `Parameters`, `Exclude`, `Extract`, `NonNullable` and `Awaited` do?",
+          "tags": [
+            "utility-types",
+            "return-type",
+            "parameters",
+            "exclude",
+            "extract",
+            "awaited"
+          ]
+        },
+        {
+          "id": "ts-instance-type",
+          "sectionId": "ts-advanced-types",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you type a function that receives a class and creates instances of it?",
+          "tags": [
+            "constructors",
+            "instance-type",
+            "constructor-parameters",
+            "factories"
+          ]
+        },
+        {
+          "id": "ts-conditional-types",
+          "sectionId": "ts-advanced-types",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What are conditional types?",
+          "tags": [
+            "conditional-types",
+            "extends",
+            "type-level-programming"
+          ]
+        },
+        {
+          "id": "ts-infer-keyword",
+          "sectionId": "ts-advanced-types",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What does the `infer` keyword do? Implement `ReturnType` yourself.",
+          "tags": [
+            "infer",
+            "conditional-types",
+            "type-level-programming"
+          ]
+        },
+        {
+          "id": "ts-template-literal-types",
+          "sectionId": "ts-advanced-types",
+          "level": "advanced",
+          "priority": 2,
+          "question": "What are template literal types?",
+          "tags": [
+            "template-literal-types",
+            "string-manipulation",
+            "mapped-types"
+          ]
+        },
+        {
+          "id": "ts-distributive-conditional",
+          "sectionId": "ts-advanced-types",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What is a distributive conditional type, and how do you prevent distribution?",
+          "tags": [
+            "conditional-types",
+            "distribution",
+            "unions",
+            "never"
+          ]
+        },
+        {
+          "id": "ts-key-remapping",
+          "sectionId": "ts-advanced-types",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you rename or filter keys in a mapped type (`as` clause)?",
+          "tags": [
+            "mapped-types",
+            "key-remapping",
+            "template-literal-types"
+          ]
+        },
+        {
+          "id": "ts-recursive-types",
+          "sectionId": "ts-advanced-types",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you write recursive types such as `DeepPartial`, `DeepReadonly` or a JSON type?",
+          "tags": [
+            "recursive-types",
+            "mapped-types",
+            "json",
+            "deep-readonly"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-config-tooling",
+      "title": "Configuration, Modules & Tooling",
+      "description": "The tsconfig flags that matter, declaration files, type-only imports, runtime validation, how TypeScript is compiled in modern toolchains, and migrating from JavaScript.",
+      "order": 7,
+      "module": "config-tooling",
+      "questions": [
+        {
+          "id": "ts-tsconfig-strict",
+          "sectionId": "ts-config-tooling",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What does `\"strict\": true` in tsconfig enable, and why should it be on?",
+          "tags": [
+            "tsconfig",
+            "strict",
+            "compiler-options",
+            "strict-null-checks"
+          ]
+        },
+        {
+          "id": "ts-declaration-files",
+          "sectionId": "ts-config-tooling",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are `.d.ts` declaration files and `@types` packages?",
+          "tags": [
+            "declaration-files",
+            "d-ts",
+            "definitely-typed",
+            "declare"
+          ]
+        },
+        {
+          "id": "ts-runtime-validation",
+          "sectionId": "ts-config-tooling",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "TypeScript types disappear at runtime — how do you validate external data such as API responses?",
+          "tags": [
+            "runtime-validation",
+            "zod",
+            "type-erasure",
+            "api"
+          ]
+        },
+        {
+          "id": "ts-no-unchecked-indexed-access",
+          "sectionId": "ts-config-tooling",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What does `noUncheckedIndexedAccess` do, and why is it not part of `strict`?",
+          "tags": [
+            "tsconfig",
+            "no-unchecked-indexed-access",
+            "arrays",
+            "safety"
+          ]
+        },
+        {
+          "id": "ts-type-only-imports",
+          "sectionId": "ts-config-tooling",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What are type-only imports (`import type`), and what does `verbatimModuleSyntax` do?",
+          "tags": [
+            "modules",
+            "import-type",
+            "verbatim-module-syntax",
+            "isolated-modules"
+          ]
+        },
+        {
+          "id": "ts-tsc-vs-transpilers",
+          "sectionId": "ts-config-tooling",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How is TypeScript compiled in modern toolchains? What is the difference between `tsc`, esbuild/swc and type stripping?",
+          "tags": [
+            "tsc",
+            "esbuild",
+            "swc",
+            "type-stripping",
+            "build-tools"
+          ]
+        },
+        {
+          "id": "ts-js-migration",
+          "sectionId": "ts-config-tooling",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How would you migrate an existing JavaScript project to TypeScript?",
+          "tags": [
+            "migration",
+            "allow-js",
+            "check-js",
+            "jsdoc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ts-output-prediction",
+      "title": "Compiles, But…",
+      "description": "Puzzles where the code type-checks under `strict` yet behaves surprisingly at runtime. Each one teaches where TypeScript’s guarantees end.",
+      "order": 8,
+      "module": "output-prediction",
+      "questions": [
+        {
+          "id": "ts-out-any-contagious",
+          "sectionId": "ts-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "`any` meets a `number` annotation. What does this print?\n\n```typescript\nconst data: any = JSON.parse('{\"price\": \"100\"}');\nconst total: number = data.price + 50;\n\nconsole.log(total, typeof total);\nconsole.log(total.toFixed(2));\n```",
+          "tags": [
+            "output-prediction",
+            "any",
+            "type-safety",
+            "coercion"
+          ]
+        },
+        {
+          "id": "ts-out-array-index",
+          "sectionId": "ts-output-prediction",
+          "level": "foundation",
+          "priority": 2,
+          "question": "Indexing an empty array. Does the compiler stop this?\n\n```typescript\ninterface Order { id: number; total: number }\nconst orders: Order[] = [];\n\nconst latest = orders[orders.length - 1];\nconsole.log(latest);\nconsole.log(latest.total);\n```",
+          "tags": [
+            "output-prediction",
+            "arrays",
+            "no-unchecked-indexed-access",
+            "undefined"
+          ]
+        },
+        {
+          "id": "ts-out-numeric-enum-keys",
+          "sectionId": "ts-output-prediction",
+          "level": "foundation",
+          "priority": 1,
+          "question": "Listing the members of a numeric enum. What does this print?\n\n```typescript\nenum Priority { Low, Medium, High }\n\nconsole.log(Object.keys(Priority));\nconsole.log(Object.values(Priority).length);\nconsole.log(Priority[Priority.High]);\n```",
+          "tags": [
+            "output-prediction",
+            "enums",
+            "reverse-mapping",
+            "object-keys"
+          ]
+        },
+        {
+          "id": "ts-out-tuple-push",
+          "sectionId": "ts-output-prediction",
+          "level": "foundation",
+          "priority": 1,
+          "question": "A fixed-length tuple and `push`. What does this print?\n\n```typescript\nconst pair: [string, number] = [\"age\", 30];\npair.push(99);\n\nconsole.log(pair.length, pair);\nconst [, second, third] = pair as unknown as unknown[];\nconsole.log(second, third);\n```",
+          "tags": [
+            "output-prediction",
+            "tuples",
+            "readonly",
+            "arrays"
+          ]
+        },
+        {
+          "id": "ts-out-extra-props-leak",
+          "sectionId": "ts-output-prediction",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Narrowing an object to a \"public\" type. What gets sent?\n\n```typescript\ninterface PublicUser { id: number; name: string }\n\nconst dbRow = { id: 1, name: \"Rafi\", passwordHash: \"x9f2...\" };\nconst publicUser: PublicUser = dbRow;          // no error: not a fresh literal\n\nconsole.log(JSON.stringify(publicUser));\nconsole.log(Object.keys(publicUser).length);\n```",
+          "tags": [
+            "output-prediction",
+            "structural-typing",
+            "excess-property-checks",
+            "security",
+            "json"
+          ]
+        },
+        {
+          "id": "ts-out-object-keys-string",
+          "sectionId": "ts-output-prediction",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Why does `Object.keys` return `string[]`? What does this print?\n\n```typescript\ninterface Point { x: number; y: number }\n\nfunction sum(p: Point): number {\n  let total = 0;\n  for (const key of Object.keys(p)) {\n    total += p[key as keyof Point];\n  }\n  return total;\n}\n\nconst point3d = { x: 1, y: 2, z: \"oops\" };\nconsole.log(sum(point3d));\n```",
+          "tags": [
+            "output-prediction",
+            "object-keys",
+            "structural-typing",
+            "keyof"
+          ]
+        },
+        {
+          "id": "ts-out-numeric-enum-any-number",
+          "sectionId": "ts-output-prediction",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "Passing a number to a numeric-enum parameter. What does this print?\n\n```typescript\nenum Role { Viewer, Editor, Admin }\n\nfunction label(role: Role): string {\n  return Role[role] ?? \"unknown\";\n}\n\nconst fromApi: number = 7;\nconsole.log(label(Role.Admin), label(fromApi));\n```",
+          "tags": [
+            "output-prediction",
+            "enums",
+            "type-safety",
+            "numbers"
+          ]
+        },
+        {
+          "id": "ts-out-definite-assignment",
+          "sectionId": "ts-output-prediction",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "A class field with `!`. What does this print?\n\n```typescript\nclass Session {\n  token!: string;                  // \"trust me, it will be set\"\n\n  load(raw: string) { this.token = raw; }\n  header() { return \"Bearer \" + this.token.slice(0, 4); }\n}\n\nconst s = new Session();\nconsole.log(Object.keys(s), s.token);\nconsole.log(s.header());\n```",
+          "tags": [
+            "output-prediction",
+            "classes",
+            "definite-assignment",
+            "strict-property-initialization"
+          ]
+        },
+        {
+          "id": "ts-out-method-bivariance",
+          "sectionId": "ts-output-prediction",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Method shorthand vs a narrower parameter. Does this crash?\n\n```typescript\ninterface Formatter {\n  format(value: string | number): string;\n}\n\nconst upper: Formatter = {\n  format(value: string) {          // narrower parameter than the interface\n    return value.toUpperCase();\n  },\n};\n\nconsole.log(upper.format(\"ok\"));\nconsole.log(upper.format(42));\n```",
+          "tags": [
+            "output-prediction",
+            "variance",
+            "bivariance",
+            "methods",
+            "strict-function-types"
+          ]
+        }
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "id": "ts-ex-generic-stack",
+      "title": "Generic Stack<T>",
+      "level": "foundation",
+      "category": "implementation",
+      "tags": [
+        "generics",
+        "classes",
+        "data-structures"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-typed-pick",
+      "title": "Type-safe pick and omit",
+      "level": "foundation",
+      "category": "implementation",
+      "tags": [
+        "generics",
+        "keyof",
+        "utility-types",
+        "objects"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "ts-ex-type-guard",
+      "title": "Validate unknown data with a type guard",
+      "level": "foundation",
+      "category": "language-feature",
+      "tags": [
+        "type-guards",
+        "unknown",
+        "narrowing",
+        "validation"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-typed-group-by",
+      "title": "Generic groupBy",
+      "level": "intermediate",
+      "category": "hashing",
+      "tags": [
+        "generics",
+        "record",
+        "property-key",
+        "arrays"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "ts-ex-utility-types",
+      "title": "Implement the built-in utility types",
+      "level": "intermediate",
+      "category": "language-feature",
+      "tags": [
+        "utility-types",
+        "mapped-types",
+        "conditional-types",
+        "infer"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-cart-reducer",
+      "title": "Exhaustive reducer with a discriminated union",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "discriminated-unions",
+        "reducers",
+        "never",
+        "immutability"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-result-type",
+      "title": "A Result type for errors without exceptions",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "result-type",
+        "discriminated-unions",
+        "error-handling",
+        "generics"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-typed-debounce",
+      "title": "Debounce that preserves argument types",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "generics",
+        "parameters",
+        "debounce",
+        "higher-order-functions"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "ts-ex-linked-list",
+      "title": "Generic, iterable LinkedList<T>",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "generics",
+        "classes",
+        "iterators",
+        "data-structures"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-typed-event-emitter",
+      "title": "Strongly typed event emitter",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "generics",
+        "keyof",
+        "mapped-types",
+        "events"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-deep-readonly",
+      "title": "DeepReadonly type and a matching deepFreeze",
+      "level": "advanced",
+      "category": "language-feature",
+      "tags": [
+        "recursive-types",
+        "mapped-types",
+        "conditional-types",
+        "immutability"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "ts-ex-camel-case-keys",
+      "title": "Convert snake_case keys to camelCase — at runtime and in the type",
+      "level": "advanced",
+      "category": "strings",
+      "tags": [
+        "template-literal-types",
+        "key-remapping",
+        "infer",
+        "api"
+      ],
+      "solutionCount": 1
+    }
+  ],
+  "quickConcepts": [
+    {
+      "id": "ts-qc-branded-types",
+      "sectionId": "ts-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are branded types?",
+      "tags": [
+        "nominal-typing",
+        "patterns",
+        "structural-typing"
+      ]
+    },
+    {
+      "id": "ts-qc-ts-expect-error",
+      "sectionId": "ts-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is the difference between `// @ts-expect-error` and `// @ts-ignore`?",
+      "tags": [
+        "directives",
+        "ts-expect-error",
+        "ts-ignore"
+      ]
+    },
+    {
+      "id": "ts-qc-override-keyword",
+      "sectionId": "ts-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What does the `override` keyword do?",
+      "tags": [
+        "classes",
+        "override",
+        "inheritance",
+        "no-implicit-override"
+      ]
+    },
+    {
+      "id": "ts-qc-using-declarations",
+      "sectionId": "ts-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are `using` declarations (explicit resource management)?",
+      "tags": [
+        "using",
+        "symbol-dispose",
+        "resource-management",
+        "typescript-5-2"
+      ]
+    },
+    {
+      "id": "ts-qc-call-construct-signatures",
+      "sectionId": "ts-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are call signatures and construct signatures?",
+      "tags": [
+        "call-signatures",
+        "construct-signatures",
+        "functions",
+        "interfaces"
+      ]
+    },
+    {
+      "id": "ts-qc-namespaces",
+      "sectionId": "ts-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What are namespaces, and should you still use them?",
+      "tags": [
+        "namespaces",
+        "modules",
+        "legacy"
+      ]
+    },
+    {
+      "id": "ts-qc-project-references",
+      "sectionId": "ts-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are project references (`tsc --build`)?",
+      "tags": [
+        "tsconfig",
+        "monorepo",
+        "project-references",
+        "build"
+      ]
+    },
+    {
+      "id": "ts-qc-isolated-declarations",
+      "sectionId": "ts-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is `isolatedDeclarations`?",
+      "tags": [
+        "tsconfig",
+        "declaration-files",
+        "build-performance",
+        "typescript-5-5"
+      ]
+    }
+  ]
+}

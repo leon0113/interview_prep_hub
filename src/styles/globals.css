@@ -1,0 +1,449 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                       */
+/* ------------------------------------------------------------------ */
+
+@theme inline {
+  --font-sans:
+    'Inter Variable', 'Hind Siliguri', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+    sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono',
+    monospace;
+  /* Latin glyphs still come from Inter; Bangla glyphs from Hind Siliguri. */
+  --font-bn: 'Inter Variable', 'Hind Siliguri', 'Noto Sans Bengali', system-ui, sans-serif;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-subtle: var(--subtle);
+
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-text: var(--accent-text);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-border: var(--accent-border);
+  --color-accent-2: var(--accent-2);
+
+  --color-level-foundation: var(--level-foundation);
+  --color-level-intermediate: var(--level-intermediate);
+  --color-level-advanced: var(--level-advanced);
+
+  --shadow-card: var(--shadow-card-value);
+  --shadow-pop: var(--shadow-pop-value);
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #fcfcfd;
+  --surface: #ffffff;
+  --surface-2: #f4f4f6;
+  --border: #e7e7ec;
+  --border-strong: #d4d4dc;
+  --fg: #18181b;
+  --muted: #5b5b66;
+  --subtle: #62626c;
+
+  --level-foundation: #086c49;
+  --level-intermediate: #935100;
+  --level-advanced: #ab2554;
+
+  --shadow-card-value: 0 1px 2px rgb(16 16 24 / 0.04), 0 1px 1px rgb(16 16 24 / 0.03);
+  --shadow-pop-value: 0 12px 32px -8px rgb(16 16 24 / 0.18), 0 2px 6px rgb(16 16 24 / 0.06);
+
+  /* Brand accent (used outside any track) */
+  --accent: #6d5ae6;
+  --accent-fg: #ffffff;
+  --accent-text: #5b47d6;
+  --accent-soft: #f1effe;
+  --accent-border: #d9d3fb;
+  --accent-2: var(--accent);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --bg: #0b0b0e;
+  --surface: #131318;
+  --surface-2: #1b1b22;
+  --border: #25252e;
+  --border-strong: #363642;
+  --fg: #ededf0;
+  --muted: #a3a3af;
+  --subtle: #8e8e9b;
+
+  --level-foundation: #5ad1a4;
+  --level-intermediate: #fbc94a;
+  --level-advanced: #ff8fb3;
+
+  --shadow-card-value: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-pop-value: 0 16px 40px -8px rgb(0 0 0 / 0.7), 0 2px 8px rgb(0 0 0 / 0.4);
+
+  --accent: #8f7ff5;
+  --accent-fg: #0f0b24;
+  --accent-text: #a99cff;
+  --accent-soft: #1d1a36;
+  --accent-border: #37316b;
+}
+
+/* ------------------------------------------------------------------ */
+/* Track accents — a track picks one by name (see content/schema.ts)   */
+/* ------------------------------------------------------------------ */
+
+[data-accent='azure'] {
+  --accent: #17719f;
+  --accent-fg: #ffffff;
+  --accent-text: #12648f;
+  --accent-soft: #e8f4fb;
+  --accent-border: #bfe0f1;
+  --accent-2: #f5c518;
+}
+[data-accent='amber'] {
+  --accent: #f5b301;
+  --accent-fg: #1f1600;
+  --accent-text: #a35a00;
+  --accent-soft: #fff6dc;
+  --accent-border: #f3dc9c;
+  --accent-2: var(--accent);
+}
+[data-accent='blue'] {
+  --accent: #3b5bdb;
+  --accent-fg: #ffffff;
+  --accent-text: #3350c4;
+  --accent-soft: #ecf0fe;
+  --accent-border: #c9d3fa;
+  --accent-2: var(--accent);
+}
+/* SQL & PostgreSQL: teal-leaning, distinct from TypeScript's blue and the emerald track. */
+[data-accent='teal'] {
+  --accent: #0b7285;
+  --accent-fg: #ffffff;
+  --accent-text: #0a6476;
+  --accent-soft: #e3f4f6;
+  --accent-border: #b2dde4;
+  --accent-2: var(--accent);
+}
+[data-accent='emerald'] {
+  --accent: #0c7d56;
+  --accent-fg: #ffffff;
+  --accent-text: #0a6e4b;
+  --accent-soft: #e6f6ef;
+  --accent-border: #b9e5d3;
+  --accent-2: var(--accent);
+}
+[data-accent='rose'] {
+  --accent: #d6336c;
+  --accent-fg: #ffffff;
+  --accent-text: #c02a5f;
+  --accent-soft: #fdecf2;
+  --accent-border: #f7c4d6;
+  --accent-2: var(--accent);
+}
+[data-accent='violet'] {
+  --accent: #6d5ae6;
+  --accent-fg: #ffffff;
+  --accent-text: #5b47d6;
+  --accent-soft: #f1effe;
+  --accent-border: #d9d3fb;
+  --accent-2: var(--accent);
+}
+
+.dark [data-accent='azure'],
+.dark[data-accent='azure'] {
+  --accent: #4aa8d8;
+  --accent-fg: #05202e;
+  --accent-text: #6cc0ea;
+  --accent-soft: #10242f;
+  --accent-border: #1f4459;
+  --accent-2: #f5c518;
+}
+.dark [data-accent='amber'],
+.dark[data-accent='amber'] {
+  --accent: #f5b301;
+  --accent-fg: #1f1600;
+  --accent-text: #fbc94a;
+  --accent-soft: #2a2110;
+  --accent-border: #574413;
+}
+.dark [data-accent='blue'],
+.dark[data-accent='blue'] {
+  --accent: #6f8bf5;
+  --accent-fg: #0a1233;
+  --accent-text: #93a8ff;
+  --accent-soft: #171d38;
+  --accent-border: #2c3870;
+}
+.dark [data-accent='teal'],
+.dark[data-accent='teal'] {
+  --accent: #33b3c6;
+  --accent-fg: #032229;
+  --accent-text: #66cfdd;
+  --accent-soft: #0e2429;
+  --accent-border: #1d4a53;
+}
+.dark [data-accent='emerald'],
+.dark[data-accent='emerald'] {
+  --accent: #34b888;
+  --accent-fg: #03241a;
+  --accent-text: #5ad1a4;
+  --accent-soft: #10271f;
+  --accent-border: #1e4d3c;
+}
+.dark [data-accent='rose'],
+.dark[data-accent='rose'] {
+  --accent: #f06595;
+  --accent-fg: #33091a;
+  --accent-text: #ff8fb3;
+  --accent-soft: #2e1620;
+  --accent-border: #5c2a3d;
+}
+.dark [data-accent='violet'],
+.dark[data-accent='violet'] {
+  --accent: #8f7ff5;
+  --accent-fg: #0f0b24;
+  --accent-text: #a99cff;
+  --accent-soft: #1d1a36;
+  --accent-border: #37316b;
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-bg font-sans text-fg antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    @apply font-mono;
+    /* Show `===`, `!=` and `->` as typed, not as ligatures. */
+    font-variant-ligatures: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--accent) 28%, transparent);
+  }
+
+  /* Bangla reads better slightly larger and with more leading than Latin text. */
+  [lang='bn'] {
+    font-family: var(--font-bn);
+    line-height: 1.85;
+    font-size: 1.03em;
+  }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-strong) transparent;
+  }
+
+  .pb-safe {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Sheet / dialog motion (Radix data-state driven) */
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes overlay-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes sheet-in {
+  from {
+    transform: translateX(-100%);
+  }
+}
+@keyframes sheet-out {
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.98);
+  }
+}
+@keyframes nav-progress {
+  0% {
+    transform: translateX(-100%);
+  }
+  60% {
+    transform: translateX(-20%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Markdown (answers, prompts, explanations)                           */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  .md {
+    line-height: 1.75;
+    overflow-wrap: break-word;
+  }
+  .md > * + * {
+    margin-top: 0.75rem;
+  }
+  .md ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .md ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+  .md li + li {
+    margin-top: 0.375rem;
+  }
+  .md li::marker {
+    color: var(--subtle);
+  }
+  .md strong {
+    font-weight: 600;
+    color: var(--fg);
+  }
+  .md a {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .md code,
+  .md-inline code {
+    font-size: 0.875em;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.1em 0.35em;
+    overflow-wrap: anywhere;
+  }
+  .md pre {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: var(--surface-2);
+    padding: 0.875rem 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
+  /* Tables scroll sideways inside their card instead of widening the page. */
+  .md .md-table {
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .md table {
+    border-collapse: collapse;
+    font-size: 0.875em;
+    line-height: 1.5;
+    scrollbar-width: thin;
+  }
+  .md th,
+  .md td {
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.65rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .md th {
+    background: var(--surface-2);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .md pre code {
+    border: 0;
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    overflow-wrap: normal;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Code highlighting tokens (used by the Prism theme in CodeBlock)     */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --code-fg: #24292f;
+  --code-comment: #656d76;
+  --code-keyword: #cf222e;
+  --code-string: #0a3069;
+  --code-number: #0550ae;
+  --code-function: #8250df;
+  --code-class: #953800;
+  --code-punct: #57606a;
+  --code-tag: #116329;
+}
+
+.dark {
+  --code-fg: #e6e6ea;
+  --code-comment: #9198a8;
+  --code-keyword: #ff7b72;
+  --code-string: #a5d6ff;
+  --code-number: #79c0ff;
+  --code-function: #d2a8ff;
+  --code-class: #ffa657;
+  --code-punct: #a9afbc;
+  --code-tag: #7ee787;
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+}
