@@ -39,6 +39,7 @@ export function AppShell() {
   const { sectionId } = useRouteParams();
   const hasToc =
     Boolean(sectionId) ||
+    pathname.startsWith(`${paths.lcTopics()}/`) ||
     (meta !== undefined &&
       (pathname === paths.coverage(meta.slug) || pathname === paths.dataset(meta.slug)));
   useDocumentTitle(titleFromCrumbs(crumbs.map((crumb) => crumb.label)));
@@ -49,7 +50,11 @@ export function AppShell() {
 
   return (
     <SqlRunnerContext value={sqlRunnerTrack}>
-      <div data-accent={meta?.accent} className="flex min-h-dvh flex-col">
+      <div
+        // The LeetCode area is not a track; it has its own accent.
+        data-accent={meta?.accent ?? (pathname.startsWith(paths.leetcode()) ? 'violet' : undefined)}
+        className="flex min-h-dvh flex-col"
+      >
         <a
           href="#main"
           className="sr-only z-50 rounded-lg bg-accent px-3 py-2 text-sm font-medium text-accent-fg focus:not-sr-only focus:fixed focus:top-2 focus:left-2"

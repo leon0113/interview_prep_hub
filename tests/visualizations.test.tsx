@@ -67,7 +67,7 @@ describe('visualization registry', () => {
   });
 
   it('uses kebab-case ids with a track prefix', () => {
-    for (const id of vizIds) expect(id).toMatch(/^(py|js|ts)-[a-z0-9]+(-[a-z0-9]+)*$/);
+    for (const id of vizIds) expect(id).toMatch(/^(py|js|ts|lc)-[a-z0-9]+(-[a-z0-9]+)*$/);
   });
 });
 

@@ -11,6 +11,10 @@ import {
   loadOutline,
   loadSection,
 } from '@/content/loader';
+import { loadLcProblem } from '@/content/leetcode/loader';
+import type { LcProblem } from '@/content/leetcode/schema';
+import { getTopicMeta, loadTopic } from '@/content/leetcode/topics';
+import type { LcTopicData } from '@/pages/leetcode/LcTopicPage';
 import type { TrackOutline } from '@/content/outline';
 import type {
   CoverageData,
@@ -67,6 +71,20 @@ async function datasetLoader({ params }: LoaderFunctionArgs): Promise<DatasetDat
   return { dataset: (await loadDataset(params.trackSlug!)) ?? null };
 }
 
+/** Data for a LeetCode problem page: the full problem, or null so the page shows "not found". */
+export interface LcProblemData {
+  problem: LcProblem | null;
+}
+
+async function lcProblemLoader({ params }: LoaderFunctionArgs): Promise<LcProblemData> {
+  return { problem: (await loadLcProblem(params.category!, params.slug!)) ?? null };
+}
+
+async function lcTopicLoader({ params }: LoaderFunctionArgs): Promise<LcTopicData> {
+  const meta = getTopicMeta(params.topicId) ?? null;
+  return { meta, topic: meta ? ((await loadTopic(meta.id)) ?? null) : null };
+}
+
 export const routes: RouteObject[] = [
   {
     path: '/',
@@ -76,6 +94,29 @@ export const routes: RouteObject[] = [
     children: [
       { index: true, lazy: page(() => import('@/pages/HomePage')) },
       { path: 'bookmarks', lazy: page(() => import('@/pages/BookmarksPage')) },
+      {
+        // The LeetCode area: not a track, so it is matched before `:trackSlug`.
+        path: 'leetcode',
+        children: [
+          { index: true, lazy: page(() => import('@/pages/leetcode/LeetCodePage')) },
+          { path: 'patterns', lazy: page(() => import('@/pages/leetcode/LcPatternsPage')) },
+          { path: 'practice', lazy: page(() => import('@/pages/leetcode/LcPracticePage')) },
+          // Revision session: driven by saved state, so it is not prerendered.
+          { path: 'revise', lazy: page(() => import('@/pages/leetcode/LcRevisePage')) },
+          { path: 'topics', lazy: page(() => import('@/pages/leetcode/LcTopicsPage')) },
+          {
+            path: 'topics/:topicId',
+            loader: lcTopicLoader,
+            lazy: page(() => import('@/pages/leetcode/LcTopicPage')),
+          },
+          { path: ':category', lazy: page(() => import('@/pages/leetcode/LcListPage')) },
+          {
+            path: ':category/:slug',
+            loader: lcProblemLoader,
+            lazy: page(() => import('@/pages/leetcode/LcProblemPage')),
+          },
+        ],
+      },
       // Development-only review page; the import is dropped from production builds.
       ...(import.meta.env.DEV
         ? [

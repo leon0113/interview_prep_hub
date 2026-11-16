@@ -15,6 +15,7 @@ import { SearchResults } from './SearchResults';
 const TYPE_OPTIONS: { value: NonNullable<SearchFilters['type']>; label: string }[] = [
   { value: 'question', label: 'Questions' },
   { value: 'exercise', label: 'Exercises' },
+  { value: 'problem', label: 'LeetCode' },
 ];
 
 /** Search dialog: fuzzy results grouped by track, with track / level / type filter chips. */

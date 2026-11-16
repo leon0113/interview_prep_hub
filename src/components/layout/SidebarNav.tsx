@@ -1,9 +1,16 @@
 import {
   Bookmark,
+  Brain,
   ChevronRight,
+  Code2,
   Compass,
+  Database,
   Dumbbell,
   Home,
+  LayoutGrid,
+  ListChecks,
+  Network,
+  Shapes,
   SquareTerminal,
   Table2,
   type LucideIcon,
@@ -11,9 +18,12 @@ import {
 import { Suspense, use, useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router';
 import { TrackIcon } from '@/components/common/TrackIcon';
+import { lcOutline, lcProblemsIn } from '@/content/leetcode/loader';
+import { topicMetas } from '@/content/leetcode/topics';
 import { loadOutline, trackMetas } from '@/content/loader';
 import type { SectionOutline } from '@/content/outline';
 import type { TrackMeta } from '@/content/schema';
+import { useDueIds } from '@/features/leetcode/store';
 import { useBookmarkCount, useLearnedCount } from '@/features/progress/hooks';
 import { useRouteParams } from '@/features/tracks/useTrack';
 import { cn } from '@/lib/cn';
@@ -68,7 +78,73 @@ export function SidebarNav({ onNavigate }: SidebarNavProps) {
           );
         })}
       </ul>
+
+      <LeetCodeNav onNavigate={onNavigate} />
     </nav>
+  );
+}
+
+const ALL_LC_IDS = lcOutline.problems.map((p) => p.id);
+
+/** The LeetCode area: its own heading, separate from the language tracks. */
+function LeetCodeNav({ onNavigate }: { onNavigate?: () => void }) {
+  const due = useDueIds(ALL_LC_IDS);
+  return (
+    <div data-accent="violet">
+      <p className="mt-5 mb-1.5 px-2.5 text-[0.6875rem] font-semibold tracking-wider text-subtle uppercase">
+        LeetCode
+      </p>
+      <ul className="flex flex-col gap-0.5">
+        <li>
+          <TopLink to={paths.leetcode()} icon={LayoutGrid} onNavigate={onNavigate} end>
+            Overview
+          </TopLink>
+        </li>
+        {topicMetas.map((topic) => (
+          <li key={topic.id}>
+            <TopLink to={paths.lcTopic(topic.id)} icon={Network} onNavigate={onNavigate}>
+              <span className="flex-1">{topic.title}</span>
+              <Count>{lcOutline.problems.filter((p) => p.topicId === topic.id).length}</Count>
+            </TopLink>
+          </li>
+        ))}
+        <li>
+          <TopLink to={paths.lcList('dsa')} icon={Code2} onNavigate={onNavigate}>
+            <span className="flex-1">DSA</span>
+            <Count>{lcProblemsIn('dsa').length}</Count>
+          </TopLink>
+        </li>
+        <li>
+          <TopLink to={paths.lcList('database')} icon={Database} onNavigate={onNavigate}>
+            <span className="flex-1">Database</span>
+            <Count>{lcProblemsIn('database').length}</Count>
+          </TopLink>
+        </li>
+        <li>
+          <TopLink to={paths.lcPatterns()} icon={Shapes} onNavigate={onNavigate}>
+            Patterns
+          </TopLink>
+        </li>
+        <li>
+          <TopLink to={paths.lcPractice()} icon={ListChecks} onNavigate={onNavigate}>
+            Practice
+          </TopLink>
+        </li>
+        <li>
+          <TopLink to={paths.lcRevise()} icon={Brain} onNavigate={onNavigate}>
+            <span className="flex-1">Revise</span>
+            {due && due.length > 0 ? (
+              <span
+                className="rounded-full bg-accent px-1.5 text-[0.6875rem] font-semibold text-accent-fg tabular-nums"
+                aria-label={`${due.length} due today`}
+              >
+                {due.length}
+              </span>
+            ) : null}
+          </TopLink>
+        </li>
+      </ul>
+    </div>
   );
 }
 

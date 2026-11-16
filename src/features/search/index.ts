@@ -1,10 +1,14 @@
 import Fuse from 'fuse.js';
+import type { LcProblemOutline } from '@/content/leetcode/outline';
 import type { TrackOutline } from '@/content/outline';
 import type { Accent, Level } from '@/content/schema';
 import { paths, sortedSections } from '@/lib/content';
 import { questionTitle } from '@/lib/text';
 
-export type SearchItemType = 'section' | 'question' | 'exercise' | 'concept';
+export type SearchItemType = 'section' | 'question' | 'exercise' | 'concept' | 'problem' | 'topic';
+
+/** Results from the LeetCode area are grouped under this pseudo-track. */
+export const LEETCODE_GROUP = 'leetcode';
 
 export interface SearchItem {
   id: string;
@@ -15,6 +19,8 @@ export interface SearchItem {
   context: string;
   tags: string[];
   level?: Level;
+  /** LeetCode problems only. */
+  difficulty?: LcProblemOutline['difficulty'];
   trackSlug: string;
   trackName: string;
   accent: Accent;
@@ -26,7 +32,7 @@ export interface SearchFilters {
   /** Track slug. */
   track?: string;
   level?: Level;
-  type?: 'question' | 'exercise';
+  type?: 'question' | 'exercise' | 'problem';
 }
 
 export const TYPE_LABEL: Record<SearchItemType, string> = {
@@ -34,11 +40,20 @@ export const TYPE_LABEL: Record<SearchItemType, string> = {
   question: 'Question',
   exercise: 'Exercise',
   concept: 'Quick concept',
+  problem: 'LeetCode problem',
+  topic: 'LeetCode topic',
 };
 
-/** Flattens every track into searchable items. Adding a track needs no changes here. */
-export function buildSearchIndex(tracks: readonly TrackOutline[]): SearchItem[] {
-  return tracks.flatMap((track) => {
+/**
+ * Flattens every track (and the LeetCode problems) into searchable items. Adding a track or a
+ * problem needs no changes here.
+ */
+export function buildSearchIndex(
+  tracks: readonly TrackOutline[],
+  problems: readonly LcProblemOutline[] = [],
+  topics: readonly { id: string; title: string; description: string }[] = [],
+): SearchItem[] {
+  const trackItems = tracks.flatMap((track) => {
     const base = { trackSlug: track.slug, trackName: track.name, accent: track.accent };
     const items: SearchItem[] = [];
 
@@ -94,6 +109,34 @@ export function buildSearchIndex(tracks: readonly TrackOutline[]): SearchItem[] 
 
     return items;
   });
+
+  const problemItems: SearchItem[] = problems.map((problem) => ({
+    id: problem.id,
+    type: 'problem',
+    // "#27 Remove Element": typing "27" or a title word finds it.
+    title: `#${problem.number} ${problem.title}`,
+    context: problem.patternLabel,
+    difficulty: problem.difficulty,
+    tags: [...problem.tags, problem.patternId, problem.category, String(problem.number)],
+    trackSlug: LEETCODE_GROUP,
+    trackName: 'LeetCode',
+    accent: 'violet',
+    path: `/leetcode/${problem.category}/${problem.slug}`,
+  }));
+
+  const topicItems: SearchItem[] = topics.map((topic) => ({
+    id: `lc-topic-${topic.id}`,
+    type: 'topic',
+    title: topic.title,
+    context: 'Topic: theory and problems',
+    tags: [topic.id, 'theory', 'data structure'],
+    trackSlug: LEETCODE_GROUP,
+    trackName: 'LeetCode',
+    accent: 'violet',
+    path: `/leetcode/topics/${topic.id}`,
+  }));
+
+  return [...trackItems, ...topicItems, ...problemItems];
 }
 
 function matchesFilters(item: SearchItem, filters: SearchFilters): boolean {

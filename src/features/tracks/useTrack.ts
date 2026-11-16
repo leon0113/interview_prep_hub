@@ -11,6 +11,12 @@ export interface RouteParams {
   sectionId?: string;
   questionId?: string;
   exerciseId?: string;
+  /** LeetCode area: `dsa` | `database`. */
+  category?: string;
+  /** LeetCode problem slug, e.g. `27-remove-element`. */
+  slug?: string;
+  /** LeetCode topic id, e.g. `linked-list`. */
+  topicId?: string;
 }
 
 /** Params of the deepest matched route — usable from layout components too. */

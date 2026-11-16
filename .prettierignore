@@ -4,3 +4,7 @@ package-lock.json
 CLAUDE.md
 *.generated.json
 dist-server
+
+# My original notes, kept verbatim
+docs/
+src/content/leetcode/topics/*.md

@@ -43,7 +43,8 @@ export const datasets: Record<string, Dataset> = Object.fromEntries(
   Object.entries(datasetModules).map(([path, dataset]) => [path.split('/')[3] ?? '', dataset]),
 );
 
-/** Track folders that exist on disk (have an index.ts), registered or not. */
-export const trackFolders: string[] = Object.keys(fullModules).map(
-  (path) => path.split('/')[3] ?? '',
-);
+/** Track folders that exist on disk (have an index.ts), registered or not. The LeetCode area
+ * (src/content/leetcode) is not a track. */
+export const trackFolders: string[] = Object.keys(fullModules)
+  .map((path) => path.split('/')[3] ?? '')
+  .filter((folder) => folder !== 'leetcode');

@@ -14,8 +14,9 @@ A **frontend-only** React app for interview preparation. Each **track** (a langu
    - Optional: common pitfalls, likely follow-up questions, a visualization.
 3. **Exercises** (logic building + common coding-round problems) at the end of each track, with hints and a hideable solution.
 4. **Visualizations** for hard concepts (interactive, animated React components).
-   Current tracks: **Python, JavaScript, TypeScript**.
-   Future tracks (architecture must make these easy to add): React, Next.js, Node.js, MongoDB, SQL, and more.
+   Current tracks: **Python, JavaScript, TypeScript, SQL & PostgreSQL**.
+   Future tracks (architecture must make these easy to add): React, Next.js, Node.js, MongoDB, and more.
+5. A separate **LeetCode** area (not a track): my solved LeetCode problems, **DSA** and **Database**, for revision. Each problem page reveals Problem → Approach → Breakdown → Solution → Revise one stage at a time, with spaced-repetition ratings. See section 13.
 
 There is **no backend**. All content lives in typed TS files inside the repo. User state (progress, bookmarks, theme, answer visibility) lives in `localStorage`.
 
@@ -77,6 +78,8 @@ src/
     python/                 # e.g. ReferenceModelViz.tsx, GeneratorStepperViz.tsx
     javascript/             # e.g. EventLoopViz.tsx, PrototypeChainViz.tsx
     typescript/             # e.g. TypeSetsViz.tsx, UtilityTypesViz.tsx
+    leetcode/               # ArrayPointersViz (generic, data-driven by `steps` traces), SqlStepsViz,
+                            #   and problem-specific ones (merge sort tree, recursion tree...)
     shared/                 # VizFrame, StepControls (play/pause/next/prev/reset)
   content/
     schema.ts               # zod schemas + inferred types
@@ -94,11 +97,21 @@ src/
                             #   is generated from it (content/dataset.ts). Enables /:trackSlug/dataset
     javascript/ ...same shape
     typescript/ ...same shape
+    leetcode/               # NOT a track (the outline generator and track tests skip it)
+      schema.ts             # zod schema for a LeetCode problem (maps 1:1 onto my note format)
+      patterns.ts           # pattern cheat sheet: triggers, skeleton, templates; pattern families
+      practice.ts           # next problems to solve, by pattern (solved = present in the app)
+      index.ts              # registry: every problem of both categories (tests + generator)
+      loader.ts             # lc-outline + one lazy chunk per problem file
+      outline.ts            # outline builder; lc-outline.generated.json is GENERATED
+      dsa/                  # <number>-<slug>.ts, one file per problem; dsa/index.ts lists them
+      database/             # same, for SQL problems; database/index.ts lists them
   features/
     progress/               # store + hooks: learned, bookmarked, lastVisited
     search/                 # build Fuse index from all tracks
     theme/
     sql/                    # in-browser PGlite sessions (lazy), Run hook, runner context
+    leetcode/               # review store (confidence, next review; persisted) + session reveal state
   pages/
     HomePage.tsx
     TrackPage.tsx           # track overview: sections, level filter, progress
@@ -109,6 +122,8 @@ src/
     CoveragePage.tsx
     BookmarksPage.tsx
     NotFoundPage.tsx
+    leetcode/               # LeetCodePage, LcListPage, LcProblemPage, LcPatternsPage,
+                            #   LcPracticePage, LcRevisePage
   lib/                      # utils (cn, slugify, storage helpers)
     sql/                    # statement splitter + psql-style runner, shared by Run/Playground and verify
   styles/globals.css
@@ -118,8 +133,10 @@ scripts/
 tests/
   content.test.ts           # validates every track against the schema
   outline.test.ts           # committed outlines are up to date; section files are named correctly
+  leetcode-content.test.ts  # LeetCode schema, file names, patterns, steps traces, outline
   verify/                   # npm run verify:outputs — executes every example and solution
-                            #   (sql.verify.ts: every SQL example vs a freshly seeded PGlite)
+                            #   (sql.verify.ts: every SQL example vs a freshly seeded PGlite;
+                            #    leetcode.verify.ts: every LeetCode solution vs its samples)
 ```
 
 **Content outlines:** the home page, sidebar, search, track page and bookmarks only need titles, ids, levels and tags, so they read a small generated `outline.generated.json` per track. Full answers are loaded one section at a time. Outlines are regenerated automatically (Vite plugin on dev start, on content save and before builds; `npm run validate:content` also regenerates them), and `tests/outline.test.ts` fails if a committed outline is stale.
@@ -273,6 +290,14 @@ interface Track {
 /:trackSlug/dataset                 Sample database: tables, rows, ER diagram, seed SQL (tracks with dataset.ts)
 /:trackSlug/playground              SQL Playground on the sample database, in-browser PGlite (tracks with dataset.ts; not prerendered)
 /bookmarks                          Bookmarked questions across tracks
+/leetcode                           LeetCode overview: DSA and Database cards, due count, recently added
+/leetcode/dsa                       Problem list: by pattern or table; filters and sort
+/leetcode/dsa/:slug                 Problem page: 5-stage stepper (Problem → Approach → Breakdown → Solution → Revise)
+/leetcode/database                  Problem list (database)
+/leetcode/database/:slug            Problem page (schema, sample tables, expected result)
+/leetcode/patterns                  Pattern cheat sheet + templates, each linked to its problems
+/leetcode/practice                  Next-to-solve list by pattern, solved ones ticked
+/leetcode/revise                    Revision session + pattern quiz (not prerendered)
 *                                   404
 ```
 
@@ -282,7 +307,7 @@ Routes are lazy-loaded; content is loaded per section (plus the track's outline)
 
 - Render must be deterministic and must not read browser-only state (`localStorage`, `matchMedia`, `window`) during render. Saved user state is loaded after hydration (`skipHydration` on the persisted zustand stores, rehydrated in `app/providers.tsx`). Read browser APIs in effects, or via `useSyncExternalStore` with a server snapshot.
 - Loader data is embedded in each page's HTML, so loaders return only what the page shows.
-- `/bookmarks` and unknown URLs are not prerendered: hosts serve `dist/spa.html` (the app shell) for them via `vercel.json` rewrites / Netlify `_redirects`.
+- `/bookmarks`, `/leetcode/revise` and unknown URLs are not prerendered: hosts serve `dist/spa.html` (the app shell) for them via `vercel.json` rewrites / Netlify `_redirects`.
 
 ## 10. Adding a new track (must stay this simple)
 
@@ -308,3 +333,24 @@ Routes are lazy-loaded; content is loaded per section (plus the track's outline)
 - Don't write code examples without outputs, or outputs you haven't verified.
 - Don't install large UI kits (MUI, Ant, Chakra) or chart libraries.
 - Don't break the content schema; if it must change, update schema, all tracks, and tests together.
+
+## 13. LeetCode intake
+
+The LeetCode area (`src/content/leetcode/`) holds my solved problems for revision. `docs/leetcode-notes.md` is my original notes file, kept for reference; the content files are the source of truth now. A problem is one file, `src/content/leetcode/<category>/<number>-<slug>.ts`, typed by `LcProblem` in `src/content/leetcode/schema.ts`, and listed in `<category>/index.ts`.
+
+When I paste a solved LeetCode problem (a note in my format, or just the problem + my code, in any mix of Bangla/English):
+
+1. **Classify it:** SQL query / database tables / "Write a solution to..." with table schemas → `database`. Otherwise → `dsa`. If it's unclear, ask.
+2. Check that it isn't already in the app (by number). If it is, update it and keep my previous solution as another tab.
+3. Create `src/content/leetcode/<category>/<number>-<slug>.ts` following the schema, and add it to `<category>/index.ts`. **My code stays verbatim** (`isMine: true`, label "My solution", first in `solutions`): same variable names, spacing, even missing semicolons. Alternatives become further tabs; when mine misses a requirement (space, time), say so in its `note` and mark the better one `optimal: true`.
+4. If my note is missing parts (approach, trace, edge cases, self-questions, Bangla explanation), **write them in the same style as my existing notes** (Bangla explanations, English terms, real-life example, trace table). List every generated part in `meta.generated` (keys: `approach.idea`, `approach.template`, `breakdown.steps`, `solutions.<label>`, `revise.related`) so the UI shows an "AI-added, review" badge until I set `meta.reviewed: true`.
+5. Assign a `patternId` from `patterns.ts` (and `alsoPatterns` for alternatives such as XOR or a bit trick). If it's a new pattern, add it to `patterns.ts` with trigger words, a skeleton and a template, and to a family in `patternFamilies`.
+6. If the problem was in `practice.ts`, it now shows as solved automatically (matched by number).
+7. For array/string problems, add `steps` traces (`ArrayState[]`) for the generic visualizer and set `visualizationId: 'lc-array-pointers'`; they must match the trace tables exactly. For complex ones (recursion, trees, graphs, DP, multi-step SQL), add or extend a visualization in `src/visualizations/leetcode/` and register it.
+8. For database problems: include the schema, sample tables, expected result, approach, breakdown with intermediate result tables (a `sqlSteps` trace: FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY), the solution (MySQL as on LeetCode, plus a PostgreSQL version when the syntax differs) and common mistakes.
+9. Verify outputs: add `verify` cases (the samples) so `npm run verify:outputs` runs every DSA solution on Node / Python; run SQL against the sample tables with PGlite. Fix any sample/trace mismatch and tell me.
+10. Run `npm run validate:content` (also regenerates `lc-outline.generated.json`) and `npm run test`, then summarize what was added and anything I should review.
+
+Each intake runs end to end without stopping for confirmation, with a short summary at the end.
+
+**Revision:** ratings are stored in `localStorage` (`iph:leetcode`). The intervals live in one constant, `REVIEW_INTERVAL_DAYS` in `src/features/leetcode/store.ts`: Forgot 1 day, Hard 3, Good 7, Easy 21.

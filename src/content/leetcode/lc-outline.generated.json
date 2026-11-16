@@ -1,0 +1,304 @@
+{
+  "problems": [
+    {
+      "id": "lc-27-remove-element",
+      "number": 27,
+      "title": "Remove Element",
+      "slug": "27-remove-element",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/remove-element/",
+      "patternId": "read-write-pointers",
+      "alsoPatterns": [],
+      "patternLabel": "Two Pointers (read/write)",
+      "tags": [
+        "array",
+        "two-pointers",
+        "in-place"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-26-remove-duplicates-from-sorted-array",
+      "number": 26,
+      "title": "Remove Duplicates from Sorted Array",
+      "slug": "26-remove-duplicates-from-sorted-array",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/remove-duplicates-from-sorted-array/",
+      "patternId": "read-write-pointers",
+      "alsoPatterns": [],
+      "patternLabel": "Two Pointers (read/write)",
+      "tags": [
+        "array",
+        "two-pointers",
+        "in-place",
+        "sorted"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-283-move-zeroes",
+      "number": 283,
+      "title": "Move Zeroes",
+      "slug": "283-move-zeroes",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/move-zeroes/",
+      "patternId": "read-write-pointers",
+      "alsoPatterns": [],
+      "patternLabel": "Two Pointers (read/write) + fill",
+      "tags": [
+        "array",
+        "two-pointers",
+        "in-place"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-344-reverse-string",
+      "number": 344,
+      "title": "Reverse String",
+      "slug": "344-reverse-string",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/reverse-string/",
+      "patternId": "swap-both-ends",
+      "alsoPatterns": [],
+      "patternLabel": "Two Pointers (swap from both ends)",
+      "tags": [
+        "array",
+        "string",
+        "two-pointers",
+        "in-place"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-88-merge-sorted-array",
+      "number": 88,
+      "title": "Merge Sorted Array",
+      "slug": "88-merge-sorted-array",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/merge-sorted-array/",
+      "patternId": "merge-from-right",
+      "alsoPatterns": [],
+      "patternLabel": "Two Pointers (merge from right)",
+      "tags": [
+        "array",
+        "two-pointers",
+        "in-place",
+        "sorted",
+        "merge"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 4
+    },
+    {
+      "id": "lc-121-best-time-to-buy-and-sell-stock",
+      "number": 121,
+      "title": "Best Time to Buy and Sell Stock",
+      "slug": "121-best-time-to-buy-and-sell-stock",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/best-time-to-buy-and-sell-stock/",
+      "patternId": "min-so-far-greedy",
+      "alsoPatterns": [],
+      "patternLabel": "One Pass / Min-so-far / Greedy",
+      "tags": [
+        "array",
+        "greedy",
+        "one-pass"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-485-max-consecutive-ones",
+      "number": 485,
+      "title": "Max Consecutive Ones",
+      "slug": "485-max-consecutive-ones",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/max-consecutive-ones/",
+      "patternId": "streak-counting",
+      "alsoPatterns": [],
+      "patternLabel": "Single Pass / Streak Counting",
+      "tags": [
+        "array",
+        "one-pass",
+        "counting"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-268-missing-number",
+      "number": 268,
+      "title": "Missing Number",
+      "slug": "268-missing-number",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/missing-number/",
+      "patternId": "sum-formula",
+      "alsoPatterns": [
+        "xor-pairs-cancel"
+      ],
+      "patternLabel": "Math / Sum Formula (XOR alternative)",
+      "tags": [
+        "array",
+        "math",
+        "bit-manipulation"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 2
+    },
+    {
+      "id": "lc-136-single-number",
+      "number": 136,
+      "title": "Single Number",
+      "slug": "136-single-number",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/single-number/",
+      "patternId": "hash-map-counting",
+      "alsoPatterns": [
+        "xor-pairs-cancel"
+      ],
+      "patternLabel": "Hash Map Frequency Count (XOR alternative)",
+      "tags": [
+        "array",
+        "hash-map",
+        "bit-manipulation",
+        "xor"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 1
+    },
+    {
+      "id": "lc-231-power-of-two",
+      "number": 231,
+      "title": "Power of Two",
+      "slug": "231-power-of-two",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/power-of-two/",
+      "patternId": "recursion-shrink",
+      "alsoPatterns": [
+        "bit-trick"
+      ],
+      "patternLabel": "Recursion (halving) / Bit trick alternative",
+      "tags": [
+        "math",
+        "recursion",
+        "bit-manipulation"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 1
+    },
+    {
+      "id": "lc-509-fibonacci-number",
+      "number": 509,
+      "title": "Fibonacci Number",
+      "slug": "509-fibonacci-number",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/fibonacci-number/",
+      "patternId": "tree-recursion-dp",
+      "alsoPatterns": [],
+      "patternLabel": "Tree Recursion → Memoization / Iterative DP",
+      "tags": [
+        "math",
+        "recursion",
+        "dynamic-programming",
+        "memoization"
+      ],
+      "solvedIn": [
+        "python"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 1
+    },
+    {
+      "id": "lc-704-binary-search",
+      "number": 704,
+      "title": "Binary Search",
+      "slug": "704-binary-search",
+      "category": "dsa",
+      "difficulty": "Easy",
+      "url": "https://leetcode.com/problems/binary-search/",
+      "patternId": "binary-search",
+      "alsoPatterns": [],
+      "patternLabel": "Binary Search (halve the search range)",
+      "tags": [
+        "array",
+        "binary-search",
+        "sorted"
+      ],
+      "solvedIn": [
+        "python"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 3
+    },
+    {
+      "id": "lc-912-sort-an-array",
+      "number": 912,
+      "title": "Sort an Array",
+      "slug": "912-sort-an-array",
+      "category": "dsa",
+      "difficulty": "Medium",
+      "url": "https://leetcode.com/problems/sort-an-array/",
+      "patternId": "divide-and-conquer",
+      "alsoPatterns": [],
+      "patternLabel": "Divide and Conquer (Merge Sort)",
+      "tags": [
+        "array",
+        "sorting",
+        "merge-sort",
+        "divide-and-conquer",
+        "recursion"
+      ],
+      "solvedIn": [
+        "javascript"
+      ],
+      "dateAdded": "2026-11-15",
+      "toReview": 2
+    }
+  ]
+}

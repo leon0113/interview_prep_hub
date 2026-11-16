@@ -14,6 +14,34 @@
       "module": "basics",
       "questions": [
         {
+          "id": "sql-sql-vs-nosql",
+          "sectionId": "sql-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between SQL and NoSQL databases? When would you pick each?",
+          "tags": [
+            "basics",
+            "nosql",
+            "comparison",
+            "data-modeling"
+          ]
+        },
+        {
+          "id": "sql-delete-truncate-drop",
+          "sectionId": "sql-basics",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between DELETE, TRUNCATE and DROP?",
+          "tags": [
+            "basics",
+            "delete",
+            "truncate",
+            "drop",
+            "ddl",
+            "dml"
+          ]
+        },
+        {
           "id": "sql-what-is-database",
           "sectionId": "sql-basics",
           "level": "foundation",
@@ -24,6 +52,507 @@
             "dbms",
             "rdbms",
             "relational-model"
+          ]
+        },
+        {
+          "id": "sql-command-families",
+          "sectionId": "sql-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are DDL, DML, DQL, DCL and TCL?",
+          "tags": [
+            "basics",
+            "ddl",
+            "dml",
+            "dcl",
+            "tcl"
+          ]
+        },
+        {
+          "id": "sql-choosing-data-types",
+          "sectionId": "sql-basics",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do you choose data types? Why not use float for money?",
+          "tags": [
+            "basics",
+            "data-types",
+            "numeric",
+            "float",
+            "money"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-querying",
+      "title": "Querying & Filtering",
+      "description": "How a SELECT is evaluated, filtering with comparisons, pattern matching and NULL-safe operators, sorting and limiting, DISTINCT, and CASE expressions.",
+      "order": 2,
+      "module": "querying",
+      "questions": [
+        {
+          "id": "sql-select-execution-order",
+          "sectionId": "sql-querying",
+          "level": "foundation",
+          "priority": 3,
+          "question": "In what order is a SELECT query evaluated?",
+          "tags": [
+            "select",
+            "execution-order",
+            "where",
+            "group-by",
+            "having"
+          ]
+        },
+        {
+          "id": "sql-pattern-matching",
+          "sectionId": "sql-querying",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do LIKE, ILIKE and the % and _ wildcards work?",
+          "tags": [
+            "like",
+            "ilike",
+            "pattern-matching",
+            "strings"
+          ]
+        },
+        {
+          "id": "sql-null-safe-comparison",
+          "sectionId": "sql-querying",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do comparisons behave with NULL, and what is IS DISTINCT FROM?",
+          "tags": [
+            "null",
+            "is-distinct-from",
+            "comparison",
+            "where"
+          ]
+        },
+        {
+          "id": "sql-order-limit-offset",
+          "sectionId": "sql-querying",
+          "level": "foundation",
+          "priority": 2,
+          "question": "How do ORDER BY, NULLS FIRST / LAST, LIMIT and OFFSET work?",
+          "tags": [
+            "order-by",
+            "limit",
+            "offset",
+            "nulls-first",
+            "sorting"
+          ]
+        },
+        {
+          "id": "sql-distinct-vs-group-by",
+          "sectionId": "sql-querying",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is the difference between DISTINCT and GROUP BY?",
+          "tags": [
+            "distinct",
+            "group-by",
+            "duplicates"
+          ]
+        },
+        {
+          "id": "sql-case-expression",
+          "sectionId": "sql-querying",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How does the CASE expression work, and where can you use it?",
+          "tags": [
+            "case",
+            "conditional-logic",
+            "expressions"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-joins",
+      "title": "Joins",
+      "description": "Inner, outer and cross joins, finding rows without a match, self-joins, and the row multiplication (fan-out) that breaks aggregates.",
+      "order": 3,
+      "module": "joins",
+      "questions": [
+        {
+          "id": "sql-join-types",
+          "sectionId": "sql-joins",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What are the types of JOIN, and how do INNER, LEFT, RIGHT and FULL joins differ?",
+          "tags": [
+            "joins",
+            "inner-join",
+            "left-join",
+            "full-join",
+            "outer-join"
+          ]
+        },
+        {
+          "id": "sql-anti-join",
+          "sectionId": "sql-joins",
+          "level": "foundation",
+          "priority": 3,
+          "question": "How do you find rows in one table that have no matching rows in another?",
+          "tags": [
+            "joins",
+            "anti-join",
+            "left-join",
+            "not-exists"
+          ]
+        },
+        {
+          "id": "sql-self-join",
+          "sectionId": "sql-joins",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a self-join, and when do you need one?",
+          "tags": [
+            "joins",
+            "self-join",
+            "hierarchy"
+          ]
+        },
+        {
+          "id": "sql-join-fan-out",
+          "sectionId": "sql-joins",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why can a join make SUM or COUNT too large, and how do you fix it?",
+          "tags": [
+            "joins",
+            "fan-out",
+            "aggregation",
+            "duplicates"
+          ]
+        },
+        {
+          "id": "sql-cross-join",
+          "sectionId": "sql-joins",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "What is a CROSS JOIN, and when is it useful?",
+          "tags": [
+            "joins",
+            "cross-join",
+            "cartesian-product"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-aggregation",
+      "title": "Aggregation & Grouping",
+      "description": "Aggregate functions and GROUP BY, WHERE vs HAVING, the \"must appear in GROUP BY\" rule, aggregates over empty sets, and ROLLUP / CUBE / GROUPING SETS.",
+      "order": 4,
+      "module": "aggregation",
+      "questions": [
+        {
+          "id": "sql-group-by-basics",
+          "sectionId": "sql-aggregation",
+          "level": "foundation",
+          "priority": 3,
+          "question": "How do GROUP BY and aggregate functions work?",
+          "tags": [
+            "group-by",
+            "aggregation",
+            "count",
+            "avg",
+            "sum"
+          ]
+        },
+        {
+          "id": "sql-where-vs-having",
+          "sectionId": "sql-aggregation",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is the difference between WHERE and HAVING?",
+          "tags": [
+            "where",
+            "having",
+            "group-by",
+            "aggregation"
+          ]
+        },
+        {
+          "id": "sql-group-by-rule",
+          "sectionId": "sql-aggregation",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "Why does PostgreSQL say a column \"must appear in the GROUP BY clause\"?",
+          "tags": [
+            "group-by",
+            "errors",
+            "functional-dependency"
+          ]
+        },
+        {
+          "id": "sql-aggregate-empty-set",
+          "sectionId": "sql-aggregation",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What do aggregates return when no rows match?",
+          "tags": [
+            "aggregation",
+            "null",
+            "coalesce",
+            "edge-cases"
+          ]
+        },
+        {
+          "id": "sql-rollup-cube-grouping-sets",
+          "sectionId": "sql-aggregation",
+          "level": "advanced",
+          "priority": 1,
+          "question": "What do ROLLUP, CUBE and GROUPING SETS do?",
+          "tags": [
+            "rollup",
+            "cube",
+            "grouping-sets",
+            "subtotals",
+            "reporting"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-subqueries-ctes",
+      "title": "Subqueries & CTEs",
+      "description": "Scalar, table and correlated subqueries, EXISTS vs IN, common table expressions (WITH), recursive CTEs, and when CTEs are materialized.",
+      "order": 5,
+      "module": "subqueries-ctes",
+      "questions": [
+        {
+          "id": "sql-subquery-types",
+          "sectionId": "sql-subqueries-ctes",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What is a subquery, and what kinds are there?",
+          "tags": [
+            "subquery",
+            "scalar-subquery",
+            "derived-table"
+          ]
+        },
+        {
+          "id": "sql-exists-vs-in",
+          "sectionId": "sql-subqueries-ctes",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is the difference between EXISTS and IN?",
+          "tags": [
+            "exists",
+            "in",
+            "subquery",
+            "semi-join",
+            "null"
+          ]
+        },
+        {
+          "id": "sql-cte",
+          "sectionId": "sql-subqueries-ctes",
+          "level": "intermediate",
+          "priority": 3,
+          "question": "What is a CTE (WITH clause), and how does it compare with a subquery, a temp table and a view?",
+          "tags": [
+            "cte",
+            "with",
+            "subquery",
+            "temp-table",
+            "view"
+          ]
+        },
+        {
+          "id": "sql-correlated-subquery",
+          "sectionId": "sql-subqueries-ctes",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What is a correlated subquery, and how is it different from a non-correlated one?",
+          "tags": [
+            "subquery",
+            "correlated-subquery",
+            "performance"
+          ]
+        },
+        {
+          "id": "sql-recursive-cte",
+          "sectionId": "sql-subqueries-ctes",
+          "level": "advanced",
+          "priority": 2,
+          "question": "How does a recursive CTE work?",
+          "tags": [
+            "cte",
+            "recursive-cte",
+            "hierarchy",
+            "with-recursive"
+          ]
+        },
+        {
+          "id": "sql-cte-materialization",
+          "sectionId": "sql-subqueries-ctes",
+          "level": "advanced",
+          "priority": 1,
+          "question": "Are CTEs materialized in PostgreSQL? What do MATERIALIZED and NOT MATERIALIZED do?",
+          "tags": [
+            "cte",
+            "materialized",
+            "performance",
+            "planner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-constraints",
+      "title": "Keys & Constraints",
+      "description": "Primary keys and UNIQUE, foreign keys and ON DELETE rules, NOT NULL and CHECK, the kinds of keys, and adding constraints to a live table.",
+      "order": 6,
+      "module": "constraints",
+      "questions": [
+        {
+          "id": "sql-primary-key-vs-unique",
+          "sectionId": "sql-constraints",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is a primary key, and how is it different from a UNIQUE constraint?",
+          "tags": [
+            "primary-key",
+            "unique",
+            "constraints",
+            "indexes"
+          ]
+        },
+        {
+          "id": "sql-foreign-key-on-delete",
+          "sectionId": "sql-constraints",
+          "level": "foundation",
+          "priority": 3,
+          "question": "What is a foreign key, and what do the ON DELETE options do?",
+          "tags": [
+            "foreign-key",
+            "on-delete",
+            "cascade",
+            "referential-integrity"
+          ]
+        },
+        {
+          "id": "sql-not-null-check",
+          "sectionId": "sql-constraints",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What do NOT NULL and CHECK constraints do?",
+          "tags": [
+            "not-null",
+            "check",
+            "constraints",
+            "data-integrity"
+          ]
+        },
+        {
+          "id": "sql-key-kinds",
+          "sectionId": "sql-constraints",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "What are super keys, candidate keys, alternate keys and composite keys?",
+          "tags": [
+            "keys",
+            "candidate-key",
+            "composite-key",
+            "design",
+            "theory"
+          ]
+        },
+        {
+          "id": "sql-add-constraint-safely",
+          "sectionId": "sql-constraints",
+          "level": "advanced",
+          "priority": 1,
+          "question": "How do you add a constraint to a large, live table without long locks?",
+          "tags": [
+            "constraints",
+            "migrations",
+            "not-valid",
+            "locking",
+            "deferrable"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sql-dml",
+      "title": "Modifying Data",
+      "description": "INSERT in its different forms, UPDATE and DELETE based on other tables, RETURNING, creating tables from queries, and changing tables with ALTER TABLE.",
+      "order": 7,
+      "module": "dml",
+      "questions": [
+        {
+          "id": "sql-insert-forms",
+          "sectionId": "sql-dml",
+          "level": "foundation",
+          "priority": 2,
+          "question": "What are the different ways to INSERT rows, and how do you get the generated ids back?",
+          "tags": [
+            "insert",
+            "returning",
+            "dml",
+            "identity"
+          ]
+        },
+        {
+          "id": "sql-update-from-join",
+          "sectionId": "sql-dml",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you UPDATE rows using values or conditions from another table?",
+          "tags": [
+            "update",
+            "update-from",
+            "join",
+            "dml"
+          ]
+        },
+        {
+          "id": "sql-delete-returning",
+          "sectionId": "sql-dml",
+          "level": "intermediate",
+          "priority": 2,
+          "question": "How do you delete rows safely, and how do you see what was deleted?",
+          "tags": [
+            "delete",
+            "returning",
+            "using",
+            "dml",
+            "safety"
+          ]
+        },
+        {
+          "id": "sql-create-table-as",
+          "sectionId": "sql-dml",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you create a table from a query? CREATE TABLE AS vs SELECT INTO vs INSERT … SELECT?",
+          "tags": [
+            "create-table-as",
+            "select-into",
+            "insert-select",
+            "ddl"
+          ]
+        },
+        {
+          "id": "sql-alter-table",
+          "sectionId": "sql-dml",
+          "level": "intermediate",
+          "priority": 1,
+          "question": "How do you change an existing table with ALTER TABLE, and which changes are expensive?",
+          "tags": [
+            "alter-table",
+            "ddl",
+            "migrations",
+            "locking"
           ]
         }
       ]
@@ -951,8 +1480,444 @@
       ]
     }
   ],
-  "exercises": [],
-  "quickConcepts": [],
+  "exercises": [
+    {
+      "id": "sql-ex-second-highest-salary",
+      "title": "Second highest salary",
+      "level": "foundation",
+      "category": "implementation",
+      "tags": [
+        "subquery",
+        "max",
+        "dense-rank",
+        "classic"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-missing-emails",
+      "title": "Doctors without an email (the = NULL trap)",
+      "level": "foundation",
+      "category": "output-prediction",
+      "tags": [
+        "null",
+        "is-null",
+        "where"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-doctors-per-department",
+      "title": "Doctors per department, including empty ones",
+      "level": "foundation",
+      "category": "implementation",
+      "tags": [
+        "left-join",
+        "count",
+        "group-by"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-salary-bands",
+      "title": "Salary bands with CASE",
+      "level": "foundation",
+      "category": "logic",
+      "tags": [
+        "case",
+        "group-by",
+        "buckets"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-duplicate-patients",
+      "title": "Find duplicate patients",
+      "level": "foundation",
+      "category": "hashing",
+      "tags": [
+        "group-by",
+        "having",
+        "duplicates",
+        "data-quality"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-doctor-initials",
+      "title": "Initials from full names",
+      "level": "foundation",
+      "category": "strings",
+      "tags": [
+        "strings",
+        "split-part",
+        "left",
+        "concatenation"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-nth-highest-salary",
+      "title": "N-th highest salary",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "distinct",
+        "offset",
+        "dense-rank",
+        "classic"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-departments-above-average",
+      "title": "Departments paying above the overall average",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "group-by",
+        "having",
+        "subquery",
+        "avg"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-earns-more-than-manager",
+      "title": "Doctors who earn more than their manager",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "self-join",
+        "hierarchy",
+        "classic"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-departments-without-doctors",
+      "title": "Departments with no doctors (anti-join)",
+      "level": "intermediate",
+      "category": "logic",
+      "tags": [
+        "not-exists",
+        "anti-join",
+        "null",
+        "not-in"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-rows-to-delete",
+      "title": "Which duplicate rows to delete",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "row-number",
+        "duplicates",
+        "window-functions"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-revenue-by-method",
+      "title": "Revenue share by payment method",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "group-by",
+        "window-functions",
+        "percent-of-total"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-top-medicines",
+      "title": "Most prescribed medicines",
+      "level": "intermediate",
+      "category": "hashing",
+      "tags": [
+        "group-by",
+        "count",
+        "order-by",
+        "limit"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-unpaid-appointments",
+      "title": "Completed appointments that were never paid",
+      "level": "intermediate",
+      "category": "logic",
+      "tags": [
+        "not-exists",
+        "anti-join",
+        "data-quality"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-patients-by-city-pivot",
+      "title": "Pivot: patients by city and gender",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "pivot",
+        "filter",
+        "conditional-aggregation",
+        "coalesce"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-penicillin-allergy",
+      "title": "Patients allergic to penicillin (JSONB)",
+      "level": "intermediate",
+      "category": "language-feature",
+      "tags": [
+        "jsonb",
+        "operators",
+        "postgresql"
+      ],
+      "solutionCount": 2
+    },
+    {
+      "id": "sql-ex-calendar-gaps",
+      "title": "Daily report including empty days",
+      "level": "intermediate",
+      "category": "implementation",
+      "tags": [
+        "generate-series",
+        "left-join",
+        "time-series"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-top-two-per-department",
+      "title": "Top 2 earners per department",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "window-functions",
+        "dense-rank",
+        "top-n-per-group",
+        "classic"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-month-over-month",
+      "title": "Month-over-month revenue growth",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "lag",
+        "date-trunc",
+        "cte",
+        "window-functions"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-running-total",
+      "title": "Daily revenue with a running total",
+      "level": "advanced",
+      "category": "implementation",
+      "tags": [
+        "running-total",
+        "window-functions",
+        "moving-average"
+      ],
+      "solutionCount": 1
+    },
+    {
+      "id": "sql-ex-management-chain",
+      "title": "Management chain with a recursive CTE",
+      "level": "advanced",
+      "category": "recursion",
+      "tags": [
+        "recursive-cte",
+        "hierarchy",
+        "with-recursive"
+      ],
+      "solutionCount": 1
+    }
+  ],
+  "quickConcepts": [
+    {
+      "id": "sql-qc-coalesce-nullif",
+      "sectionId": "sql-coverage",
+      "level": "foundation",
+      "priority": 2,
+      "question": "What do COALESCE, NULLIF and GREATEST / LEAST do?",
+      "tags": [
+        "null",
+        "functions",
+        "coalesce"
+      ]
+    },
+    {
+      "id": "sql-qc-char-varchar-text",
+      "sectionId": "sql-coverage",
+      "level": "foundation",
+      "priority": 1,
+      "question": "CHAR vs VARCHAR vs TEXT in PostgreSQL?",
+      "tags": [
+        "data-types",
+        "strings",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "sql-qc-schema-vs-database",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is a schema in PostgreSQL, and how is it different from a database?",
+      "tags": [
+        "postgresql",
+        "schema",
+        "search-path",
+        "organization"
+      ]
+    },
+    {
+      "id": "sql-qc-serial-vs-identity",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "serial vs GENERATED AS IDENTITY?",
+      "tags": [
+        "identity",
+        "sequences",
+        "primary-key"
+      ]
+    },
+    {
+      "id": "sql-qc-generated-columns",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What are generated columns?",
+      "tags": [
+        "generated-columns",
+        "denormalization",
+        "ddl"
+      ]
+    },
+    {
+      "id": "sql-qc-copy",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "How do you load or export large amounts of data quickly in PostgreSQL?",
+      "tags": [
+        "copy",
+        "bulk-load",
+        "performance"
+      ]
+    },
+    {
+      "id": "sql-qc-connection-pooling",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 2,
+      "question": "Why do applications use a connection pool (e.g. PgBouncer)?",
+      "tags": [
+        "connection-pooling",
+        "pgbouncer",
+        "scalability"
+      ]
+    },
+    {
+      "id": "sql-qc-replication",
+      "sectionId": "sql-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are read replicas, and what is replication lag?",
+      "tags": [
+        "replication",
+        "read-replica",
+        "high-availability",
+        "scalability"
+      ]
+    },
+    {
+      "id": "sql-qc-sharding",
+      "sectionId": "sql-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What is the difference between partitioning and sharding?",
+      "tags": [
+        "sharding",
+        "partitioning",
+        "scalability"
+      ]
+    },
+    {
+      "id": "sql-qc-cap-theorem",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What does the CAP theorem say?",
+      "tags": [
+        "distributed-systems",
+        "cap",
+        "consistency"
+      ]
+    },
+    {
+      "id": "sql-qc-soft-delete",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "What is a soft delete, and what are its trade-offs?",
+      "tags": [
+        "soft-delete",
+        "design",
+        "partial-index"
+      ]
+    },
+    {
+      "id": "sql-qc-uuid-keys",
+      "sectionId": "sql-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "UUID or bigint for primary keys? What about UUIDv7?",
+      "tags": [
+        "uuid",
+        "primary-key",
+        "indexes"
+      ]
+    },
+    {
+      "id": "sql-qc-extensions",
+      "sectionId": "sql-coverage",
+      "level": "intermediate",
+      "priority": 1,
+      "question": "Which PostgreSQL extensions are worth knowing?",
+      "tags": [
+        "extensions",
+        "postgresql",
+        "pg-trgm",
+        "pgvector",
+        "postgis"
+      ]
+    },
+    {
+      "id": "sql-qc-listen-notify",
+      "sectionId": "sql-coverage",
+      "level": "advanced",
+      "priority": 1,
+      "question": "What are LISTEN and NOTIFY?",
+      "tags": [
+        "listen-notify",
+        "pub-sub",
+        "postgresql"
+      ]
+    }
+  ],
   "dataset": {
     "title": "Clinic sample database",
     "tables": [

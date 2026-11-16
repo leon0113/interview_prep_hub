@@ -1,3 +1,4 @@
+import { useLcReviewStore } from './leetcode/store';
 import { usePracticeStore } from './practice/store';
 import { useProgressStore } from './progress/store';
 import { useThemeStore } from './theme/store';
@@ -11,4 +12,5 @@ export function rehydrateStores(): void {
   void useThemeStore.persist.rehydrate();
   void useProgressStore.persist.rehydrate();
   void usePracticeStore.persist.rehydrate();
+  void useLcReviewStore.persist.rehydrate();
 }

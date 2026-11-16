@@ -1,13 +1,15 @@
 # Interview Prep Hub
 
-A frontend-only React app for language-level interview preparation. Each track (Python, JavaScript, TypeScript) has questions ordered Foundation → Intermediate → Advanced, each with:
+A frontend-only React app for language-level interview preparation. Each track (Python, JavaScript, TypeScript, SQL & PostgreSQL) has questions ordered Foundation → Intermediate → Advanced, each with:
 
 - an **Interview Answer** in English (what to say),
 - a **ব্যাখ্যা** in Bangla (the why and how),
 - code examples with their real, machine-verified output,
 - pitfalls, likely follow-ups and, for hard concepts, a step-by-step visualization.
 
-Every track also has coding-round exercises (hints and solutions) and a coverage page (quick concepts, what is not covered, study tips).
+Every track also has coding-round exercises (hints and solutions) and a coverage page (quick concepts, what is not covered, study tips). The SQL track adds a sample clinic database (ER diagram, seed SQL) and an in-browser PostgreSQL playground.
+
+A separate **LeetCode** area (`/leetcode`) holds solved LeetCode problems (DSA and Database) for revision: each problem reveals Problem → Approach → Breakdown → Solution → Revise one stage at a time, with spaced-repetition ratings, a pattern cheat sheet, a practice list and a pattern quiz. How to add problems: `CLAUDE.md`, section 13.
 
 There is no backend. Content lives in typed TypeScript files under `src/content`. Progress, bookmarks, theme and practice mode are stored in `localStorage`.
 
@@ -103,7 +105,7 @@ Outlines are generated from the content by `scripts/generate-outlines.ts`. A Vit
 
 ### Prerendering
 
-`npm run build` renders all 427 content pages (home, tracks, sections, questions, exercises, coverage) to static HTML:
+`npm run build` renders all 584 content pages (home, tracks, sections, questions, exercises, coverage, sample database, and the LeetCode pages) to static HTML:
 
 1. `vite build` builds the client app into `dist/`.
 2. `vite build --ssr src/entry-server.tsx` builds a renderer into `dist-server/`; it is never deployed.

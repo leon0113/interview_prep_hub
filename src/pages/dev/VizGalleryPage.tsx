@@ -7,6 +7,7 @@ const TRACKS = [
   { prefix: 'py', label: 'Python', accent: 'azure' },
   { prefix: 'js', label: 'JavaScript', accent: 'amber' },
   { prefix: 'ts', label: 'TypeScript', accent: 'blue' },
+  { prefix: 'lc', label: 'LeetCode', accent: 'violet' },
 ] as const;
 
 /**

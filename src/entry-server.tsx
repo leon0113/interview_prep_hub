@@ -8,6 +8,8 @@ import { createStaticHandler, createStaticRouter, StaticRouterProvider } from 'r
 import { Providers } from './app/providers';
 import { routes } from './app/router';
 import { buildCrumbs } from './components/layout/useCrumbs';
+import { lcOutline } from './content/leetcode/loader';
+import { topicMetas } from './content/leetcode/topics';
 import { loadAllOutlines } from './content/loader';
 import type { TrackOutline } from './content/outline';
 import { TRACK_ROUTE_ID, type RouteParams } from './features/tracks/useTrack';
@@ -49,7 +51,10 @@ export async function render(pathname: string): Promise<RenderResult> {
   return { html, title, status: context.statusCode };
 }
 
-/** Every content URL: home, tracks, sections, questions, exercises and coverage pages. */
+/**
+ * Every content URL: home, tracks, sections, questions, exercises and coverage pages, plus the
+ * LeetCode area (the revision session is client-only, like /bookmarks).
+ */
 export async function prerenderPaths(): Promise<string[]> {
   const outlines = await loadAllOutlines();
   return [
@@ -65,5 +70,13 @@ export async function prerenderPaths(): Promise<string[]> {
       paths.coverage(track.slug),
       ...(track.dataset ? [paths.dataset(track.slug)] : []),
     ]),
+    paths.leetcode(),
+    paths.lcList('dsa'),
+    paths.lcList('database'),
+    paths.lcPatterns(),
+    paths.lcPractice(),
+    paths.lcTopics(),
+    ...topicMetas.map((t) => paths.lcTopic(t.id)),
+    ...lcOutline.problems.map((p) => paths.lcProblem(p.category, p.slug)),
   ];
 }

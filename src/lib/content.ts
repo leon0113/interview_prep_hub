@@ -92,6 +92,16 @@ export const paths = {
   coverage: (trackSlug: string) => `/${trackSlug}/coverage`,
   dataset: (trackSlug: string) => `/${trackSlug}/dataset`,
   playground: (trackSlug: string) => `/${trackSlug}/playground`,
+
+  // LeetCode area (not a track)
+  leetcode: () => '/leetcode',
+  lcList: (category: 'dsa' | 'database') => `/leetcode/${category}`,
+  lcProblem: (category: 'dsa' | 'database', slug: string) => `/leetcode/${category}/${slug}`,
+  lcPatterns: (patternId?: string) => `/leetcode/patterns${patternId ? `#${patternId}` : ''}`,
+  lcPractice: () => '/leetcode/practice',
+  lcRevise: () => '/leetcode/revise',
+  lcTopics: () => '/leetcode/topics',
+  lcTopic: (topicId: string) => `/leetcode/topics/${topicId}`,
 };
 
 export interface RelatedLink {

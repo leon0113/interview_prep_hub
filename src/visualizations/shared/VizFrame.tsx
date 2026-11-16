@@ -1,5 +1,6 @@
 import { MotionConfig } from 'motion/react';
 import type { KeyboardEvent, ReactNode } from 'react';
+import { InlineText } from '@/components/common/InlineText';
 import { StepControls } from './StepControls';
 import type { Stepper } from './useStepper';
 
@@ -8,6 +9,8 @@ export interface StepText {
   text: string;
   /** Optional Bangla line shown under it. */
   bn?: string;
+  /** Render `code`, **bold** and *italic* in the text (LeetCode captions use inline code). */
+  rich?: boolean;
 }
 
 interface VizFrameProps {
@@ -68,7 +71,9 @@ export function VizFrame({ title, caption, toolbar, children, step, stepper }: V
             aria-live="polite"
             className="min-h-[4.5rem] border-t border-border px-3.5 py-3 sm:px-4"
           >
-            <p className="text-sm leading-6 text-pretty">{step.text}</p>
+            <p className="text-sm leading-6 text-pretty">
+              {step.rich ? <InlineText>{step.text}</InlineText> : step.text}
+            </p>
             {step.bn ? (
               <p lang="bn" className="mt-1 text-[0.8125rem] text-pretty text-muted">
                 {step.bn}

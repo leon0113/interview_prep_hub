@@ -1,4 +1,6 @@
 import { useLocation } from 'react-router';
+import { findLcProblem, LC_CATEGORY_SHORT } from '@/content/leetcode/loader';
+import { getTopicMeta } from '@/content/leetcode/topics';
 import type { TrackOutline } from '@/content/outline';
 import { useOptionalTrack, useRouteParams, type RouteParams } from '@/features/tracks/useTrack';
 import { findExercise, findQuestion, findSection, paths } from '@/lib/content';
@@ -17,7 +19,7 @@ export function useCrumbs(): Crumb[] {
 /** Pure version of useCrumbs, so prerendering can compute page titles without React. */
 export function buildCrumbs(
   pathname: string,
-  { sectionId, questionId, exerciseId }: RouteParams,
+  { sectionId, questionId, exerciseId, category, slug, topicId }: RouteParams,
   track: TrackOutline | undefined,
 ): Crumb[] {
   if (pathname === '/') return [];
@@ -27,6 +29,9 @@ export function buildCrumbs(
   if (pathname === paths.bookmarks()) {
     crumbs.push({ label: 'Bookmarks' });
     return crumbs;
+  }
+  if (pathname === paths.leetcode() || pathname.startsWith(`${paths.leetcode()}/`)) {
+    return leetcodeCrumbs(crumbs, pathname, category, slug, topicId);
   }
   if (!track) return [];
   const meta = track;
@@ -56,8 +61,42 @@ export function buildCrumbs(
     if (section) crumbs.push({ label: section.title });
   }
 
-  // The last crumb is the current page, never a link.
+  return endCrumbs(crumbs);
+}
+
+/** The last crumb is the current page, never a link. */
+function endCrumbs(crumbs: Crumb[]): Crumb[] {
   const last = crumbs.at(-1);
   if (last) delete last.to;
   return crumbs;
+}
+
+/** Home / LeetCode / DSA / #27 Remove Element (and Patterns, Practice, Revise). */
+function leetcodeCrumbs(
+  crumbs: Crumb[],
+  pathname: string,
+  category: string | undefined,
+  slug: string | undefined,
+  topicId: string | undefined,
+): Crumb[] {
+  crumbs.push({ label: 'LeetCode', to: paths.leetcode() });
+  if (pathname.startsWith(paths.lcTopics())) {
+    crumbs.push({ label: 'Topics', to: paths.lcTopics() });
+    const topic = getTopicMeta(topicId);
+    if (topic) crumbs.push({ label: topic.title });
+    return endCrumbs(crumbs);
+  }
+  const fixed: Record<string, string> = {
+    [paths.lcPatterns()]: 'Patterns',
+    [paths.lcPractice()]: 'Practice',
+    [paths.lcRevise()]: 'Revise',
+  };
+  if (fixed[pathname]) {
+    crumbs.push({ label: fixed[pathname] });
+  } else if (category === 'dsa' || category === 'database') {
+    crumbs.push({ label: LC_CATEGORY_SHORT[category], to: paths.lcList(category) });
+    const problem = slug ? findLcProblem(category, slug) : undefined;
+    if (problem) crumbs.push({ label: `#${problem.number} ${problem.title}` });
+  }
+  return endCrumbs(crumbs);
 }

@@ -34,6 +34,22 @@ export const vizRegistry: Record<string, VizComponent> = {
   'ts-narrowing-flow': lazy(() => import('./typescript/NarrowingFlowViz')),
   'ts-utility-types': lazy(() => import('./typescript/UtilityTypesViz')),
   'ts-type-vs-interface': lazy(() => import('./typescript/TypeVsInterfaceViz')),
+
+  // LeetCode (problem-specific; the generic array visualizer is driven by each problem's
+  // `steps` traces and is not registered here — a problem uses it via 'lc-array-pointers')
+  'lc-merge-from-right': lazy(() => import('./leetcode/MergeFromRightViz')),
+  'lc-merge-sort-tree': lazy(() => import('./leetcode/MergeSortTreeViz')),
+  'lc-recursion-tree': lazy(() => import('./leetcode/RecursionTreeViz')),
+  'lc-binary-search-range': lazy(() => import('./leetcode/BinarySearchRangeViz')),
+  'lc-hash-map-count': lazy(() => import('./leetcode/HashMapCountViz')),
+  // Linked List topic
+  'lc-ll-design': lazy(() => import('./leetcode/linked-list/LinkedListDesignViz')),
+  'lc-ll-reverse': lazy(() => import('./leetcode/linked-list/LinkedListReverseViz')),
+  'lc-ll-slow-fast': lazy(() => import('./leetcode/linked-list/LinkedListSlowFastViz')),
+  'lc-ll-palindrome': lazy(() => import('./leetcode/linked-list/LinkedListPalindromeViz')),
 };
+
+/** Problem `visualizationId` that means "animate the problem's own `steps` traces". */
+export const LC_ARRAY_POINTERS = 'lc-array-pointers';
 
 export const vizIds: readonly string[] = Object.keys(vizRegistry);
