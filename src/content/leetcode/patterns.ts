@@ -359,6 +359,58 @@ return dummy.next`,
       },
     ],
   },
+  {
+    id: 'two-pointer-switch',
+    name: 'Two pointers that switch lists',
+    triggers: [
+      'where do two linked lists meet',
+      'intersection node, O(1) memory',
+      'two lists of different lengths',
+    ],
+    skeleton:
+      '`a` walks A then B, `b` walks B then A; same total distance, so they meet at the shared node (or both reach None)',
+    templates: [
+      {
+        title: 'Intersection of two lists (#160, O(1) space)',
+        lang: 'python',
+        code: `a, b = headA, headB
+while a is not b:
+    a = a.next if a else headB   # A শেষ? B-তে চলে যাও
+    b = b.next if b else headA   # B শেষ? A-তে চলে যাও
+return a                         # মিলনের node, বা None`,
+        whatChanges:
+          'দুইজনেই মোট `lenA + lenB` ধাপ হাঁটে, তাই length আলাদা হলেও একই সময়ে মিলনের node-এ পৌঁছায়। মিলন না থাকলে দুইজনেই একসাথে None হয়, loop থামে।',
+        note: 'Hash set দিয়েও হয় (B-র সব node set-এ রেখে A হাঁটা), কিন্তু তাতে O(n) memory লাগে।',
+      },
+    ],
+  },
+  {
+    id: 'split-and-rejoin',
+    name: 'Split into two chains, then rejoin',
+    triggers: [
+      'group odd and even positions',
+      'partition a list keeping relative order',
+      'O(1) extra space reorder',
+    ],
+    skeleton:
+      'two chain tails move together, each skipping one node; remember where the second chain starts and link it after the first chain',
+    templates: [
+      {
+        title: 'Odd even list (#328)',
+        lang: 'python',
+        code: `odd, even = head, head.next
+evenStart = even
+while even and even.next:
+    odd.next = odd.next.next     # odd chain একটা টপকে
+    even.next = even.next.next   # even chain একটা টপকে
+    odd = odd.next
+    even = even.next
+odd.next = evenStart             # শেষে জোড়া লাগাও`,
+        whatChanges:
+          'Partition (#86)-এ একই idea: দুইটা dummy দিয়ে "ছোট" আর "বড়" chain বানিয়ে শেষে জোড়া। মূল কথা: দ্বিতীয় chain-এর শুরু আগেই মনে রাখা।',
+      },
+    ],
+  },
 ];
 
 /**
@@ -406,6 +458,8 @@ export const patternFamilies: { id: string; title: string; patternIds: string[] 
       'reverse-in-place',
       'dummy-node',
       'gap-pointer',
+      'two-pointer-switch',
+      'split-and-rejoin',
     ],
   },
 ];

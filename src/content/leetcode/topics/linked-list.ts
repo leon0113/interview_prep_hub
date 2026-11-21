@@ -7,9 +7,11 @@ const topic: LcTopicContent = {
   notes,
   sectionVisualizations: {
     '6': ['lc-ll-design'], // Insertion
+    '7': ['lc-ll-remove-val'], // Deletion (#203: dummy + prev)
     '9': ['lc-ll-reverse'], // Reverse
-    '13': ['lc-ll-slow-fast'], // Slow / fast pointers: middle and cycle
-    '14': ['lc-ll-palindrome'], // Palindrome check (middle + reverse + compare)
+    '13': ['lc-ll-slow-fast', 'lc-ll-remove-nth'], // Slow / fast: middle, cycle, n-th from end
+    // Advanced problems: palindrome, duplicates (14.3), then #160 and #328
+    '14': ['lc-ll-palindrome', 'lc-ll-dedupe', 'lc-ll-intersection', 'lc-ll-odd-even'],
   },
 };
 

@@ -1,5 +1,5 @@
 import type { VizStep } from '../../shared/StepViz';
-import type { LLNode, LLState } from './LinkedListDiagram';
+import type { LLNode, LLState } from './llState';
 
 /**
  * Step lists for the linked-list visualizations, produced by running each algorithm on a
@@ -336,4 +336,296 @@ export function designSteps(): Step[] {
       { highlight: ['b'] },
     ),
   ];
+}
+
+/* ──────────────── #203 / #83 / #19 Removing nodes ──────────────── */
+
+const DUMMY: LLNode = { id: 'd', val: 'D' };
+
+/** #203: delete every node with `val`, using a dummy node and `prev`. */
+export function removeValSteps(values: readonly number[], target: number): Step[] {
+  const nodes = [DUMMY, ...nodesOf(values)];
+  const next = linear(nodes);
+  const val = (id: string | null) => (id ? nodes.find((n) => n.id === id)!.val : 'None');
+  const faded: string[] = [];
+  const vars = { val: target };
+  const steps: Step[] = [];
+  let prev: string = DUMMY.id;
+  steps.push({
+    state: snap(nodes, next, { dummy: DUMMY.id, prev }, { vars }),
+    text: `\`dummy.next = head\`, \`prev = dummy\`. Delete every ${target}.`,
+    bn: 'dummy থাকায় head মুছলেও "আগের node" আছে।',
+    rich: true,
+  });
+  while (next[prev]) {
+    const ahead = next[prev]!;
+    if (val(ahead) === target) {
+      next[prev] = next[ahead] ?? null;
+      faded.push(ahead);
+      steps.push({
+        state: snap(
+          nodes,
+          next,
+          { dummy: DUMMY.id, prev },
+          { faded: [...faded], highlight: [prev], vars },
+        ),
+        text: `\`prev.next.val == ${target}\`: \`prev.next = prev.next.next\`. \`prev\` stays: the new next may match too.`,
+        bn: 'মুছলাম, prev নড়ে না।',
+        rich: true,
+      });
+    } else {
+      prev = ahead;
+      steps.push({
+        state: snap(
+          nodes,
+          next,
+          { dummy: DUMMY.id, prev },
+          { faded: [...faded], highlight: [prev], vars },
+        ),
+        text: `${val(ahead)} ≠ ${target}: keep it, \`prev = prev.next\`.`,
+        bn: 'রাখলাম, prev এগোয়।',
+        rich: true,
+      });
+    }
+  }
+  steps.push({
+    state: snap(nodes, next, { dummy: DUMMY.id, prev }, { faded: [...faded], vars }),
+    text: '`prev.next` is None: done. Return `dummy.next`.',
+    bn: 'dummy.next-ই নতুন head।',
+    rich: true,
+  });
+  return steps;
+}
+
+/** #83: sorted list; skip the next node while it equals `curr`. */
+export function dedupeSteps(values: readonly number[]): Step[] {
+  const nodes = nodesOf(values);
+  const next = linear(nodes);
+  const val = (id: string | null) => (id ? nodes.find((n) => n.id === id)!.val : 'None');
+  const faded: string[] = [];
+  const head = nodes[0]?.id ?? null;
+  const steps: Step[] = [];
+  let curr = head;
+  steps.push({
+    state: snap(nodes, next, { head, curr }),
+    text: '`curr = head`. The list is sorted, so duplicates sit next to each other.',
+    bn: 'sorted, তাই duplicate পাশাপাশি।',
+    rich: true,
+  });
+  while (curr && next[curr]) {
+    const ahead = next[curr]!;
+    if (val(curr) === val(ahead)) {
+      next[curr] = next[ahead] ?? null;
+      faded.push(ahead);
+      steps.push({
+        state: snap(nodes, next, { head, curr }, { faded: [...faded], highlight: [curr] }),
+        text: `\`curr.val == curr.next.val\` (${val(curr)}): \`curr.next = curr.next.next\`. \`curr\` stays.`,
+        bn: 'duplicate বাদ, curr নড়ে না।',
+        rich: true,
+      });
+    } else {
+      curr = ahead;
+      steps.push({
+        state: snap(nodes, next, { head, curr }, { faded: [...faded], highlight: [curr] }),
+        text: `Different values: \`curr = curr.next\` (${val(curr)}).`,
+        bn: 'আলাদা, curr এগোয়।',
+        rich: true,
+      });
+    }
+  }
+  steps.push({
+    state: snap(nodes, next, { head, curr }, { faded: [...faded] }),
+    text: '`curr.next` is None: done. Return `head` (it never changes).',
+    bn: 'head একই থাকে।',
+    rich: true,
+  });
+  return steps;
+}
+
+const ordinal = (n: number) => `${n}${n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'}`;
+
+/** #19: `x` goes n steps ahead of `y`; both walk until `x.next` is None; delete `y.next`. */
+export function removeNthSteps(values: readonly number[], n: number): Step[] {
+  const nodes = [DUMMY, ...nodesOf(values)];
+  const next = linear(nodes);
+  const val = (id: string | null) => (id ? nodes.find((node) => node.id === id)!.val : 'None');
+  const steps: Step[] = [];
+  let x: string = DUMMY.id;
+  let y: string = DUMMY.id;
+  steps.push({
+    state: snap(nodes, next, { dummy: DUMMY.id, x, y }, { vars: { n } }),
+    text: `\`x = y = dummy\`. Remove the ${ordinal(n)} node from the end.`,
+    bn: 'দুইজনেই dummy থেকে।',
+    rich: true,
+  });
+  for (let i = 1; i <= n; i++) {
+    x = next[x]!;
+    steps.push({
+      state: snap(nodes, next, { dummy: DUMMY.id, x, y }, { highlight: [x], vars: { n, gap: i } }),
+      text: `\`for\` loop ${i}/${n}: \`x = x.next\` (${val(x)}).`,
+      bn: 'x আগে n ধাপ এগোয়।',
+      rich: true,
+    });
+  }
+  while (next[x]) {
+    x = next[x]!;
+    y = next[y]!;
+    steps.push({
+      state: snap(nodes, next, { dummy: DUMMY.id, x, y }, { vars: { n, gap: n } }),
+      text: `\`x.next\` exists: both move (x = ${val(x)}, y = ${val(y)}). The gap stays ${n}.`,
+      bn: 'দুইজন একসাথে, ফাঁক একই।',
+      rich: true,
+    });
+  }
+  const removed = next[y]!;
+  steps.push({
+    state: snap(nodes, next, { dummy: DUMMY.id, x, y }, { highlight: [y, removed], vars: { n } }),
+    text: `\`x.next\` is None, so \`x\` is the last node and \`y.next\` (${val(removed)}) is the one to delete.`,
+    bn: 'y থামে মুছতে হবে এমন node-এর আগে।',
+    rich: true,
+  });
+  next[y] = next[removed] ?? null;
+  steps.push({
+    state: snap(
+      nodes,
+      next,
+      { dummy: DUMMY.id, y },
+      { faded: [removed], highlight: [y], vars: { n } },
+    ),
+    text: '`y.next = y.next.next`. Return `dummy.next`.',
+    bn: 'মুছে dummy.next return।',
+    rich: true,
+  });
+  return steps;
+}
+
+/* ─────────────────────── #160 Intersection ─────────────────────── */
+
+/**
+ * #160 with my hash-set approach: store every node of list B, then walk A until a node is in
+ * the set. Nodes are compared by identity, so an equal value in a different node is no match.
+ */
+export function intersectionSteps(
+  a: readonly number[],
+  b: readonly number[],
+  common: readonly number[],
+): Step[] {
+  const aNodes = a.map((val, i) => ({ id: `a${i}`, val }));
+  const bNodes = b.map((val, i) => ({ id: `b${i}`, val }));
+  const cNodes = common.map((val, i) => ({ id: `c${i}`, val }));
+  const nodes = [...aNodes, ...bNodes, ...cNodes];
+  const next: Record<string, string | null> = {};
+  const chain = (list: LLNode[], tail: string | null) =>
+    list.forEach((node, i) => (next[node.id] = list[i + 1]?.id ?? tail));
+  chain(cNodes, null);
+  chain(aNodes, cNodes[0]?.id ?? null);
+  chain(bNodes, cNodes[0]?.id ?? null);
+  const headA = aNodes[0]?.id ?? cNodes[0]?.id ?? null;
+  const headB = bNodes[0]?.id ?? cNodes[0]?.id ?? null;
+  const val = (id: string | null) => (id ? nodes.find((n) => n.id === id)!.val : 'None');
+  const listB: string[] = [];
+  const size = () => ({ 'len(listB)': listB.length });
+  const steps: Step[] = [];
+
+  let curr = headB;
+  steps.push({
+    state: snap(nodes, next, { headA, headB, curr }),
+    text: 'Part 1: `curr = headB`, `listB = set()`. Store every node of list B (the node itself, not its value).',
+    bn: 'B-র সব node set-এ রাখো।',
+    rich: true,
+  });
+  while (curr) {
+    listB.push(curr);
+    curr = next[curr] ?? null;
+    steps.push({
+      state: snap(nodes, next, { headA, headB, curr }, { highlight: [...listB], vars: size() }),
+      text: `\`listB.add(curr)\` (node ${val(listB.at(-1)!)}), \`curr = curr.next\`.`,
+      rich: true,
+    });
+  }
+  let currNew = headA;
+  steps.push({
+    state: snap(nodes, next, { headA, headB, currNew }, { highlight: [...listB], vars: size() }),
+    text: 'Part 2: `currNew = headA`. Walk A and ask the set: is this exact node in B?',
+    bn: 'A হাঁটো, প্রতিটা node set-এ আছে কিনা দেখো।',
+    rich: true,
+  });
+  while (currNew) {
+    if (listB.includes(currNew)) {
+      steps.push({
+        state: snap(nodes, next, { headA, headB, currNew }, { highlight: [currNew], vars: size() }),
+        text: `Node ${val(currNew)} is in \`listB\`: return it. This is where the lists meet.`,
+        bn: 'পাওয়া গেছে: intersection।',
+        rich: true,
+      });
+      return steps;
+    }
+    const passed = currNew;
+    currNew = next[currNew] ?? null;
+    steps.push({
+      state: snap(nodes, next, { headA, headB, currNew }, { highlight: [...listB], vars: size() }),
+      text: `Node ${val(passed)} is not in \`listB\`: \`currNew = currNew.next\`.`,
+      rich: true,
+    });
+  }
+  steps.push({
+    state: snap(nodes, next, { headA, headB, currNew }, { vars: size() }),
+    text: '`currNew` is None: no shared node. Return None.',
+    bn: 'মিলন নেই।',
+    rich: true,
+  });
+  return steps;
+}
+
+/* ─────────────────────── #328 Odd Even ─────────────────────── */
+
+/** #328: the odd chain and the even chain grow side by side; then odd's tail → evenStart. */
+export function oddEvenSteps(values: readonly number[]): Step[] {
+  const nodes = nodesOf(values);
+  const next = linear(nodes);
+  const val = (id: string | null) => (id ? nodes.find((n) => n.id === id)!.val : 'None');
+  const head = nodes[0]?.id ?? null;
+  const steps: Step[] = [];
+  if (!head || !next[head]) {
+    steps.push({
+      state: snap(nodes, next, { head }),
+      text: '`not head or not head.next`: nothing to reorder, return `head`.',
+      rich: true,
+    });
+    return steps;
+  }
+  let odd: string = head;
+  let even: string | null = next[head]!;
+  const evenStart = even;
+  steps.push({
+    state: snap(nodes, next, { odd, even, evenStart }),
+    text: '`odd = head`, `even = head.next`, `evenStart = even` (where the even chain starts).',
+    bn: 'evenStart মনে রাখো, শেষে জোড়া লাগাতে লাগবে।',
+    rich: true,
+  });
+  while (even && next[even]) {
+    next[odd] = next[next[odd]!] ?? null;
+    next[even] = next[next[even]!] ?? null;
+    steps.push({
+      state: snap(nodes, next, { odd, even, evenStart }, { highlight: [odd, even] }),
+      text: `\`odd.next = odd.next.next\` (${val(odd)} → ${val(next[odd] ?? null)}), \`even.next = even.next.next\` (${val(even)} → ${val(next[even] ?? null)}).`,
+      bn: 'দুইটা chain-ই একটা করে node টপকে যায়।',
+      rich: true,
+    });
+    odd = next[odd]!;
+    even = next[even] ?? null;
+    steps.push({
+      state: snap(nodes, next, { odd, even, evenStart }),
+      text: `\`odd = odd.next\` (${val(odd)}), \`even = even.next\` (${val(even)}).`,
+      rich: true,
+    });
+  }
+  next[odd] = evenStart;
+  steps.push({
+    state: snap(nodes, next, { head, odd, evenStart }, { highlight: [odd, evenStart] }),
+    text: `Loop ends. \`odd.next = evenStart\`: ${val(odd)} → ${val(evenStart)}. Return \`head\`.`,
+    bn: 'odd chain-এর শেষে even chain জুড়ে দাও।',
+    rich: true,
+  });
+  return steps;
 }

@@ -47,6 +47,11 @@ export const vizRegistry: Record<string, VizComponent> = {
   'lc-ll-reverse': lazy(() => import('./leetcode/linked-list/LinkedListReverseViz')),
   'lc-ll-slow-fast': lazy(() => import('./leetcode/linked-list/LinkedListSlowFastViz')),
   'lc-ll-palindrome': lazy(() => import('./leetcode/linked-list/LinkedListPalindromeViz')),
+  'lc-ll-remove-val': lazy(() => import('./leetcode/linked-list/LinkedListRemoveValViz')),
+  'lc-ll-dedupe': lazy(() => import('./leetcode/linked-list/LinkedListDedupeViz')),
+  'lc-ll-remove-nth': lazy(() => import('./leetcode/linked-list/LinkedListRemoveNthViz')),
+  'lc-ll-intersection': lazy(() => import('./leetcode/linked-list/LinkedListIntersectionViz')),
+  'lc-ll-odd-even': lazy(() => import('./leetcode/linked-list/LinkedListOddEvenViz')),
 };
 
 /** Problem `visualizationId` that means "animate the problem's own `steps` traces". */

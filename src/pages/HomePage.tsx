@@ -1,9 +1,10 @@
-import { ArrowRight, History } from 'lucide-react';
+import { ArrowRight, Container, History } from 'lucide-react';
 import { Suspense, use } from 'react';
 import { Link } from 'react-router';
 import { ProgressBar } from '@/components/common/ProgressBar';
 import { ProgressRing } from '@/components/common/ProgressRing';
 import { TrackIcon } from '@/components/common/TrackIcon';
+import { guideMetas } from '@/content/guides';
 import { getTrackMeta, loadAllOutlines, loadOutline, trackMetas } from '@/content/loader';
 import type { TrackMeta } from '@/content/schema';
 import { useBookmarkCount, useLearnedCount } from '@/features/progress/hooks';
@@ -52,6 +53,39 @@ export default function HomePage() {
           {trackMetas.map((meta) => (
             <li key={meta.slug}>
               <TrackCard meta={meta} />
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="guides-heading" className="mt-10">
+        <h2 id="guides-heading" className={sectionHeading}>
+          Guides
+        </h2>
+        <ul className="flex flex-col gap-3">
+          {guideMetas.map((guide) => (
+            <li key={guide.id}>
+              <Link
+                to={paths.guide(guide.id)}
+                data-accent={guide.accent}
+                className="group flex gap-4 rounded-xl border border-border bg-surface p-4 shadow-card transition-colors hover:border-accent-border sm:p-5"
+              >
+                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-text">
+                  <Container className="size-6" aria-hidden />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center gap-2">
+                    <span className="text-lg font-semibold tracking-tight">{guide.title}</span>
+                    <ArrowRight
+                      className="size-4 text-subtle transition group-hover:translate-x-0.5 group-hover:text-accent-text"
+                      aria-hidden
+                    />
+                  </span>
+                  <span className="mt-1 block text-sm leading-6 text-pretty text-muted">
+                    {guide.description}
+                  </span>
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

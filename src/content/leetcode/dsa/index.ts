@@ -17,6 +17,11 @@ import reverseLinkedList from './206-reverse-linked-list';
 import palindromeLinkedList from './234-palindrome-linked-list';
 import designLinkedList from './707-design-linked-list';
 import middleOfTheLinkedList from './876-middle-of-the-linked-list';
+import intersectionOfTwoLinkedLists from './160-intersection-of-two-linked-lists';
+import removeLinkedListElements from './203-remove-linked-list-elements';
+import removeNthNodeFromEndOfList from './19-remove-nth-node-from-end-of-list';
+import removeDuplicatesFromSortedList from './83-remove-duplicates-from-sorted-list';
+import oddEvenLinkedList from './328-odd-even-linked-list';
 
 /**
  * Every DSA problem, in the order of docs/leetcode-notes.md (Section 1 → Section 10). A new
@@ -42,4 +47,9 @@ export const dsaProblems: LcProblem[] = [
   reverseLinkedList,
   linkedListCycle,
   palindromeLinkedList,
+  intersectionOfTwoLinkedLists,
+  removeLinkedListElements,
+  removeNthNodeFromEndOfList,
+  removeDuplicatesFromSortedList,
+  oddEvenLinkedList,
 ];

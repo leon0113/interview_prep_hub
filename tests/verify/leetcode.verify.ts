@@ -65,7 +65,10 @@ const norm = (xs: readonly unknown[], unordered?: boolean) => {
 
 describe('LeetCode solutions', () => {
   it('every problem with code has verify cases', () => {
-    const missing = lcProblems.filter((p) => p.category === 'dsa' && !p.verify);
+    // Problems accepted on LeetCode (e.g. linked lists, which need ListNode input) may skip them.
+    const missing = lcProblems.filter(
+      (p) => p.category === 'dsa' && !p.verify && !p.acceptedOnLeetCode,
+    );
     expect(missing.map((p) => p.id)).toEqual([]);
   });
 

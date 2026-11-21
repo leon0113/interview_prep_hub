@@ -1,14 +1,26 @@
 import Fuse from 'fuse.js';
+import type { GuideSearchEntry } from '@/content/guides';
 import type { LcProblemOutline } from '@/content/leetcode/outline';
 import type { TrackOutline } from '@/content/outline';
 import type { Accent, Level } from '@/content/schema';
 import { paths, sortedSections } from '@/lib/content';
 import { questionTitle } from '@/lib/text';
 
-export type SearchItemType = 'section' | 'question' | 'exercise' | 'concept' | 'problem' | 'topic';
+export type SearchItemType =
+  | 'section'
+  | 'question'
+  | 'exercise'
+  | 'concept'
+  | 'problem'
+  | 'topic'
+  | 'recipe'
+  | 'guide-section';
 
 /** Results from the LeetCode area are grouped under this pseudo-track. */
 export const LEETCODE_GROUP = 'leetcode';
+
+/** Results from a guide are grouped under `guide:<id>`. */
+export const guideGroup = (guideId: string) => `guide:${guideId}`;
 
 export interface SearchItem {
   id: string;
@@ -32,7 +44,8 @@ export interface SearchFilters {
   /** Track slug. */
   track?: string;
   level?: Level;
-  type?: 'question' | 'exercise' | 'problem';
+  /** `guide` matches guide recipes and guide sections. */
+  type?: 'question' | 'exercise' | 'problem' | 'guide';
 }
 
 export const TYPE_LABEL: Record<SearchItemType, string> = {
@@ -42,6 +55,8 @@ export const TYPE_LABEL: Record<SearchItemType, string> = {
   concept: 'Quick concept',
   problem: 'LeetCode problem',
   topic: 'LeetCode topic',
+  recipe: 'Recipe',
+  'guide-section': 'Notes',
 };
 
 /**
@@ -52,6 +67,7 @@ export function buildSearchIndex(
   tracks: readonly TrackOutline[],
   problems: readonly LcProblemOutline[] = [],
   topics: readonly { id: string; title: string; description: string }[] = [],
+  guideEntries: readonly GuideSearchEntry[] = [],
 ): SearchItem[] {
   const trackItems = tracks.flatMap((track) => {
     const base = { trackSlug: track.slug, trackName: track.name, accent: track.accent };
@@ -136,12 +152,25 @@ export function buildSearchIndex(
     path: `/leetcode/topics/${topic.id}`,
   }));
 
-  return [...trackItems, ...topicItems, ...problemItems];
+  const guideItems: SearchItem[] = guideEntries.map((entry) => ({
+    id: entry.id,
+    type: entry.kind === 'recipe' ? 'recipe' : 'guide-section',
+    title: entry.title,
+    context: entry.context,
+    tags: entry.keywords,
+    trackSlug: guideGroup(entry.guide.id),
+    trackName: entry.guide.title,
+    accent: entry.guide.accent,
+    path: paths.guide(entry.guide.id, entry.anchor),
+  }));
+
+  return [...trackItems, ...topicItems, ...problemItems, ...guideItems];
 }
 
 function matchesFilters(item: SearchItem, filters: SearchFilters): boolean {
   if (filters.track && item.trackSlug !== filters.track) return false;
   if (filters.level && item.level !== filters.level) return false;
+  if (filters.type === 'guide') return item.type === 'recipe' || item.type === 'guide-section';
   if (filters.type && item.type !== filters.type) return false;
   return true;
 }

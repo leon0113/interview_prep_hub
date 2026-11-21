@@ -330,11 +330,11 @@ function ProblemPrompt({ problem }: { problem: LcProblem }) {
             key={i}
             className="rounded-xl border border-border bg-bg p-3 font-mono text-[0.8125rem] leading-6"
           >
-            <p className="whitespace-pre-wrap">
+            <p className="[overflow-wrap:anywhere] whitespace-pre-wrap">
               <span className="text-subtle">Input : </span>
               {s.input}
             </p>
-            <p className="whitespace-pre-wrap">
+            <p className="[overflow-wrap:anywhere] whitespace-pre-wrap">
               <span className="text-subtle">Output: </span>
               {s.output}
             </p>

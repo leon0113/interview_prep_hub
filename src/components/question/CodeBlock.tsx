@@ -18,6 +18,9 @@ interface CodeBlockProps {
   resultTable?: ResultTableData;
   /** SQL only: offer "Run" when the track has a sample database (default true). */
   runnable?: boolean;
+  /** Header label and Prism grammar for fences outside the content languages (YAML, Dockerfile…). */
+  label?: string;
+  prismLang?: string;
 }
 
 /** Syntax-highlighted code with a copy button, optional output and caption. */
@@ -28,6 +31,8 @@ export function CodeBlock({
   output,
   resultTable,
   runnable = true,
+  label,
+  prismLang,
 }: CodeBlockProps) {
   const source = code.replace(/\s+$/, '');
   // SQL examples can run in the browser against the track's sample database.
@@ -38,13 +43,13 @@ export function CodeBlock({
   return (
     <figure className="overflow-hidden rounded-xl border border-border">
       <div className="flex h-11 items-center justify-between border-b border-border bg-surface-2 pr-1 pl-3.5 text-[0.6875rem] font-medium tracking-wide text-subtle uppercase lg:h-9">
-        <span className="flex-1">{LANG_LABEL[lang]}</span>
+        <span className="flex-1">{label ?? LANG_LABEL[lang]}</span>
         {canRun ? (
           <RunSqlButton state={sql.state} onRun={() => sql.run(source, { reset: true })} />
         ) : null}
         <CopyButton text={source} />
       </div>
-      <Highlight theme={codeTheme} code={source} language={PRISM_LANG[lang]}>
+      <Highlight theme={codeTheme} code={source} language={prismLang ?? PRISM_LANG[lang]}>
         {({ tokens, getLineProps, getTokenProps }) => (
           <pre
             tabIndex={0}

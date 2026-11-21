@@ -109,7 +109,7 @@ function ProblemView({ problem }: { problem: LcProblem }) {
             type="checkbox"
             checked={showEverything}
             onChange={(e) => setShowEverything(e.target.checked)}
-            className="size-4 accent-[var(--accent)]"
+            className="size-4 accent-accent"
           />
           Show everything
         </label>
@@ -177,6 +177,13 @@ function Header({ problem }: { problem: LcProblem }) {
           <span className="sr-only">(opens in a new tab)</span>
         </a>
       </div>
+      {isGenerated(problem, GENERATED_KEYS.note) ? (
+        <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted">
+          <GeneratedBadge />
+          The explanation was written by the assistant from your accepted code; your code is
+          verbatim.
+        </p>
+      ) : null}
     </header>
   );
 }
@@ -263,11 +270,11 @@ function ProblemStage({ problem }: { problem: LcProblem }) {
               key={i}
               className="rounded-xl border border-border bg-bg p-3 font-mono text-[0.8125rem] leading-6"
             >
-              <p className="whitespace-pre-wrap">
+              <p className="[overflow-wrap:anywhere] whitespace-pre-wrap">
                 <span className="text-subtle">Input : </span>
                 {sample.input}
               </p>
-              <p className="whitespace-pre-wrap">
+              <p className="[overflow-wrap:anywhere] whitespace-pre-wrap">
                 <span className="text-subtle">Output: </span>
                 {sample.output}
               </p>

@@ -26,6 +26,17 @@ const FENCE_LANG: Record<string, CodeLang> = {
   shell: 'bash',
 };
 
+/** Fences that are not content languages: shown with their own label (and grammar, if bundled). */
+const EXTRA_FENCE: Record<string, { label: string; prism: string }> = {
+  yaml: { label: 'YAML', prism: 'yaml' },
+  yml: { label: 'YAML', prism: 'yaml' },
+  dockerfile: { label: 'Dockerfile', prism: 'text' },
+  env: { label: '.env', prism: 'text' },
+  gitignore: { label: '.gitignore', prism: 'text' },
+  nginx: { label: 'Nginx', prism: 'text' },
+  jsonc: { label: 'JSON', prism: 'json' },
+};
+
 function textOf(children: ReactNode): string {
   return Array.isArray(children) ? children.join('') : String(children ?? '');
 }
@@ -43,21 +54,26 @@ function hastText(node: HastNode): string {
   return (node.children ?? []).map(hastText).join('');
 }
 
-/** "Table: <column headers>" from the table's first row of <th> cells. */
+/**
+ * "Table: <column headers>, from <first row>". The first row keeps tables with the same
+ * columns (e.g. several "Task | Command" tables in a cheat sheet) distinguishable.
+ */
 function tableLabel(node: HastNode | undefined): string {
-  const headers: string[] = [];
+  const rows: HastNode[] = [];
   const visit = (n: HastNode) => {
-    if (headers.length) return;
-    if (n.tagName === 'tr') {
-      for (const cell of n.children ?? []) {
-        if (cell.tagName === 'th') headers.push(hastText(cell).trim() || 'Compared');
-      }
-      return;
-    }
-    (n.children ?? []).forEach(visit);
+    if (n.tagName === 'tr') rows.push(n);
+    else (n.children ?? []).forEach(visit);
   };
   if (node) visit(node);
-  return headers.length ? `Table: ${headers.join(', ')}` : 'Table';
+  const cells = (row: HastNode | undefined) =>
+    (row?.children ?? []).filter((c) => c.tagName === 'th' || c.tagName === 'td');
+  const headers = cells(rows[0]).map((c) => hastText(c).trim() || 'Compared');
+  if (!headers.length) return 'Table';
+  const first = cells(rows[1])
+    .map((c) => hastText(c).trim())
+    .join(', ');
+  const from = first ? `, from ${first.length > 60 ? `${first.slice(0, 60)}…` : first}` : '';
+  return `Table: ${headers.join(', ')}${from}`;
 }
 
 /** Fenced code blocks render as full CodeBlocks (highlighting + copy); inline code stays inline. */
@@ -69,7 +85,22 @@ const components: Components = {
     if (!fence && !text.includes('\n')) return <code>{children}</code>;
     // ```output fences (e.g. program output in topic notes) render as an Output block.
     if (fence === 'output') return <OutputBlock output={text.replace(/\n$/, '')} standalone />;
+    const extra = fence ? EXTRA_FENCE[fence] : undefined;
+    if (extra) {
+      return <CodeBlock code={text} lang="text" label={extra.label} prismLang={extra.prism} />;
+    }
     return <CodeBlock code={text} lang={FENCE_LANG[fence ?? ''] ?? 'text'} />;
+  },
+  // Task-list boxes ("- [ ] step") are decorative: a styled box, not an unlabeled control.
+  input: ({ type, checked }) =>
+    type === 'checkbox' ? (
+      <span aria-hidden className="task-box" data-checked={checked ? '' : undefined} />
+    ) : null,
+  // Notes callouts: "> 💡 …" is a tip, "> ⚠️ …" a warning; other quotes are plain notes.
+  blockquote: ({ children, node }) => {
+    const text = node ? hastText(node as HastNode).trim() : '';
+    const tone = text.startsWith('⚠') ? 'warn' : text.startsWith('💡') ? 'tip' : 'note';
+    return <blockquote data-tone={tone}>{children}</blockquote>;
   },
   // Comparison tables can be wider than a phone: the wrapper scrolls and is focusable, so
   // keyboard users can scroll it too.

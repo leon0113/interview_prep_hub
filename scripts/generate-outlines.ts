@@ -20,13 +20,17 @@ const contentDir = fileURLToPath(new URL('../src/content/', import.meta.url));
 /** The LeetCode area lives in src/content/leetcode but is not a language track. */
 export const LEETCODE_FOLDER = 'leetcode';
 
-/** Track folders: every directory in src/content with an index.ts, except the LeetCode area. */
+/** Guides (Docker…) live in src/content/guides; they are notes, not tracks, and have no outline. */
+export const GUIDES_FOLDER = 'guides';
+
+/** Track folders: every directory in src/content with an index.ts, except LeetCode and guides. */
 export function trackFolders(): string[] {
   return readdirSync(contentDir, { withFileTypes: true })
     .filter(
       (entry) =>
         entry.isDirectory() &&
         entry.name !== LEETCODE_FOLDER &&
+        entry.name !== GUIDES_FOLDER &&
         existsSync(join(contentDir, entry.name, 'index.ts')),
     )
     .map((entry) => entry.name);

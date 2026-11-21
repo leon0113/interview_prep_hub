@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router';
 import { findLcProblem, LC_CATEGORY_SHORT } from '@/content/leetcode/loader';
 import { getTopicMeta } from '@/content/leetcode/topics';
+import { getGuideMeta } from '@/content/guides';
 import type { TrackOutline } from '@/content/outline';
 import { useOptionalTrack, useRouteParams, type RouteParams } from '@/features/tracks/useTrack';
 import { findExercise, findQuestion, findSection, paths } from '@/lib/content';
@@ -19,7 +20,7 @@ export function useCrumbs(): Crumb[] {
 /** Pure version of useCrumbs, so prerendering can compute page titles without React. */
 export function buildCrumbs(
   pathname: string,
-  { sectionId, questionId, exerciseId, category, slug, topicId }: RouteParams,
+  { sectionId, questionId, exerciseId, category, slug, topicId, guideId }: RouteParams,
   track: TrackOutline | undefined,
 ): Crumb[] {
   if (pathname === '/') return [];
@@ -29,6 +30,12 @@ export function buildCrumbs(
   if (pathname === paths.bookmarks()) {
     crumbs.push({ label: 'Bookmarks' });
     return crumbs;
+  }
+  if (pathname === paths.guides() || pathname.startsWith(`${paths.guides()}/`)) {
+    crumbs.push({ label: 'Guides', to: paths.guides() });
+    const guide = getGuideMeta(guideId);
+    if (guide) crumbs.push({ label: guide.title });
+    return endCrumbs(crumbs);
   }
   if (pathname === paths.leetcode() || pathname.startsWith(`${paths.leetcode()}/`)) {
     return leetcodeCrumbs(crumbs, pathname, category, slug, topicId);

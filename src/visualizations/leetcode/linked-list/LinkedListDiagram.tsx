@@ -1,23 +1,8 @@
 import { useId } from 'react';
 import { cn } from '@/lib/cn';
+import { describeList, type LLState } from './llState';
 
-export interface LLNode {
-  id: string;
-  val: string | number;
-}
-
-/** One snapshot of a linked list: nodes in display order plus the real `next` pointers. */
-export interface LLState {
-  nodes: LLNode[];
-  /** node id -> next node id, or null. Anything not adjacent is drawn as a curve. */
-  next: Record<string, string | null>;
-  /** pointer name -> node id, or null (drawn over a "null" slot). */
-  pointers: Record<string, string | null>;
-  highlight?: string[];
-  /** Nodes no longer reachable (just deleted), drawn faded. */
-  faded?: string[];
-  vars?: Record<string, string | number>;
-}
+export type { LLNode, LLState } from './llState';
 
 const PAD = 14;
 const SP = 82; // distance between node left edges
@@ -25,25 +10,6 @@ const W = 54; // node width: value cell + next cell
 const VAL_W = 36;
 const H = 32;
 const TOP = 58; // y of the node boxes (pointer labels live above)
-
-/** Follows `next` from a start node and describes the list, stopping at a repeat (cycle). */
-export function describeList(state: LLState, start: string | null): string {
-  const byId = new Map(state.nodes.map((n) => [n.id, n]));
-  const seen = new Set<string>();
-  const parts: string[] = [];
-  let cur = start;
-  while (cur && byId.has(cur)) {
-    if (seen.has(cur)) {
-      parts.push(`back to ${byId.get(cur)!.val}`);
-      return parts.join(' → ');
-    }
-    seen.add(cur);
-    parts.push(String(byId.get(cur)!.val));
-    cur = state.next[cur] ?? null;
-  }
-  parts.push('null');
-  return parts.join(' → ');
-}
 
 /** SVG drawing of a linked list snapshot. Scales to the container width. */
 export function LinkedListDiagram({ state, label }: { state: LLState; label?: string }) {

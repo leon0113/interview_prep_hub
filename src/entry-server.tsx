@@ -10,6 +10,7 @@ import { routes } from './app/router';
 import { buildCrumbs } from './components/layout/useCrumbs';
 import { lcOutline } from './content/leetcode/loader';
 import { topicMetas } from './content/leetcode/topics';
+import { guideMetas } from './content/guides';
 import { loadAllOutlines } from './content/loader';
 import type { TrackOutline } from './content/outline';
 import { TRACK_ROUTE_ID, type RouteParams } from './features/tracks/useTrack';
@@ -78,5 +79,7 @@ export async function prerenderPaths(): Promise<string[]> {
     paths.lcTopics(),
     ...topicMetas.map((t) => paths.lcTopic(t.id)),
     ...lcOutline.problems.map((p) => paths.lcProblem(p.category, p.slug)),
+    paths.guides(),
+    ...guideMetas.map((g) => paths.guide(g.id)),
   ];
 }

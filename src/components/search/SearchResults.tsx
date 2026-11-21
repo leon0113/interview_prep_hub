@@ -1,9 +1,12 @@
 import { Command } from 'cmdk';
 import {
+  BookOpenText,
   CircleHelp,
   Code2,
+  Container,
   Dumbbell,
   FolderOpen,
+  ListChecks,
   Network,
   Zap,
   type LucideIcon,
@@ -13,12 +16,14 @@ import { TrackIcon } from '@/components/common/TrackIcon';
 import { DifficultyBadge } from '@/components/leetcode/badges';
 import { LevelBadge } from '@/components/question/LevelBadge';
 import { lcOutline } from '@/content/leetcode/loader';
+import { guideMetas, loadGuideSearchEntries } from '@/content/guides';
 import { topicMetas } from '@/content/leetcode/topics';
 import { getTrackMeta, loadAllOutlines, trackMetas } from '@/content/loader';
 import {
   buildSearchIndex,
   createSearcher,
   groupByTrack,
+  guideGroup,
   LEETCODE_GROUP,
   TYPE_LABEL,
   type SearchFilters,
@@ -34,9 +39,16 @@ const TYPE_ICON: Record<SearchItemType, LucideIcon> = {
   concept: Zap,
   problem: Code2,
   topic: Network,
+  recipe: ListChecks,
+  'guide-section': BookOpenText,
 };
 
-const TRACK_ORDER = [...trackMetas.map((meta) => meta.slug), LEETCODE_GROUP];
+// Guides come before the tracks: their recipes only match tool words ("compose", "mongodb").
+const TRACK_ORDER = [
+  ...guideMetas.map((g) => guideGroup(g.id)),
+  ...trackMetas.map((meta) => meta.slug),
+  LEETCODE_GROUP,
+];
 
 interface SearchResultsProps {
   query: string;
@@ -47,16 +59,18 @@ interface SearchResultsProps {
 /** Result list for the command palette, grouped by track. Suspends until all tracks are loaded. */
 export function SearchResults({ query, filters, onSelect }: SearchResultsProps) {
   const tracks = use(loadAllOutlines());
-  const { trackSlug } = useRouteParams();
+  const guideEntries = use(loadGuideSearchEntries());
+  const { trackSlug, guideId } = useRouteParams();
   const search = useMemo(
-    () => createSearcher(buildSearchIndex(tracks, lcOutline.problems, topicMetas)),
-    [tracks],
+    () => createSearcher(buildSearchIndex(tracks, lcOutline.problems, topicMetas, guideEntries)),
+    [tracks, guideEntries],
   );
-  // The track you are reading comes first, so Enter picks the match you most likely meant.
+  // The track (or guide) you are reading comes first, so Enter picks the match you most
+  // likely meant.
+  const current = trackSlug ?? (guideId ? guideGroup(guideId) : undefined);
   const order = useMemo(
-    () =>
-      trackSlug ? [trackSlug, ...TRACK_ORDER.filter((slug) => slug !== trackSlug)] : TRACK_ORDER,
-    [trackSlug],
+    () => (current ? [current, ...TRACK_ORDER.filter((slug) => slug !== current)] : TRACK_ORDER),
+    [current],
   );
   const groups = useMemo(
     () => groupByTrack(search(query, filters), order),
@@ -75,21 +89,23 @@ export function SearchResults({ query, filters, onSelect }: SearchResultsProps) 
   return groups.map(({ trackSlug, items }) => {
     const meta = getTrackMeta(trackSlug);
     const isLeetCode = trackSlug === LEETCODE_GROUP;
-    if (!meta && !isLeetCode) return null;
+    const guide = guideMetas.find((g) => guideGroup(g.id) === trackSlug);
+    if (!meta && !isLeetCode && !guide) return null;
+    const GroupIcon = guide ? Container : Code2;
     return (
       <Command.Group
         key={trackSlug}
-        data-accent={meta?.accent ?? 'violet'}
+        data-accent={meta?.accent ?? guide?.accent ?? 'violet'}
         heading={
           <span className="flex items-center gap-2 px-2 pt-2 pb-1.5 text-xs font-semibold text-muted">
             {meta ? (
               <TrackIcon meta={meta} size="sm" className="size-5" />
             ) : (
               <span className="inline-flex size-5 items-center justify-center rounded-md bg-accent-soft text-accent-text">
-                <Code2 className="size-3.5" aria-hidden />
+                <GroupIcon className="size-3.5" aria-hidden />
               </span>
             )}
-            {meta?.name ?? 'LeetCode'}
+            {meta?.name ?? guide?.title ?? 'LeetCode'}
             <span className="font-normal text-subtle tabular-nums">{items.length}</span>
           </span>
         }
@@ -111,7 +127,9 @@ export function SearchResults({ query, filters, onSelect }: SearchResultsProps) 
                 <span className="block truncate text-xs text-muted">
                   {item.type === 'question' || item.type === 'problem'
                     ? item.context
-                    : TYPE_LABEL[item.type]}
+                    : item.type === 'recipe' || item.type === 'guide-section'
+                      ? `${TYPE_LABEL[item.type]} · ${item.context}`
+                      : TYPE_LABEL[item.type]}
                 </span>
               </span>
               {item.level ? <LevelBadge level={item.level} className="shrink-0" /> : null}

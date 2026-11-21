@@ -88,7 +88,7 @@ function TopicView({ meta, topic }: { meta: LcTopicMeta; topic: LcTopicContent }
           <h2 id="practice-title" className="mb-3 text-lg font-semibold">
             Practice next
           </h2>
-          <ul className="grid gap-1 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-1 sm:grid-cols-2">
             {practice.problems.map((item) => {
               const solved = solvedNumbers.has(item.number);
               const inApp = lcOutline.problems.find((p) => p.number === item.number);

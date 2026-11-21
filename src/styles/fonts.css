@@ -1,32 +1,48 @@
 /*
- * Inter and JetBrains Mono (variable), Latin and Latin Extended only — the app's text is English
- * plus Bangla. `font-display: optional` instead of fontsource's `swap`: pages are prerendered,
- * so text is on screen before fonts load, and swapping would shift the layout. With optional
- * (and Inter preloaded by scripts/prerender.mjs) the web font is used when it arrives in time,
- * otherwise the system font stays for that page view and the font is cached for the next one.
+ * UI fonts: Geist (English) + Noto Sans Bengali (Bangla), both variable, plus JetBrains Mono
+ * for code. Only the subsets the app uses are declared, each with its `unicode-range`, so a
+ * page downloads the Bangla font only when it actually renders Bangla text.
+ *
+ * `font-display: optional` instead of fontsource's `swap`: pages are prerendered, so text is
+ * on screen before fonts load, and swapping would shift the layout. scripts/prerender.mjs
+ * preloads Geist on every page and Noto Sans Bengali on pages with Bangla text, so the fonts
+ * normally arrive in time; if one is late, the system font stays for that page view and the
+ * cached font is used from the next one.
  */
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Geist Variable';
   font-style: normal;
   font-display: optional;
   font-weight: 100 900;
-  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2')
+  src: url('@fontsource-variable/geist/files/geist-latin-wght-normal.woff2')
     format('woff2-variations');
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
     U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: 'Inter Variable';
+  font-family: 'Geist Variable';
   font-style: normal;
   font-display: optional;
   font-weight: 100 900;
-  src: url('@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2')
+  src: url('@fontsource-variable/geist/files/geist-latin-ext-wght-normal.woff2')
     format('woff2-variations');
   unicode-range:
     U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
     U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
     U+A720-A7FF;
+}
+/* Bengali glyphs only: Latin text inside Bangla paragraphs still comes from Geist. */
+@font-face {
+  font-family: 'Noto Sans Bengali Variable';
+  font-style: normal;
+  font-display: optional;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/noto-sans-bengali/files/noto-sans-bengali-bengali-wght-normal.woff2')
+    format('woff2-variations');
+  unicode-range:
+    U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8, U+1CE1, U+1CEA,
+    U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1;
 }
 @font-face {
   font-family: 'JetBrains Mono Variable';
@@ -50,42 +66,4 @@
     U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329,
     U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
     U+A720-A7FF;
-}
-
-/*
- * Hind Siliguri, Bengali glyphs only. @fontsource's subset files omit `unicode-range`, which
- * makes browsers download ~150 kB of Bangla font on pages with no Bangla text at all. With
- * the range below, the font is fetched only when Bangla characters are actually rendered.
- * `optional`, like the Latin fonts: no layout shift if it arrives late (it is then used from
- * the cache on the next page).
- */
-@font-face {
-  font-family: 'Hind Siliguri';
-  font-style: normal;
-  font-display: optional;
-  font-weight: 400;
-  src: url('@fontsource/hind-siliguri/files/hind-siliguri-bengali-400-normal.woff2') format('woff2');
-  unicode-range:
-    U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8, U+1CE1, U+1CEA,
-    U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1;
-}
-@font-face {
-  font-family: 'Hind Siliguri';
-  font-style: normal;
-  font-display: optional;
-  font-weight: 500;
-  src: url('@fontsource/hind-siliguri/files/hind-siliguri-bengali-500-normal.woff2') format('woff2');
-  unicode-range:
-    U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8, U+1CE1, U+1CEA,
-    U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1;
-}
-@font-face {
-  font-family: 'Hind Siliguri';
-  font-style: normal;
-  font-display: optional;
-  font-weight: 600;
-  src: url('@fontsource/hind-siliguri/files/hind-siliguri-bengali-600-normal.woff2') format('woff2');
-  unicode-range:
-    U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8, U+1CE1, U+1CEA,
-    U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1;
 }

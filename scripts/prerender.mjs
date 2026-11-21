@@ -27,18 +27,20 @@ let template = readFileSync(join(dist, 'index.html'), 'utf8');
 // Vite emits the module script and ~25 modulepreload links before the stylesheet. On HTTP/1.1
 // (6 connections per host) the render-blocking CSS then queues behind JavaScript that a
 // prerendered page does not need for its first paint. Request the CSS first, then the main
-// UI font (its @font-face uses `font-display: optional`, so it must arrive early to be used).
+// UI fonts (their @font-face rules use `font-display: optional`, so they must arrive early).
 const stylesheets = template.match(/[ \t]*<link rel="stylesheet"[^>]*>\n?/g) ?? [];
 for (const tag of stylesheets) template = template.replace(tag, '');
-const interFont = readdirSync(join(dist, 'assets')).find((f) =>
-  /^inter-latin-wght-normal-[\w-]+\.woff2$/.test(f),
-);
-const early = [
-  ...stylesheets.map((tag) => tag.trim()),
-  interFont
-    ? `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${interFont}">`
-    : '',
-].filter(Boolean);
+const assets = readdirSync(join(dist, 'assets'));
+const fontPreload = (pattern) => {
+  const file = assets.find((f) => pattern.test(f));
+  return file
+    ? `<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/${file}">`
+    : '';
+};
+const uiFont = fontPreload(/^geist-latin-wght-normal-[\w-]+\.woff2$/);
+// The Bangla font is preloaded only on pages that render Bangla text (added per page below).
+const banglaFont = fontPreload(/^noto-sans-bengali-bengali-wght-normal-[\w-]+\.woff2$/);
+const early = [...stylesheets.map((tag) => tag.trim()), uiFont].filter(Boolean);
 template = template.replace(
   /(<meta name="viewport"[^>]*>)/,
   (meta) => `${meta}\n    ${early.join('\n    ')}`,
@@ -61,8 +63,11 @@ let bytes = 0;
 for (const path of pages) {
   const { html, title, status } = await render(path);
   if (status !== 200) throw new Error(`${path} rendered with status ${status}`);
+  const hasBangla = /[ঀ-৿]/.test(html);
+  const fonts = hasBangla && banglaFont ? `${uiFont}\n    ${banglaFont}` : uiFont;
   const page = template
     .replace(TITLE, `<title>${escapeHtml(title)}</title>`)
+    .replace(early.at(-1) ?? '', (tag) => (tag === uiFont && uiFont ? fonts : tag))
     .replace(
       '</head>',
       `<script>window.__PRERENDERED_PATH=${JSON.stringify(path)}</script>\n  </head>`,

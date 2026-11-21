@@ -15,6 +15,8 @@ import { loadLcProblem } from '@/content/leetcode/loader';
 import type { LcProblem } from '@/content/leetcode/schema';
 import { getTopicMeta, loadTopic } from '@/content/leetcode/topics';
 import type { LcTopicData } from '@/pages/leetcode/LcTopicPage';
+import { getGuideMeta, loadGuide } from '@/content/guides';
+import type { GuideData } from '@/pages/guides/GuidePage';
 import type { TrackOutline } from '@/content/outline';
 import type {
   CoverageData,
@@ -85,6 +87,11 @@ async function lcTopicLoader({ params }: LoaderFunctionArgs): Promise<LcTopicDat
   return { meta, topic: meta ? ((await loadTopic(meta.id)) ?? null) : null };
 }
 
+async function guideLoader({ params }: LoaderFunctionArgs): Promise<GuideData> {
+  const meta = getGuideMeta(params.guideId) ?? null;
+  return { meta, guide: meta ? ((await loadGuide(meta.id)) ?? null) : null };
+}
+
 export const routes: RouteObject[] = [
   {
     path: '/',
@@ -114,6 +121,18 @@ export const routes: RouteObject[] = [
             path: ':category/:slug',
             loader: lcProblemLoader,
             lazy: page(() => import('@/pages/leetcode/LcProblemPage')),
+          },
+        ],
+      },
+      {
+        // Tool handbooks (Docker…): not tracks, so matched before `:trackSlug`.
+        path: 'guides',
+        children: [
+          { index: true, lazy: page(() => import('@/pages/guides/GuidesPage')) },
+          {
+            path: ':guideId',
+            loader: guideLoader,
+            lazy: page(() => import('@/pages/guides/GuidePage')),
           },
         ],
       },

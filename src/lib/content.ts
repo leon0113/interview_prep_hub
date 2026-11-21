@@ -102,6 +102,10 @@ export const paths = {
   lcRevise: () => '/leetcode/revise',
   lcTopics: () => '/leetcode/topics',
   lcTopic: (topicId: string) => `/leetcode/topics/${topicId}`,
+
+  // Guides (tool handbooks from my notes, e.g. Docker)
+  guides: () => '/guides',
+  guide: (guideId: string, anchor?: string) => `/guides/${guideId}${anchor ? `#${anchor}` : ''}`,
 };
 
 export interface RelatedLink {

@@ -4,6 +4,7 @@ import {
   ChevronRight,
   Code2,
   Compass,
+  Container,
   Database,
   Dumbbell,
   Home,
@@ -20,6 +21,7 @@ import { Link, NavLink } from 'react-router';
 import { TrackIcon } from '@/components/common/TrackIcon';
 import { lcOutline, lcProblemsIn } from '@/content/leetcode/loader';
 import { topicMetas } from '@/content/leetcode/topics';
+import { guideMetas } from '@/content/guides';
 import { loadOutline, trackMetas } from '@/content/loader';
 import type { SectionOutline } from '@/content/outline';
 import type { TrackMeta } from '@/content/schema';
@@ -80,6 +82,7 @@ export function SidebarNav({ onNavigate }: SidebarNavProps) {
       </ul>
 
       <LeetCodeNav onNavigate={onNavigate} />
+      <GuidesNav onNavigate={onNavigate} />
     </nav>
   );
 }
@@ -143,6 +146,26 @@ function LeetCodeNav({ onNavigate }: { onNavigate?: () => void }) {
             ) : null}
           </TopLink>
         </li>
+      </ul>
+    </div>
+  );
+}
+
+/** Tool handbooks (Docker…). */
+function GuidesNav({ onNavigate }: { onNavigate?: () => void }) {
+  return (
+    <div>
+      <p className="mt-5 mb-1.5 px-2.5 text-[0.6875rem] font-semibold tracking-wider text-subtle uppercase">
+        Guides
+      </p>
+      <ul className="flex flex-col gap-0.5">
+        {guideMetas.map((guide) => (
+          <li key={guide.id} data-accent={guide.accent}>
+            <TopLink to={paths.guide(guide.id)} icon={Container} onNavigate={onNavigate}>
+              {guide.title}
+            </TopLink>
+          </li>
+        ))}
       </ul>
     </div>
   );

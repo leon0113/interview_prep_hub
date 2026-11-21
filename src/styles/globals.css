@@ -8,13 +8,14 @@
 
 @theme inline {
   --font-sans:
-    'Inter Variable', 'Hind Siliguri', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
-    sans-serif;
+    'Geist Variable', 'Noto Sans Bengali Variable', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
   --font-mono:
-    'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono',
-    monospace;
-  /* Latin glyphs still come from Inter; Bangla glyphs from Hind Siliguri. */
-  --font-bn: 'Inter Variable', 'Hind Siliguri', 'Noto Sans Bengali', system-ui, sans-serif;
+    'JetBrains Mono Variable', 'Noto Sans Bengali Variable', ui-monospace, SFMono-Regular, Menlo,
+    Consolas, 'Liberation Mono', monospace;
+  /* Latin glyphs come from Geist; Bangla glyphs from Noto Sans Bengali (code comments too). */
+  --font-bn:
+    'Geist Variable', 'Noto Sans Bengali Variable', 'Noto Sans Bengali', system-ui, sans-serif;
 
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -408,6 +409,46 @@
     padding: 0;
     font-size: inherit;
     overflow-wrap: normal;
+  }
+  /* Callouts from notes: "> 💡" tip, "> ⚠️" warning, other quotes a plain note. */
+  .md blockquote {
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--border-strong);
+    border-radius: 0.75rem;
+    background: var(--surface-2);
+    padding: 0.75rem 1rem;
+  }
+  .md blockquote > * + * {
+    margin-top: 0.5rem;
+  }
+  .md blockquote[data-tone='tip'] {
+    border-color: var(--accent-border);
+    border-left-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .md blockquote[data-tone='warn'] {
+    border-color: color-mix(in oklab, var(--level-intermediate) 30%, var(--border));
+    border-left-color: var(--level-intermediate);
+    background: color-mix(in oklab, var(--level-intermediate) 7%, var(--surface));
+  }
+  /* GFM task lists ("- [ ] step"): checkbox instead of a bullet. */
+  .md .contains-task-list {
+    list-style: none;
+    padding-left: 0.25rem;
+  }
+  .md .task-box {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.5rem;
+    vertical-align: -0.15em;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 0.3rem;
+    background: var(--surface);
+  }
+  .md .task-box[data-checked] {
+    border-color: var(--accent);
+    background: var(--accent);
   }
 }
 

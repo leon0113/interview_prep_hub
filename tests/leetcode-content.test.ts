@@ -4,6 +4,7 @@ import committedOutline from '@/content/leetcode/lc-outline.generated.json';
 import { buildLcOutline, serializeLcOutline } from '@/content/leetcode/outline';
 import { getPattern, patternFamilies, patterns } from '@/content/leetcode/patterns';
 import { practiceGroups } from '@/content/leetcode/practice';
+import { getTopicMeta } from '@/content/leetcode/topics';
 import {
   GENERATED_KEYS,
   LcProblemSchema,
@@ -46,6 +47,12 @@ describe('LeetCode content', () => {
     }
   });
 
+  it('topic ids exist in topics/index.ts', () => {
+    for (const p of lcProblems) {
+      if (p.topicId) expect(getTopicMeta(p.topicId), `${p.id} → ${p.topicId}`).toBeDefined();
+    }
+  });
+
   it('pattern ids exist in patterns.ts', () => {
     for (const p of lcProblems) {
       expect(getPattern(p.patternId), `${p.id} → ${p.patternId}`).toBeDefined();
@@ -85,6 +92,7 @@ describe('LeetCode content', () => {
         GENERATED_KEYS.template,
         GENERATED_KEYS.steps,
         GENERATED_KEYS.related,
+        GENERATED_KEYS.note,
         ...labels,
       ]);
       for (const key of p.meta?.generated ?? [])

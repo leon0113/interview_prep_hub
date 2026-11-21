@@ -7,6 +7,7 @@ import { CommandPalette } from '@/components/search/CommandPalette';
 import { useGlobalShortcuts } from '@/features/shortcuts/useGlobalShortcuts';
 import { SqlRunnerContext } from '@/features/sql/context';
 import { useCurrentTrackMeta, useOptionalTrack, useRouteParams } from '@/features/tracks/useTrack';
+import { getGuideMeta } from '@/content/guides';
 import { paths } from '@/lib/content';
 import { titleFromCrumbs, useDocumentTitle } from '@/lib/documentTitle';
 import { prefetchOnFirstInteraction } from '@/lib/prefetch';
@@ -36,10 +37,11 @@ export function AppShell() {
   const { pathname } = useLocation();
   const crumbs = useCrumbs();
   // Section and coverage pages publish an "On this page" list (see TableOfContents).
-  const { sectionId } = useRouteParams();
+  const { sectionId, guideId } = useRouteParams();
   const hasToc =
     Boolean(sectionId) ||
     pathname.startsWith(`${paths.lcTopics()}/`) ||
+    pathname.startsWith(`${paths.guides()}/`) ||
     (meta !== undefined &&
       (pathname === paths.coverage(meta.slug) || pathname === paths.dataset(meta.slug)));
   useDocumentTitle(titleFromCrumbs(crumbs.map((crumb) => crumb.label)));
@@ -51,8 +53,12 @@ export function AppShell() {
   return (
     <SqlRunnerContext value={sqlRunnerTrack}>
       <div
-        // The LeetCode area is not a track; it has its own accent.
-        data-accent={meta?.accent ?? (pathname.startsWith(paths.leetcode()) ? 'violet' : undefined)}
+        // The LeetCode area and the guides are not tracks; they have their own accents.
+        data-accent={
+          meta?.accent ??
+          getGuideMeta(guideId)?.accent ??
+          (pathname.startsWith(paths.leetcode()) ? 'violet' : undefined)
+        }
         className="flex min-h-dvh flex-col"
       >
         <a

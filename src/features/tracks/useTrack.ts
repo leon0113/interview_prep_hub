@@ -17,6 +17,8 @@ export interface RouteParams {
   slug?: string;
   /** LeetCode topic id, e.g. `linked-list`. */
   topicId?: string;
+  /** Guide id, e.g. `docker`. */
+  guideId?: string;
 }
 
 /** Params of the deepest matched route — usable from layout components too. */

@@ -16,7 +16,8 @@ A **frontend-only** React app for interview preparation. Each **track** (a langu
 4. **Visualizations** for hard concepts (interactive, animated React components).
    Current tracks: **Python, JavaScript, TypeScript, SQL & PostgreSQL**.
    Future tracks (architecture must make these easy to add): React, Next.js, Node.js, MongoDB, and more.
-5. A separate **LeetCode** area (not a track): my solved LeetCode problems, **DSA** and **Database**, for revision. Each problem page reveals Problem → Approach → Breakdown → Solution → Revise one stage at a time, with spaced-repetition ratings. See section 13.
+5. A separate **LeetCode** area (not a track): my solved LeetCode problems, **DSA** and **Database**, for revision. Each problem page reveals Problem → Approach → Breakdown → Solution → Revise one stage at a time, with spaced-repetition ratings. **Topics** (Linked List, then other data structures one by one) hold the theory from my notes plus that topic's problems. See section 13.
+6. **Guides** (not tracks): tool handbooks from my notes, starting with **Docker**. My notes stay verbatim and in their own order, with a "Quick find" list of recipes (backend setup, React, Next.js, MongoDB, Postgres, full-stack Compose…) that jump into them, and every recipe and heading is in search. See section 14.
 
 There is **no backend**. All content lives in typed TS files inside the repo. User state (progress, bookmarks, theme, answer visibility) lives in `localStorage`.
 
@@ -104,8 +105,17 @@ src/
       index.ts              # registry: every problem of both categories (tests + generator)
       loader.ts             # lc-outline + one lazy chunk per problem file
       outline.ts            # outline builder; lc-outline.generated.json is GENERATED
+      topics/               # data-structure topics: <id>.md = my notes (verbatim, theory),
+                            #   <id>.ts = wiring (which visualization under which notes section),
+                            #   index.ts = topic list (metas) + lazy loader + notes splitter
       dsa/                  # <number>-<slug>.ts, one file per problem; dsa/index.ts lists them
       database/             # same, for SQL problems; database/index.ts lists them
+    guides/                 # NOT a track (the outline generator skips it)
+      index.ts              # guide metas, lazy loader, search entries (recipes + headings)
+      notes.ts              # parser: parts (# পর্ব) → sections (##) → subsections (###), output
+                            #   fences, "সেকশন ৫.৪" cross-references turned into links
+      docker/notes.md       # my Docker notes, verbatim (copy of docs/docker-notes.md)
+      docker/index.ts       # recipes (quick find) + extra search keywords per section
   features/
     progress/               # store + hooks: learned, bookmarked, lastVisited
     search/                 # build Fuse index from all tracks
@@ -124,6 +134,7 @@ src/
     NotFoundPage.tsx
     leetcode/               # LeetCodePage, LcListPage, LcProblemPage, LcPatternsPage,
                             #   LcPracticePage, LcRevisePage
+    guides/                 # GuidesPage (list), GuidePage (quick find, contents, the notes)
   lib/                      # utils (cn, slugify, storage helpers)
     sql/                    # statement splitter + psql-style runner, shared by Run/Playground and verify
   styles/globals.css
@@ -298,6 +309,10 @@ interface Track {
 /leetcode/patterns                  Pattern cheat sheet + templates, each linked to its problems
 /leetcode/practice                  Next-to-solve list by pattern, solved ones ticked
 /leetcode/revise                    Revision session + pattern quiz (not prerendered)
+/leetcode/topics                    Data-structure topics
+/leetcode/topics/:topicId           A topic: its solved problems, practice list, then the theory (my notes) with visualizations
+/guides                             Guides list (Docker…)
+/guides/:guideId                    A guide: quick-find recipes, contents, then my notes by part; anchors #section-8-3 etc.
 *                                   404
 ```
 
@@ -340,17 +355,30 @@ The LeetCode area (`src/content/leetcode/`) holds my solved problems for revisio
 
 When I paste a solved LeetCode problem (a note in my format, or just the problem + my code, in any mix of Bangla/English):
 
-1. **Classify it:** SQL query / database tables / "Write a solution to..." with table schemas → `database`. Otherwise → `dsa`. If it's unclear, ask.
+1. **Classify it:** SQL query / database tables / "Write a solution to..." with table schemas → `database`. Otherwise → `dsa`. If it's unclear, ask. Also set `topicId` when the problem belongs to a topic (e.g. `linked-list`).
 2. Check that it isn't already in the app (by number). If it is, update it and keep my previous solution as another tab.
 3. Create `src/content/leetcode/<category>/<number>-<slug>.ts` following the schema, and add it to `<category>/index.ts`. **My code stays verbatim** (`isMine: true`, label "My solution", first in `solutions`): same variable names, spacing, even missing semicolons. Alternatives become further tabs; when mine misses a requirement (space, time), say so in its `note` and mark the better one `optimal: true`.
-4. If my note is missing parts (approach, trace, edge cases, self-questions, Bangla explanation), **write them in the same style as my existing notes** (Bangla explanations, English terms, real-life example, trace table). List every generated part in `meta.generated` (keys: `approach.idea`, `approach.template`, `breakdown.steps`, `solutions.<label>`, `revise.related`) so the UI shows an "AI-added, review" badge until I set `meta.reviewed: true`.
+4. If my note is missing parts (approach, trace, edge cases, self-questions, Bangla explanation), **write them in the same style as my existing notes** (Bangla explanations, English terms, real-life example, trace table). List every generated part in `meta.generated` (keys: `approach.idea`, `approach.template`, `breakdown.steps`, `solutions.<label>`, `revise.related`, and `note` when the whole explanation was written from my code alone) so the UI shows an "AI-added, review" badge until I set `meta.reviewed: true`. The **Approach** stage must be enough to recall my code without opening it: name my own variables and follow my code's structure in the steps.
 5. Assign a `patternId` from `patterns.ts` (and `alsoPatterns` for alternatives such as XOR or a bit trick). If it's a new pattern, add it to `patterns.ts` with trigger words, a skeleton and a template, and to a family in `patternFamilies`.
 6. If the problem was in `practice.ts`, it now shows as solved automatically (matched by number).
 7. For array/string problems, add `steps` traces (`ArrayState[]`) for the generic visualizer and set `visualizationId: 'lc-array-pointers'`; they must match the trace tables exactly. For complex ones (recursion, trees, graphs, DP, multi-step SQL), add or extend a visualization in `src/visualizations/leetcode/` and register it.
 8. For database problems: include the schema, sample tables, expected result, approach, breakdown with intermediate result tables (a `sqlSteps` trace: FROM → JOIN → WHERE → GROUP BY → HAVING → SELECT → ORDER BY), the solution (MySQL as on LeetCode, plus a PostgreSQL version when the syntax differs) and common mistakes.
-9. Verify outputs: add `verify` cases (the samples) so `npm run verify:outputs` runs every DSA solution on Node / Python; run SQL against the sample tables with PGlite. Fix any sample/trace mismatch and tell me.
+9. Verify outputs: add `verify` cases (the samples) so `npm run verify:outputs` runs every DSA solution on Node / Python; run SQL against the sample tables with PGlite. Fix any sample/trace mismatch and tell me. When I say the solution was already accepted on LeetCode, set `acceptedOnLeetCode: true` and skip running it (verify cases become optional).
 10. Run `npm run validate:content` (also regenerates `lc-outline.generated.json`) and `npm run test`, then summarize what was added and anything I should review.
 
 Each intake runs end to end without stopping for confirmation, with a short summary at the end.
 
+**Topics (data structures and algorithms, one at a time):** when I give notes for a new topic, save them verbatim as `src/content/leetcode/topics/<id>.md`, add `<id>.ts` (sections → visualizations), list it in `topics/index.ts` (and its loader map), add its patterns to `patterns.ts` (a new family) and its practice list to `practice.ts`, and build visualizations for the hard parts in `src/visualizations/leetcode/<topic>/`. Problems of the topic get `topicId`. The topic page, sidebar entry, search entry and prerendering follow automatically.
+
 **Revision:** ratings are stored in `localStorage` (`iph:leetcode`). The intervals live in one constant, `REVIEW_INTERVAL_DAYS` in `src/features/leetcode/store.ts`: Forgot 1 day, Hard 3, Good 7, Easy 21.
+
+## 14. Guides (Docker and other tools)
+
+A guide is a tool handbook built from my notes. It is not a track: no questions, exercises or progress.
+
+- **Notes stay verbatim.** `src/content/guides/<id>/notes.md` is a copy of my file in `docs/` (Prettier ignores it). If I update the notes in `docs/`, copy the file again; don't rewrite it.
+- **Order comes from the notes.** `# পর্ব …` headings are parts, `## ১২. …` sections, `### ৮.৩ …` subsections. Anchors use ASCII numbers: `৮.৩` → `#section-8-3`. The notes' own সূচিপত্র is replaced by the page's Contents and TOC.
+- **Rendering:** a plain fence right after a code block (or under an "আউটপুট"/"Output" or "**`command`:**" label) is an Output block; plain fences that hold a file (`# requirements.txt`) or a folder tree stay text. `yaml`, `dockerfile`, `env`, `nginx`, `gitignore`, `jsonc` fences get their own labels. `> 💡` is a tip callout, `> ⚠️` a warning. "সেকশন ৫.৪" becomes a link to that section.
+- **Quick find:** recipes in `<id>/index.ts` (`recipeGroups`): an English, task-shaped title (what I would search for), a one-line summary, the anchor, keywords (synonyms and phrases such as "setup for backend", "3 apps"), stack chips. Add a recipe whenever the notes gain a new ready-to-use setup. `sectionKeywords` adds search words to a heading.
+- **Search:** every recipe and heading is a search item (palette filter "Docker & guides"), grouped under the guide; Enter jumps to the anchor.
+- **New guide:** add `<id>/notes.md` + `<id>/index.ts`, list it in `guideMetas` and `guideModules` in `guides/index.ts`. Sidebar, home card, search, crumbs and prerendering follow automatically.
