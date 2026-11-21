@@ -15,13 +15,14 @@ import {
   Table2,
   type LucideIcon,
 } from 'lucide-react';
-import { Suspense, use, useState, type ReactNode } from 'react';
+import { Suspense, use, useId, useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router';
 import { GUIDE_ICONS } from '@/components/common/guideIcons';
 import { TrackIcon } from '@/components/common/TrackIcon';
 import { lcOutline, lcProblemsIn } from '@/content/leetcode/loader';
 import { topicMetas } from '@/content/leetcode/topics';
 import { guideMetas } from '@/content/guides';
+import { roadmap } from '@/content/roadmap';
 import { loadOutline, trackMetas } from '@/content/loader';
 import type { SectionOutline } from '@/content/outline';
 import type { TrackMeta } from '@/content/schema';
@@ -83,6 +84,7 @@ export function SidebarNav({ onNavigate }: SidebarNavProps) {
 
       <LeetCodeNav onNavigate={onNavigate} />
       <GuidesNav onNavigate={onNavigate} />
+      <ComingNext />
     </nav>
   );
 }
@@ -171,6 +173,49 @@ function GuidesNav({ onNavigate }: { onNavigate?: () => void }) {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+/** Planned topics (src/content/roadmap.ts), in the order they will be added. Not links yet. */
+function ComingNext() {
+  const [open, setOpen] = useState(true);
+  // Rendered twice on small screens (sidebar + mobile sheet), so the id must be unique.
+  const listId = useId();
+  return (
+    <div className="mt-5">
+      <button
+        type="button"
+        aria-expanded={open}
+        aria-controls={listId}
+        onClick={() => setOpen(!open)}
+        className="flex min-h-11 w-full items-center gap-2 rounded-lg px-2.5 text-[0.6875rem] font-semibold tracking-wider text-subtle uppercase hover:bg-surface-2 hover:text-fg lg:min-h-8"
+      >
+        <span className="flex-1 text-left">Coming next</span>
+        <span className="font-normal tracking-normal tabular-nums">{roadmap.length}</span>
+        <ChevronRight
+          className={cn('size-3.5 transition-transform duration-200', open && 'rotate-90')}
+          aria-hidden
+        />
+      </button>
+      {open ? (
+        <ol id={listId} className="mt-1 flex flex-col">
+          {roadmap.map((item, index) => (
+            <li
+              key={item.id}
+              className="flex min-h-8 items-center gap-2.5 px-2.5 text-sm text-muted"
+            >
+              <span
+                aria-hidden
+                className="inline-flex size-5 shrink-0 items-center justify-center rounded-full border border-dashed border-border-strong text-[0.625rem] text-subtle tabular-nums"
+              >
+                {index + 1}
+              </span>
+              <span className="min-w-0 flex-1 py-1 leading-5">{item.title}</span>
+            </li>
+          ))}
+        </ol>
+      ) : null}
     </div>
   );
 }

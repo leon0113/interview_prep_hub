@@ -10,6 +10,7 @@ import { createAppRouter, routes } from './app/router';
 import { primeOutline } from './content/loader';
 import type { TrackOutline } from './content/outline';
 import { TRACK_ROUTE_ID } from './features/tracks/useTrack';
+import { hideSplash } from './lib/splash';
 
 declare global {
   interface Window {
@@ -62,3 +63,5 @@ if (prerendered) {
     </StrictMode>,
   );
 }
+
+hideSplash();
