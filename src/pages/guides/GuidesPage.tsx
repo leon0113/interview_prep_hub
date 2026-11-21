@@ -1,5 +1,6 @@
-import { ArrowRight, Container } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router';
+import { GuideIcon } from '@/components/common/GuideIcon';
 import { PageHeader } from '@/components/common/PageHeader';
 import { guideMetas } from '@/content/guides';
 import { paths } from '@/lib/content';
@@ -16,26 +17,28 @@ export default function GuidesPage() {
       <ul className="grid gap-3 sm:grid-cols-2">
         {[...guideMetas]
           .sort((a, b) => a.order - b.order)
-          .map((guide) => (
-            <li key={guide.id} data-accent={guide.accent}>
-              <Link
-                to={paths.guide(guide.id)}
-                className="group flex h-full flex-col gap-3 rounded-xl border border-border bg-surface p-5 shadow-card hover:border-border-strong"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="inline-flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-text">
-                    <Container className="size-5" aria-hidden />
+          .map((guide) => {
+            return (
+              <li key={guide.id} data-accent={guide.accent}>
+                <Link
+                  to={paths.guide(guide.id)}
+                  className="group flex h-full flex-col gap-3 rounded-xl border border-border bg-surface p-5 shadow-card hover:border-border-strong"
+                >
+                  <span className="flex items-center gap-3">
+                    <span className="inline-flex size-10 items-center justify-center rounded-xl bg-accent-soft text-accent-text">
+                      <GuideIcon icon={guide.icon} className="size-5" />
+                    </span>
+                    <span className="flex-1 font-semibold">{guide.title}</span>
+                    <ArrowRight
+                      className="size-4 text-subtle transition-transform group-hover:translate-x-0.5"
+                      aria-hidden
+                    />
                   </span>
-                  <span className="flex-1 font-semibold">{guide.title}</span>
-                  <ArrowRight
-                    className="size-4 text-subtle transition-transform group-hover:translate-x-0.5"
-                    aria-hidden
-                  />
-                </span>
-                <span className="text-sm text-muted">{guide.description}</span>
-              </Link>
-            </li>
-          ))}
+                  <span className="text-sm text-muted">{guide.description}</span>
+                </Link>
+              </li>
+            );
+          })}
       </ul>
     </>
   );

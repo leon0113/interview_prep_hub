@@ -16,7 +16,7 @@ const TYPE_OPTIONS: { value: NonNullable<SearchFilters['type']>; label: string }
   { value: 'question', label: 'Questions' },
   { value: 'exercise', label: 'Exercises' },
   { value: 'problem', label: 'LeetCode' },
-  { value: 'guide', label: 'Docker & guides' },
+  { value: 'guide', label: 'Guides' },
 ];
 
 /** Search dialog: fuzzy results grouped by track, with track / level / type filter chips. */
@@ -63,7 +63,7 @@ export default function CommandPaletteDialog() {
               <Command.Input
                 value={query}
                 onValueChange={setQuery}
-                placeholder="Search questions, problems, Docker recipes…"
+                placeholder="Search questions, problems, guide recipes…"
                 className="h-14 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-subtle"
               />
               <Dialog.Close

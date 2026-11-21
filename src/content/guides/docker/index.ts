@@ -8,6 +8,16 @@ import notes from './notes.md?raw';
 const docker: GuideContent = {
   id: 'docker',
   notes,
+  quickFilters: [
+    'Backend',
+    'Frontend',
+    'Compose',
+    'MongoDB',
+    'Postgres',
+    'Next.js',
+    'React',
+    'FastAPI',
+  ],
   recipeGroups: [
     {
       title: 'Start here',

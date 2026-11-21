@@ -1,7 +1,6 @@
 import {
   ArrowUp,
   BookOpen,
-  Container,
   Database,
   Layers,
   ListChecks,
@@ -16,6 +15,7 @@ import {
 import { useMemo, useState } from 'react';
 import { Link, useLoaderData } from 'react-router';
 import { EmptyState } from '@/components/common/EmptyState';
+import { GuideIcon } from '@/components/common/GuideIcon';
 import { InlineText } from '@/components/common/InlineText';
 import { Kbd } from '@/components/common/KeyboardHint';
 import { Markdown } from '@/components/common/Markdown';
@@ -28,8 +28,14 @@ import type {
   GuideRecipeGroup,
   RecipeIcon,
 } from '@/content/guides';
-import { linkSectionRefs, markGuideOutputs, parseGuide } from '@/content/guides/notes';
+import {
+  isMostlyBangla,
+  linkSectionRefs,
+  markGuideOutputs,
+  parseGuide,
+} from '@/content/guides/notes';
 import { useRegisterToc, useUiStore } from '@/features/ui/store';
+import { cn } from '@/lib/cn';
 import { paths } from '@/lib/content';
 
 export interface GuideData {
@@ -48,26 +54,20 @@ const RECIPE_ICON: Record<RecipeIcon, LucideIcon> = {
   book: BookOpen,
 };
 
-/** One-tap filters for the setups I reach for most. */
-const QUICK_FILTERS = [
-  'Backend',
-  'Frontend',
-  'Compose',
-  'MongoDB',
-  'Postgres',
-  'Next.js',
-  'React',
-  'FastAPI',
-];
-
 const BN_DIGITS = '০১২৩৪৫৬৭৮৯';
-/** "section-8-3" → "৮.৩", the way the notes number it. */
-function sectionLabel(anchor: string): string {
-  return anchor
-    .replace(/^section-/, '')
-    .replace(/-/g, '.')
-    .replace(/\d/g, (d) => BN_DIGITS[Number(d)]!);
+/**
+ * "section-8-3" → "8.3" (or "৮.৩" when the notes number in Bangla). Anchors of unnumbered
+ * headings ("section-2-core-always") have no label.
+ */
+function sectionLabel(anchor: string, bangla: boolean): string | undefined {
+  const match = /^section-(\d+(?:-\d+)?)$/.exec(anchor);
+  if (!match) return undefined;
+  const number = match[1]!.replace('-', '.');
+  return bangla ? number.replace(/\d/g, (d) => BN_DIGITS[Number(d)]!) : number;
 }
+
+/** `lang="bn"` (Bangla font metrics) only for text that is mostly Bangla. */
+const langOf = (text: string) => (isMostlyBangla(text) ? 'bn' : undefined);
 
 /** Notes Markdown → page Markdown: output blocks marked, "সেকশন ৫.৪" references linked. */
 function prepare(markdown: string): string {
@@ -96,6 +96,10 @@ export default function GuidePage() {
 function GuideView({ meta, guide }: { meta: GuideMeta; guide: GuideContent }) {
   const parsed = useMemo(() => parseGuide(guide.notes), [guide.notes]);
   const openSearch = useUiStore((s) => s.setSearchOpen);
+  // Notes numbered in Bangla ("## ৮. …") get Bangla section badges on the recipe cards.
+  const banglaNumbers = /^[০-৯]/.test(parsed.parts[0]?.sections[0]?.title ?? '');
+  // Notes without "# পর্ব" parts are one unnamed group: no part headings.
+  const hasParts = parsed.parts.some((part) => part.label);
 
   const toc = useMemo(
     () => [
@@ -117,7 +121,7 @@ function GuideView({ meta, guide }: { meta: GuideMeta; guide: GuideContent }) {
         description={meta.description}
         icon={
           <span className="hidden size-12 shrink-0 items-center justify-center rounded-2xl bg-accent-soft text-accent-text sm:inline-flex">
-            <Container className="size-6" aria-hidden />
+            <GuideIcon icon={meta.icon} className="size-6" />
           </span>
         }
       >
@@ -127,35 +131,46 @@ function GuideView({ meta, guide }: { meta: GuideMeta; guide: GuideContent }) {
           className="mt-5 flex min-h-11 w-full items-center gap-2.5 rounded-xl border border-border bg-surface px-3.5 text-left text-sm text-muted shadow-card hover:border-border-strong hover:text-fg sm:max-w-md"
         >
           <Search className="size-4 shrink-0" aria-hidden />
-          <span className="flex-1">Search all of {meta.title}: “backend setup”, “compose”…</span>
+          <span className="flex-1">
+            Search all of {meta.title}: {meta.searchExamples.map((e) => `“${e}”`).join(', ')}…
+          </span>
           <Kbd className="hidden sm:inline-flex">Ctrl K</Kbd>
         </button>
       </PageHeader>
 
       {parsed.intro ? (
-        <Markdown lang="bn" className="mb-10 text-[0.9375rem]">
+        <Markdown lang={langOf(parsed.intro)} className="mb-10 text-[0.9375rem]">
           {prepare(parsed.intro)}
         </Markdown>
       ) : null}
 
-      <QuickFind groups={guide.recipeGroups} />
+      <QuickFind
+        groups={guide.recipeGroups}
+        quickFilters={guide.quickFilters}
+        banglaNumbers={banglaNumbers}
+      />
 
       <section id="contents" aria-labelledby="contents-title" className="mt-12 scroll-mt-24">
         <h2 id="contents-title" className="mb-4 text-lg font-semibold">
           Contents
         </h2>
-        <ol className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <ol className={cn('grid grid-cols-1 gap-3', hasParts && 'sm:grid-cols-2')}>
           {parsed.parts.map((part) => (
             <li key={part.id} className="rounded-xl border border-border bg-surface p-4">
-              <a
-                href={`#${part.id}`}
-                className="mb-2 flex items-baseline gap-2 text-sm font-semibold hover:text-accent-text"
-                lang="bn"
+              {part.label ? (
+                <a
+                  href={`#${part.id}`}
+                  className="mb-2 flex items-baseline gap-2 text-sm font-semibold hover:text-accent-text"
+                  lang={langOf(part.label + part.title)}
+                >
+                  <span className="text-xs text-accent-text">{part.label}</span>
+                  {part.title}
+                </a>
+              ) : null}
+              <ul
+                className={cn('grid grid-cols-1', !hasParts && 'gap-x-4 sm:grid-cols-2')}
+                lang={langOf(part.sections.map((s) => s.title).join(' '))}
               >
-                <span className="text-xs text-accent-text">{part.label}</span>
-                {part.title}
-              </a>
-              <ul className="flex flex-col" lang="bn">
                 {part.sections.map((section) => (
                   <li key={section.id}>
                     <a
@@ -182,13 +197,21 @@ function GuideView({ meta, guide }: { meta: GuideMeta; guide: GuideContent }) {
       <div className="mt-6">
         {parsed.parts.map((part) => (
           <div key={part.id}>
-            <div id={part.id} className="mt-14 mb-8 flex scroll-mt-24 items-center gap-3" lang="bn">
-              <span className="shrink-0 rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent-text">
-                {part.label}
-              </span>
-              <span className="text-sm font-semibold text-muted">{part.title}</span>
-              <span aria-hidden className="h-px flex-1 bg-border" />
-            </div>
+            {part.label ? (
+              <div
+                id={part.id}
+                className="mt-14 mb-8 flex scroll-mt-24 items-center gap-3"
+                lang={langOf(part.label + part.title)}
+              >
+                <span className="shrink-0 rounded-full bg-accent-soft px-3 py-1 text-xs font-semibold text-accent-text">
+                  {part.label}
+                </span>
+                <span className="text-sm font-semibold text-muted">{part.title}</span>
+                <span aria-hidden className="h-px flex-1 bg-border" />
+              </div>
+            ) : (
+              <div className="mt-14" />
+            )}
             <div className="flex flex-col gap-14">
               {part.sections.map((section) => (
                 <section
@@ -199,13 +222,13 @@ function GuideView({ meta, guide }: { meta: GuideMeta; guide: GuideContent }) {
                 >
                   <h2
                     id={`${section.id}-title`}
-                    lang="bn"
+                    lang={langOf(section.title)}
                     className="mb-4 text-xl font-semibold tracking-tight text-balance sm:text-2xl"
                   >
                     <InlineText>{section.title}</InlineText>
                   </h2>
                   {section.body ? (
-                    <Markdown lang="bn" className="text-[0.9375rem]">
+                    <Markdown lang={langOf(section.body)} className="text-[0.9375rem]">
                       {prepare(section.body)}
                     </Markdown>
                   ) : null}
@@ -218,12 +241,12 @@ function GuideView({ meta, guide }: { meta: GuideMeta; guide: GuideContent }) {
                     >
                       <h3
                         id={`${sub.id}-title`}
-                        lang="bn"
+                        lang={langOf(sub.title)}
                         className="mb-3 text-lg font-semibold tracking-tight text-balance"
                       >
                         <InlineText>{sub.title}</InlineText>
                       </h3>
-                      <Markdown lang="bn" className="text-[0.9375rem]">
+                      <Markdown lang={langOf(sub.body)} className="text-[0.9375rem]">
                         {prepare(sub.body)}
                       </Markdown>
                     </section>
@@ -252,7 +275,15 @@ function recipeText(recipe: GuideRecipe, group: string): string {
 }
 
 /** Recipe cards grouped by task, with a filter box and one-tap stack filters. */
-function QuickFind({ groups }: { groups: GuideRecipeGroup[] }) {
+function QuickFind({
+  groups,
+  quickFilters,
+  banglaNumbers,
+}: {
+  groups: GuideRecipeGroup[];
+  quickFilters: string[];
+  banglaNumbers: boolean;
+}) {
   const [query, setQuery] = useState('');
   const words = query.toLowerCase().split(/\s+/).filter(Boolean);
   const visible = groups
@@ -280,7 +311,10 @@ function QuickFind({ groups }: { groups: GuideRecipeGroup[] }) {
           type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Filter: backend, react, mongodb, compose…"
+          placeholder={`Filter: ${quickFilters
+            .slice(0, 4)
+            .map((w) => w.toLowerCase())
+            .join(', ')}…`}
           aria-label="Filter recipes"
           className="h-11 min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-subtle [&::-webkit-search-cancel-button]:hidden"
         />
@@ -300,7 +334,7 @@ function QuickFind({ groups }: { groups: GuideRecipeGroup[] }) {
         aria-label="Quick filters"
         className="mt-2 flex scrollbar-none gap-1.5 overflow-x-auto pb-1"
       >
-        {QUICK_FILTERS.map((word) => {
+        {quickFilters.map((word) => {
           const selected = query.trim().toLowerCase() === word.toLowerCase();
           return (
             <Chip
@@ -325,7 +359,7 @@ function QuickFind({ groups }: { groups: GuideRecipeGroup[] }) {
               <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {group.recipes.map((recipe) => (
                   <li key={recipe.id}>
-                    <RecipeCard recipe={recipe} />
+                    <RecipeCard recipe={recipe} banglaNumbers={banglaNumbers} />
                   </li>
                 ))}
               </ul>
@@ -342,8 +376,9 @@ function QuickFind({ groups }: { groups: GuideRecipeGroup[] }) {
   );
 }
 
-function RecipeCard({ recipe }: { recipe: GuideRecipe }) {
+function RecipeCard({ recipe, banglaNumbers }: { recipe: GuideRecipe; banglaNumbers: boolean }) {
   const Icon = RECIPE_ICON[recipe.icon];
+  const label = sectionLabel(recipe.anchor, banglaNumbers);
   return (
     <a
       href={`#${recipe.anchor}`}
@@ -357,13 +392,15 @@ function RecipeCard({ recipe }: { recipe: GuideRecipe }) {
           <span className="flex-1 text-sm leading-5 font-semibold group-hover:text-accent-text">
             {recipe.title}
           </span>
-          <span
-            lang="bn"
-            className="shrink-0 rounded-md border border-border px-1.5 text-[0.6875rem] leading-5 text-subtle tabular-nums"
-            aria-label={`section ${sectionLabel(recipe.anchor)}`}
-          >
-            §{sectionLabel(recipe.anchor)}
-          </span>
+          {label ? (
+            <span
+              lang={banglaNumbers ? 'bn' : undefined}
+              className="shrink-0 rounded-md border border-border px-1.5 text-[0.6875rem] leading-5 text-subtle tabular-nums"
+              aria-label={`section ${label}`}
+            >
+              §{label}
+            </span>
+          ) : null}
         </span>
         <span className="text-xs leading-5 text-muted">{recipe.summary}</span>
         {recipe.stack?.length ? (

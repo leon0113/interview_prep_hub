@@ -4,7 +4,6 @@ import {
   ChevronRight,
   Code2,
   Compass,
-  Container,
   Database,
   Dumbbell,
   Home,
@@ -18,6 +17,7 @@ import {
 } from 'lucide-react';
 import { Suspense, use, useState, type ReactNode } from 'react';
 import { Link, NavLink } from 'react-router';
+import { GUIDE_ICONS } from '@/components/common/guideIcons';
 import { TrackIcon } from '@/components/common/TrackIcon';
 import { lcOutline, lcProblemsIn } from '@/content/leetcode/loader';
 import { topicMetas } from '@/content/leetcode/topics';
@@ -161,7 +161,11 @@ function GuidesNav({ onNavigate }: { onNavigate?: () => void }) {
       <ul className="flex flex-col gap-0.5">
         {guideMetas.map((guide) => (
           <li key={guide.id} data-accent={guide.accent}>
-            <TopLink to={paths.guide(guide.id)} icon={Container} onNavigate={onNavigate}>
+            <TopLink
+              to={paths.guide(guide.id)}
+              icon={GUIDE_ICONS[guide.icon]}
+              onNavigate={onNavigate}
+            >
               {guide.title}
             </TopLink>
           </li>

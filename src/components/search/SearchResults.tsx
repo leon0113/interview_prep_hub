@@ -3,7 +3,6 @@ import {
   BookOpenText,
   CircleHelp,
   Code2,
-  Container,
   Dumbbell,
   FolderOpen,
   ListChecks,
@@ -12,6 +11,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import { use, useMemo } from 'react';
+import { GuideIcon } from '@/components/common/GuideIcon';
 import { TrackIcon } from '@/components/common/TrackIcon';
 import { DifficultyBadge } from '@/components/leetcode/badges';
 import { LevelBadge } from '@/components/question/LevelBadge';
@@ -91,7 +91,6 @@ export function SearchResults({ query, filters, onSelect }: SearchResultsProps) 
     const isLeetCode = trackSlug === LEETCODE_GROUP;
     const guide = guideMetas.find((g) => guideGroup(g.id) === trackSlug);
     if (!meta && !isLeetCode && !guide) return null;
-    const GroupIcon = guide ? Container : Code2;
     return (
       <Command.Group
         key={trackSlug}
@@ -102,7 +101,11 @@ export function SearchResults({ query, filters, onSelect }: SearchResultsProps) 
               <TrackIcon meta={meta} size="sm" className="size-5" />
             ) : (
               <span className="inline-flex size-5 items-center justify-center rounded-md bg-accent-soft text-accent-text">
-                <GroupIcon className="size-3.5" aria-hidden />
+                {guide ? (
+                  <GuideIcon icon={guide.icon} className="size-3.5" />
+                ) : (
+                  <Code2 className="size-3.5" aria-hidden />
+                )}
               </span>
             )}
             {meta?.name ?? guide?.title ?? 'LeetCode'}

@@ -1,6 +1,7 @@
-import { ArrowRight, Container, History } from 'lucide-react';
+import { ArrowRight, History } from 'lucide-react';
 import { Suspense, use } from 'react';
 import { Link } from 'react-router';
+import { GuideIcon } from '@/components/common/GuideIcon';
 import { ProgressBar } from '@/components/common/ProgressBar';
 import { ProgressRing } from '@/components/common/ProgressRing';
 import { TrackIcon } from '@/components/common/TrackIcon';
@@ -71,7 +72,7 @@ export default function HomePage() {
                 className="group flex gap-4 rounded-xl border border-border bg-surface p-4 shadow-card transition-colors hover:border-accent-border sm:p-5"
               >
                 <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-accent-soft text-accent-text">
-                  <Container className="size-6" aria-hidden />
+                  <GuideIcon icon={guide.icon} className="size-6" />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center gap-2">

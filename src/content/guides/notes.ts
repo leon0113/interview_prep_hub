@@ -52,6 +52,18 @@ export function sectionAnchor(number: string): string {
   return `section-${number.replace(/\./g, '-')}`;
 }
 
+/**
+ * Anchor slug for an unnumbered heading ("Next steps (when you're ready)" → "next-steps-when-youre-ready").
+ * Bangla-only headings have no ASCII letters; they fall back to a counter.
+ */
+function slug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
 const isFence = (line: string) => line.trimStart().startsWith('```');
 
 /** Drops a trailing `---` rule (the notes separate sections with one) and outer blank lines. */
@@ -72,6 +84,14 @@ export function parseGuide(markdown: string): ParsedGuide {
   let skipping = false; // inside the notes' own table of contents
   let section: (GuideSection & { lines: string[] }) | null = null;
   let sub: (GuideSubsection & { lines: string[] }) | null = null;
+  const used = new Set<string>();
+  /** First free id: `base`, then `base-2`, `base-3`… */
+  const unique = (base: string) => {
+    let id = base;
+    for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
+    used.add(id);
+    return id;
+  };
 
   const closeSub = () => {
     if (section && sub) section.subsections.push({ ...strip(sub), body: cleanBody(sub.lines) });
@@ -119,9 +139,11 @@ export function parseGuide(markdown: string): ParsedGuide {
         if (!parts.length) parts.push({ id: 'part-1', label: '', title: '', sections: [] });
         const number = headingNumber(title);
         section = {
-          id: number
-            ? sectionAnchor(number)
-            : `section-x${parts.length}-${parts.at(-1)!.sections.length}`,
+          id: unique(
+            number
+              ? sectionAnchor(number)
+              : `section-${slug(title) || `x${parts.length}-${parts.at(-1)!.sections.length + 1}`}`,
+          ),
           number,
           title,
           body: '',
@@ -135,7 +157,11 @@ export function parseGuide(markdown: string): ParsedGuide {
         const current: GuideSection = section;
         const number = headingNumber(title);
         sub = {
-          id: number ? sectionAnchor(number) : `${current.id}-x${current.subsections.length + 1}`,
+          id: unique(
+            number
+              ? sectionAnchor(number)
+              : `${current.id}-${slug(title) || `x${current.subsections.length + 1}`}`,
+          ),
           number,
           title,
           body: '',
@@ -166,7 +192,7 @@ function strip<T extends { lines: string[] }>(value: T): Omit<T, 'lines'> {
 /**
  * Plain fences that show program output render as Output blocks (```output):
  * - a plain fence right after another code block (the command, then what it printed), or
- * - a plain fence under an "আউটপুট" / "Output" label or a "**`command`:**" label.
+ * - a plain fence under an "আউটপুট" / "Output" / "Sample output" label or a "**`command`:**" label.
  * Plain fences that hold a file (first line `# file.txt`) or a folder tree stay plain text.
  */
 export function markGuideOutputs(markdown: string): string {
@@ -189,7 +215,8 @@ export function markGuideOutputs(markdown: string): string {
           const first = after[0] ?? '';
           const isFile = /^#\s/.test(first) || after.some((l) => /[├└]──/.test(l));
           const labelled =
-            /আউটপুট|Output/.test(lastNonBlank) || /^\*\*`[^`]+`:\*\*$/.test(lastNonBlank.trim());
+            /আউটপুট|\boutput\b/i.test(lastNonBlank) ||
+            /^\*\*`[^`]+`:\*\*$/.test(lastNonBlank.trim());
           if (!isFile && (lastWasFenceClose || labelled)) {
             out.push(line.replace('```', '```output'));
             continue;
@@ -259,4 +286,12 @@ export function guideHeadings(
       })),
     ]),
   );
+}
+
+/** True when most letters are Bangla, so the text gets the Bangla font metrics (`lang="bn"`). */
+export function isMostlyBangla(text: string): boolean {
+  const prose = text.replace(/```[\s\S]*?```/g, '').replace(/`[^`]*`/g, '');
+  const bangla = prose.match(/[\u0980-\u09FF]/g)?.length ?? 0;
+  const latin = prose.match(/[A-Za-z]/g)?.length ?? 0;
+  return bangla > 0 && bangla >= latin * 0.5;
 }

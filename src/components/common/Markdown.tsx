@@ -35,6 +35,7 @@ const EXTRA_FENCE: Record<string, { label: string; prism: string }> = {
   gitignore: { label: '.gitignore', prism: 'text' },
   nginx: { label: 'Nginx', prism: 'text' },
   jsonc: { label: 'JSON', prism: 'json' },
+  ini: { label: 'INI', prism: 'text' },
 };
 
 function textOf(children: ReactNode): string {

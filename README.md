@@ -11,7 +11,7 @@ Every track also has coding-round exercises (hints and solutions) and a coverage
 
 A separate **LeetCode** area (`/leetcode`) holds solved LeetCode problems (DSA and Database) for revision: each problem reveals Problem → Approach → Breakdown → Solution → Revise one stage at a time, with spaced-repetition ratings, a pattern cheat sheet, a practice list and a pattern quiz. How to add problems: `CLAUDE.md`, section 13.
 
-A **Guides** area (`/guides`) holds tool handbooks built from my notes, starting with **Docker** (`/guides/docker`): the notes in their original order, plus a "Quick find" panel of ready setups (Node/FastAPI backend, React, Next.js, MongoDB, PostgreSQL + Prisma, a full-stack `compose.yaml`) that jump straight to the right section. Every recipe and heading is searchable with `Ctrl+K`. How to add a guide: `CLAUDE.md`, section 14.
+A **Guides** area (`/guides`) holds tool handbooks built from my notes: **Docker** (`/guides/docker`) and **FastAPI** (`/guides/fastapi`). Each shows the notes in their original order, plus a "Quick find" panel of ready setups that jump straight to the right section: for Docker, Node/FastAPI backends, React, Next.js, MongoDB, PostgreSQL + Prisma and a full-stack `compose.yaml`; for FastAPI, venv and packages, settings, Pydantic schemas, Postgres (SQLAlchemy async + Alembic), MongoDB (PyMongo async) and Pytest. Every recipe and heading is searchable with `Ctrl+K`. How to add a guide: `CLAUDE.md`, section 14.
 
 There is no backend. Content lives in typed TypeScript files under `src/content`. Progress, bookmarks, theme and practice mode are stored in `localStorage`.
 
@@ -107,7 +107,7 @@ Outlines are generated from the content by `scripts/generate-outlines.ts`. A Vit
 
 ### Prerendering
 
-`npm run build` renders all 593 content pages (home, tracks, sections, questions, exercises, coverage, sample database, the LeetCode pages and the guides) to static HTML:
+`npm run build` renders all 599 content pages (home, tracks, sections, questions, exercises, coverage, sample database, the LeetCode pages and the guides) to static HTML:
 
 1. `vite build` builds the client app into `dist/`.
 2. `vite build --ssr src/entry-server.tsx` builds a renderer into `dist-server/`; it is never deployed.

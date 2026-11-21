@@ -17,7 +17,7 @@ A **frontend-only** React app for interview preparation. Each **track** (a langu
    Current tracks: **Python, JavaScript, TypeScript, SQL & PostgreSQL**.
    Future tracks (architecture must make these easy to add): React, Next.js, Node.js, MongoDB, and more.
 5. A separate **LeetCode** area (not a track): my solved LeetCode problems, **DSA** and **Database**, for revision. Each problem page reveals Problem → Approach → Breakdown → Solution → Revise one stage at a time, with spaced-repetition ratings. **Topics** (Linked List, then other data structures one by one) hold the theory from my notes plus that topic's problems. See section 13.
-6. **Guides** (not tracks): tool handbooks from my notes, starting with **Docker**. My notes stay verbatim and in their own order, with a "Quick find" list of recipes (backend setup, React, Next.js, MongoDB, Postgres, full-stack Compose…) that jump into them, and every recipe and heading is in search. See section 14.
+6. **Guides** (not tracks): tool handbooks from my notes: **Docker** and **FastAPI** so far. My notes stay verbatim and in their own order, with a "Quick find" list of recipes (backend setup, React, Next.js, MongoDB, Postgres, full-stack Compose…) that jump into them, and every recipe and heading is in search. See section 14.
 
 There is **no backend**. All content lives in typed TS files inside the repo. User state (progress, bookmarks, theme, answer visibility) lives in `localStorage`.
 
@@ -115,7 +115,8 @@ src/
       notes.ts              # parser: parts (# পর্ব) → sections (##) → subsections (###), output
                             #   fences, "সেকশন ৫.৪" cross-references turned into links
       docker/notes.md       # my Docker notes, verbatim (copy of docs/docker-notes.md)
-      docker/index.ts       # recipes (quick find) + extra search keywords per section
+      docker/index.ts       # recipes (quick find), quick filters, extra search keywords per section
+      fastapi/              # same shape: FastAPI setup guide (copy of docs/fastapi-notes.md)
   features/
     progress/               # store + hooks: learned, bookmarked, lastVisited
     search/                 # build Fuse index from all tracks
@@ -377,8 +378,8 @@ Each intake runs end to end without stopping for confirmation, with a short summ
 A guide is a tool handbook built from my notes. It is not a track: no questions, exercises or progress.
 
 - **Notes stay verbatim.** `src/content/guides/<id>/notes.md` is a copy of my file in `docs/` (Prettier ignores it). If I update the notes in `docs/`, copy the file again; don't rewrite it.
-- **Order comes from the notes.** `# পর্ব …` headings are parts, `## ১২. …` sections, `### ৮.৩ …` subsections. Anchors use ASCII numbers: `৮.৩` → `#section-8-3`. The notes' own সূচিপত্র is replaced by the page's Contents and TOC.
-- **Rendering:** a plain fence right after a code block (or under an "আউটপুট"/"Output" or "**`command`:**" label) is an Output block; plain fences that hold a file (`# requirements.txt`) or a folder tree stay text. `yaml`, `dockerfile`, `env`, `nginx`, `gitignore`, `jsonc` fences get their own labels. `> 💡` is a tip callout, `> ⚠️` a warning. "সেকশন ৫.৪" becomes a link to that section.
-- **Quick find:** recipes in `<id>/index.ts` (`recipeGroups`): an English, task-shaped title (what I would search for), a one-line summary, the anchor, keywords (synonyms and phrases such as "setup for backend", "3 apps"), stack chips. Add a recipe whenever the notes gain a new ready-to-use setup. `sectionKeywords` adds search words to a heading.
-- **Search:** every recipe and heading is a search item (palette filter "Docker & guides"), grouped under the guide; Enter jumps to the anchor.
-- **New guide:** add `<id>/notes.md` + `<id>/index.ts`, list it in `guideMetas` and `guideModules` in `guides/index.ts`. Sidebar, home card, search, crumbs and prerendering follow automatically.
+- **Order comes from the notes.** `# পর্ব …` headings are parts (optional: notes without them are one group), `## ১২. …` sections, `### ৮.৩ …` subsections. Numbers may be Bangla or ASCII; anchors use ASCII: `৮.৩` → `#section-8-3`. Unnumbered headings get a slug under their section (`### Core (always)` in section 2 → `#section-2-core-always`). The notes' own সূচিপত্র is replaced by the page's Contents and TOC.
+- **Rendering:** a plain fence right after a code block (or under an "আউটপুট"/"Output"/"Sample output" or "**`command`:**" label) is an Output block; plain fences that hold a file (`# requirements.txt`) or a folder tree stay text. `yaml`, `dockerfile`, `env`, `nginx`, `gitignore`, `jsonc`, `ini` fences get their own labels. Each section gets `lang="bn"` only when its text is mostly Bangla, so an English guide keeps English typography. `> 💡` is a tip callout, `> ⚠️` a warning. "সেকশন ৫.৪" becomes a link to that section.
+- **Quick find:** recipes in `<id>/index.ts` (`recipeGroups`, plus `quickFilters`: the one-tap chips): an English, task-shaped title (what I would search for), a one-line summary, the anchor, keywords (synonyms and phrases such as "setup for backend", "3 apps"), stack chips. Add a recipe whenever the notes gain a new ready-to-use setup. `sectionKeywords` adds search words to a heading.
+- **Search:** every recipe and heading is a search item (palette filter "Guides"), grouped under the guide; Enter jumps to the anchor.
+- **New guide:** save my file in `docs/`, copy it to `<id>/notes.md`, add `<id>/index.ts`, list it in `guideMetas` (with `icon`, `accent`, `searchExamples`; a new icon also goes in `components/common/GuideIcon.tsx` and `guideIcons.ts`) and `guideModules` in `guides/index.ts`. Sidebar, home card, search, crumbs and prerendering follow automatically.

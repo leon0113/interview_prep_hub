@@ -35,6 +35,10 @@ export interface GuideMeta {
   title: string;
   description: string;
   accent: Accent;
+  /** Icon for cards, sidebar and search (mapped in components/common/GuideIcon). */
+  icon: 'container' | 'zap';
+  /** Two or three phrases for the "Search all of …" button. */
+  searchExamples: string[];
   order: number;
 }
 
@@ -43,6 +47,8 @@ export interface GuideContent {
   /** The notes, verbatim. */
   notes: string;
   recipeGroups: GuideRecipeGroup[];
+  /** One-tap filter words above the recipes ("Backend", "MongoDB"…). */
+  quickFilters: string[];
   /** Search words for a notes section or subsection, keyed by its anchor. */
   sectionKeywords?: Record<string, string[]>;
 }
@@ -54,12 +60,25 @@ export const guideMetas: GuideMeta[] = [
     description:
       'Images, containers, volumes, networking, Compose and ready-to-copy setups for FastAPI, React, Next.js, MongoDB and PostgreSQL.',
     accent: 'azure',
+    icon: 'container',
+    searchExamples: ['backend setup', 'compose'],
     order: 1,
+  },
+  {
+    id: 'fastapi',
+    title: 'FastAPI',
+    description:
+      'Project setup from zero: venv, packages, folder structure, Pydantic schemas, PostgreSQL (SQLAlchemy async + Alembic), MongoDB (PyMongo async) and Pytest.',
+    accent: 'emerald',
+    icon: 'zap',
+    searchExamples: ['alembic', 'conftest', 'mongo endpoints'],
+    order: 2,
   },
 ];
 
 const guideModules: Record<string, () => Promise<{ default: GuideContent }>> = {
   docker: () => import('./docker'),
+  fastapi: () => import('./fastapi'),
 };
 
 export function getGuideMeta(id: string | undefined): GuideMeta | undefined {
