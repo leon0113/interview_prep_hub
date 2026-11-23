@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { useUiStore } from '@/features/ui/store';
 import { cn } from '@/lib/cn';
+
+/** Slack (px) below an entry's anchor-jump position that still counts as "reached". */
+const LINE_TOLERANCE_PX = 24;
 
 /**
  * Right-hand "On this page" list (desktop only). Pages publish entries with useRegisterToc.
@@ -11,27 +14,58 @@ import { cn } from '@/lib/cn';
 export function TableOfContents({ reserve = false }: { reserve?: boolean }) {
   const items = useUiStore((state) => state.tocItems);
   const [visibleId, setVisibleId] = useState<string | null>(null);
+  const { hash } = useLocation();
 
   useEffect(() => {
     if (items.length === 0) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const topMost = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
-        if (topMost) setVisibleId(topMost.target.id);
-      },
-      // A band below the sticky top bar: whatever heading sits in it is "current".
-      { rootMargin: '-72px 0px -55% 0px' },
-    );
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const elements = items
+        .map((item) => document.getElementById(item.id))
+        .filter((element): element is HTMLElement => element !== null);
 
-    for (const item of items) {
-      const element = document.getElementById(item.id);
-      if (element) observer.observe(element);
-    }
-    return () => observer.disconnect();
-  }, [items]);
+      // Current = the last entry whose top has reached the line where an anchor jump lands it:
+      // the page's scroll-padding-top plus the entry's own scroll-margin-top. The previous
+      // entry's tail may still be on screen above it, but it no longer counts.
+      const pagePadding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+      let current: string | null = null;
+      for (const element of elements) {
+        const margin = parseFloat(getComputedStyle(element).scrollMarginTop);
+        const line = (pagePadding || 0) + (margin || 0) + LINE_TOLERANCE_PX;
+        if (element.getBoundingClientRect().top <= line) current = element.id;
+        else break;
+      }
+
+      // At the bottom of the page the last short entries can never reach the line: prefer the
+      // one that was just jumped to (the URL hash) when it is on screen.
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) {
+        const hashId = decodeURIComponent(window.location.hash.slice(1));
+        const target = elements.find((element) => element.id === hashId);
+        if (target) {
+          const top = target.getBoundingClientRect().top;
+          if (top >= 0 && top < window.innerHeight) current = hashId;
+        }
+      }
+      setVisibleId(current);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+    // `hash`: a TOC click (pushState, no hashchange event) re-runs the check.
+  }, [items, hash]);
 
   if (items.length === 0) {
     return reserve ? <aside aria-hidden className="hidden w-52 shrink-0 lg:block xl:w-60" /> : null;
