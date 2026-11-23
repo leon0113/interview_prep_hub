@@ -410,6 +410,16 @@
     font-size: inherit;
     overflow-wrap: normal;
   }
+  /* Plot images in guides: white canvas (as rendered), framed so it sits well in dark mode. */
+  .md img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background: #fff;
+    padding: 0.5rem;
+  }
   /* Callouts from notes: "> 💡" tip, "> ⚠️" warning, other quotes a plain note. */
   .md blockquote {
     border: 1px solid var(--border);

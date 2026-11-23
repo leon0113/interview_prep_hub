@@ -103,6 +103,22 @@ const components: Components = {
     const tone = text.startsWith('⚠') ? 'warn' : text.startsWith('💡') ? 'tip' : 'note';
     return <blockquote data-tone={tone}>{children}</blockquote>;
   },
+  // Images (guide plots). A "#600x400" suffix on the URL gives the intrinsic size, so the
+  // page doesn't shift while lazy images load (and anchor jumps land in the right place).
+  img: ({ src, alt }) => {
+    const url = typeof src === 'string' ? src : '';
+    const size = /#(\d+)x(\d+)$/.exec(url);
+    return (
+      <img
+        src={size ? url.slice(0, size.index) : url}
+        alt={alt ?? ''}
+        width={size ? Number(size[1]) : undefined}
+        height={size ? Number(size[2]) : undefined}
+        loading="lazy"
+        decoding="async"
+      />
+    );
+  },
   // Comparison tables can be wider than a phone: the wrapper scrolls and is focusable, so
   // keyboard users can scroll it too.
   // The region is named after its column headers, so a page with several tables open has

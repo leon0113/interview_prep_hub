@@ -36,7 +36,7 @@ export interface GuideMeta {
   description: string;
   accent: Accent;
   /** Icon for cards, sidebar and search (mapped in components/common/GuideIcon). */
-  icon: 'container' | 'zap';
+  icon: 'container' | 'zap' | 'chart' | 'grid';
   /** Two or three phrases for the "Search all of …" button. */
   searchExamples: string[];
   order: number;
@@ -74,11 +74,33 @@ export const guideMetas: GuideMeta[] = [
     searchExamples: ['alembic', 'conftest', 'mongo endpoints'],
     order: 2,
   },
+  {
+    id: 'data-visualization',
+    title: 'Data Visualization',
+    description:
+      'Matplotlib, pandas plotting and Seaborn: which chart when, every common plot with its picture, EDA and ML plots, and interview questions.',
+    accent: 'rose',
+    icon: 'chart',
+    searchExamples: ['correlation heatmap', 'subplots', 'box plot'],
+    order: 3,
+  },
+  {
+    id: 'numpy',
+    title: 'NumPy',
+    description:
+      'Arrays, axis, indexing, view vs copy, broadcasting and the everyday functions, each with when to use it, plus ML formulas and interview questions.',
+    accent: 'violet',
+    icon: 'grid',
+    searchExamples: ['broadcasting', 'axis', 'argsort'],
+    order: 4,
+  },
 ];
 
 const guideModules: Record<string, () => Promise<{ default: GuideContent }>> = {
   docker: () => import('./docker'),
   fastapi: () => import('./fastapi'),
+  'data-visualization': () => import('./data-visualization'),
+  numpy: () => import('./numpy'),
 };
 
 export function getGuideMeta(id: string | undefined): GuideMeta | undefined {
