@@ -36,7 +36,7 @@ export interface GuideMeta {
   description: string;
   accent: Accent;
   /** Icon for cards, sidebar and search (mapped in components/common/GuideIcon). */
-  icon: 'container' | 'zap' | 'chart' | 'grid';
+  icon: 'container' | 'zap' | 'chart' | 'grid' | 'shield';
   /** Two or three phrases for the "Search all of …" button. */
   searchExamples: string[];
   order: number;
@@ -94,6 +94,16 @@ export const guideMetas: GuideMeta[] = [
     searchExamples: ['broadcasting', 'axis', 'argsort'],
     order: 4,
   },
+  {
+    id: 'pydantic',
+    title: 'Pydantic',
+    description:
+      'Pydantic v2 models, fields, validators, config and serialization, FastAPI usage, every common and tough error message explained, and interview questions.',
+    accent: 'amber',
+    icon: 'shield',
+    searchExamples: ['field required', 'field_validator', 'extra_forbidden'],
+    order: 5,
+  },
 ];
 
 const guideModules: Record<string, () => Promise<{ default: GuideContent }>> = {
@@ -101,6 +111,7 @@ const guideModules: Record<string, () => Promise<{ default: GuideContent }>> = {
   fastapi: () => import('./fastapi'),
   'data-visualization': () => import('./data-visualization'),
   numpy: () => import('./numpy'),
+  pydantic: () => import('./pydantic'),
 };
 
 export function getGuideMeta(id: string | undefined): GuideMeta | undefined {

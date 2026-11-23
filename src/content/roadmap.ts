@@ -11,7 +11,6 @@ export const roadmap: RoadmapItem[] = [
   { id: 'ci-cd', title: 'CI/CD' },
   { id: 'mcp', title: 'MCP' },
   { id: 'redis', title: 'Redis' },
-  { id: 'pydantic', title: 'Pydantic' },
   { id: 'linux-basics', title: 'Linux (basics)' },
   { id: 'backend-system-design', title: 'Backend system design' },
   { id: 'frontend-system-design', title: 'Frontend system design' },
