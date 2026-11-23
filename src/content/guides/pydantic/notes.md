@@ -862,6 +862,10 @@ b'[{"title":"C","price":3.0,"author":null}]'
 
 ## 15. `pydantic-settings`: `.env` থেকে config
 
+Install: `pip install pydantic-settings` (Pydantic v2-তে settings আলাদা package)।
+
+### 15.1 প্রথম উদাহরণ: env variable → typed settings
+
 ```python
 import os
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -884,11 +888,159 @@ print(settings.database_url, settings.debug, settings.port, settings.allowed_hos
 postgresql://localhost/shop True 8000 ['example.com', 'api.example.com']
 ```
 
-- ক্রম (বেশি অগ্রাধিকার আগে): constructor-এ দেওয়া মান → environment variable → `.env` file → default।
 - Environment variable সব string, Pydantic সেগুলোকে ঠিক type-এ আনে (`'true'` → `True`, `'8000'` → `8000`)। List/dict হলে JSON string লিখতে হয়।
+- `env_prefix='APP_'`: শুধু `APP_` দিয়ে শুরু হওয়া variable পড়ে, তাই অন্য app-এর `DEBUG`-এর সাথে গুলিয়ে যায় না।
 - Required setting (`database_url`) না থাকলে app **শুরুতেই** `ValidationError` দিয়ে থামে: production-এ ভুল config নিয়ে অর্ধেক চলার চেয়ে এটা ভালো।
-- `SecretStr` দিলে log-এ password ফাঁস হয় না।
-- FastAPI-তে `@lru_cache` দিয়ে একবারই বানাও: `def get_settings(): return Settings()`।
+
+### 15.2 Secret `.env`-এ রাখা: `SecretStr`
+
+বাস্তব project-এ (যেমন JWT auth API) database URL আর secret key কোডে লেখা যায় না, থাকে `.env`-এ:
+
+```env
+APP_NAME=Auth API
+DEBUG=true
+DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/appdb
+SECRET_KEY=3f9a1c7e5b2d8a64c0e1f7b9d3a5c8e2f4b6a1d7c9e0f2b4a6c8d0e1f3a5b7c9
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
+
+`app/core/config.py`:
+
+```python
+from functools import lru_cache
+
+from pydantic import SecretStr
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    app_name: str = "My API"
+    debug: bool = False
+    database_url: str                       # default নেই, তাই জরুরি
+    secret_key: SecretStr                   # default নেই, জরুরি, আর print হলে লুকানো থাকে
+    access_token_expire_minutes: int = 30
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+
+@lru_cache
+def get_settings() -> Settings:
+    return Settings()
+
+
+settings = get_settings()
+print(settings)
+print(settings.secret_key, settings.model_dump_json())
+```
+
+```
+app_name='Auth API' debug=True database_url='postgresql+asyncpg://postgres:postgres@localhost:5432/appdb' secret_key=SecretStr('**********') access_token_expire_minutes=30
+********** {"app_name":"Auth API","debug":true,"database_url":"postgresql+asyncpg://postgres:postgres@localhost:5432/appdb","secret_key":"**********","access_token_expire_minutes":30}
+```
+
+আসল secret লাগলে (যেমন JWT sign করতে) শুধু সেই জায়গাতেই খোলো:
+
+```python
+print(settings.secret_key.get_secret_value()[:8] + "...")
+```
+
+```
+3f9a1c7e...
+```
+
+বাংলায় বুঝে নাও:
+
+- **`.env`-এর `DEBUG=true` string, কিন্তু `debug: bool`:** Pydantic নিজে `"true"` → `True` করে, `ACCESS_TOKEN_EXPIRE_MINUTES=30` হয় `int` 30। Node-এ `process.env`-এ সব string থাকত, নিজে `parseInt` করতে হতো।
+- **নাম মেলে ছোট-বড় হাত নির্বিশেষে:** `.env`-এর `SECRET_KEY` মিলে যায় `secret_key` field-এর সাথে (default `case_sensitive=False`)।
+- **Default নেই = জরুরি:** `database_url: str`-এর default নেই, তাই `.env`-এ না থাকলে app **চালুই হবে না** (15.4)।
+- **`SecretStr`:** `print(settings)`, log বা `model_dump_json()`-এ ভুলে ছাপা হলেও `**********` দেখায়। আসল মান শুধু `.get_secret_value()` দিয়ে। খেয়াল করো: `model_dump()` (Python dict) মান খোলে না, `SecretStr` object-ই রাখে।
+- **`@lru_cache`:** `Settings()` প্রতিবার `.env` file পড়ে। Cache থাকলে একবারই পড়ে, পরের সব call একই object ফেরত দেয় (`get_settings() is get_settings()` → `True`)।
+- **`extra="ignore"`:** `.env`-এ এমন key থাকলে যা `Settings`-এ নেই (যেমন `MONGO_URL`), এটা না দিলে error আসে (15.4)। একটা `.env` কয়েকটা service share করলে এটা লাগবেই।
+
+### 15.3 FastAPI-তে `Depends(get_settings)`
+
+```python
+from typing import Annotated
+from fastapi import Depends, FastAPI
+from app.core.config import Settings, get_settings
+
+app = FastAPI()
+
+
+@app.get("/info")
+def info(settings: Annotated[Settings, Depends(get_settings)]):
+    return {
+        "app": settings.app_name,
+        "debug": settings.debug,
+        "token_minutes": settings.access_token_expire_minutes,
+        "secret_preview": str(settings.secret_key),
+    }
+```
+
+**`GET /info`:**
+
+```
+{"app":"Auth API","debug":true,"token_minutes":30,"secret_preview":"**********"}
+```
+
+Global `settings` import না করে `Depends(get_settings)` কেন? Test-এ অন্য settings বসানো যায়, `.env` না ছুঁয়েই:
+
+```python
+app.dependency_overrides[get_settings] = lambda: Settings(
+    database_url="sqlite://", secret_key="test-secret"
+)
+```
+
+### 15.4 Setting ভুল বা অনুপস্থিত হলে কোন error
+
+**`.env`-এ `SECRET_KEY` নেই:** app চালু হওয়ার সময়ই (`Settings()` call-এ) থামে:
+
+```
+pydantic_core._pydantic_core.ValidationError: 1 validation error for Settings
+secret_key
+  Field required [type=missing, input_value={'app_name': 'Auth API', ...esql://localhost/appdb'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.14/v/missing
+```
+
+`input_value` হলো Pydantic যা যা খুঁজে পেয়েছে (`.env` + environment), লম্বা হলে মাঝখানে `...` দিয়ে কাটা। Field-এর নাম (`secret_key`) দেখে বুঝবে কোন variable বসাতে হবে: `SECRET_KEY` (prefix থাকলে `APP_SECRET_KEY`)।
+
+**`.env`-এ অজানা key, আর `extra="ignore"` দেওয়া নেই:** `BaseSettings`-এর default `extra='forbid'`, তাই:
+
+```
+1 validation error for Settings
+mongo_url
+  Extra inputs are not permitted [type=extra_forbidden, input_value='mongodb://localhost', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.14/v/extra_forbidden
+```
+
+সমাধান: `SettingsConfigDict(..., extra="ignore")`, অথবা field-টা `Settings`-এ যোগ করো।
+
+**Type ভুল** (যেমন `ACCESS_TOKEN_EXPIRE_MINUTES=thirty`): সাধারণ `int_parsing` error, field-এর নামসহ (18.2)।
+
+### 15.5 কোন মান জেতে (priority)
+
+বেশি শক্তিশালী আগে:
+
+1. `Settings(...)`-এ সরাসরি দেওয়া মান
+2. Operating system-এর environment variable
+3. `.env` file
+4. Class-এর default মান
+
+`.env`-এ `DEBUG=true` আর OS-এ `DEBUG=false` থাকলে `Settings().debug` → `False` (OS জেতে), কিন্তু `Settings(debug=True).debug` → `True`। তাই production-এ (Docker, Railway, Render) `.env` file ছাড়াই dashboard-এ environment variable বসালে সেটাই কাজ করে। `.env` file **git-এ commit করো না** (`.gitignore`-এ রাখো), বদলে key-গুলোর খালি নমুনা `.env.example`-এ রাখো।
+
+### 15.6 Secret key বানানো
+
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+**Output (প্রতিবার আলাদা):**
+
+```
+3f9a1c7e5b2d8a64c0e1f7b9d3a5c8e2f4b6a1d7c9e0f2b4a6c8d0e1f3a5b7c9
+```
+
+`token_hex(32)` = 32 random byte = 64টা hex অক্ষর। এটাই `SECRET_KEY`। উপরের `.env`-এর key শুধু উদাহরণ, **নিজেরটা বানাও**, আর development ও production-এর key আলাদা রাখো।
 
 ---
 
